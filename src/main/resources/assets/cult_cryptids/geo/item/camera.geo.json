@@ -1,0 +1,43 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.camera_fp",
+				"texture_width": 32,
+				"texture_height": 32,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 1,
+				"visible_bounds_offset": [0, 0, 0]
+			},
+			"bones": [
+				{
+					"name": "camera",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, -12, -4], "size": [7, 4, 3], "uv": [0, 0]},
+						{"origin": [-5, -12, -1.75], "size": [5, 4, 1], "inflate": -0.249, "uv": [0, 14]},
+						{"origin": [-1, -8.85, -3.5], "size": [2, 2, 2], "inflate": -0.5, "pivot": [0, -7.85, -2.5], "rotation": [0, -45, 0], "uv": [0, 19]},
+						{"origin": [-3.5, -11.5, -9], "size": [3, 3, 4], "uv": [0, 7]},
+						{"origin": [-3.5, -11.5, -9.5], "size": [3, 3, 1], "inflate": 0.001, "uv": [8, 19]},
+						{"origin": [-3.5, -12, -5], "size": [3, 4, 1], "uv": [12, 14]},
+						{"origin": [-6, -12, -5], "size": [2, 3, 1], "uv": [16, 19]},
+						{"origin": [-6, -10, -5], "size": [2, 1, 1.418], "inflate": -0.001, "pivot": [-5, -9, -5], "rotation": [45, 0, 0], "uv": [14, 12]},
+						{"origin": [-5.5, -9.8, -4.8], "size": [1, 1, 1], "inflate": -0.1, "pivot": [-5, -9, -5], "rotation": [45, 0, 0], "uv": [20, 14]},
+						{"origin": [-3, -8.5, -5], "size": [2, 1, 4], "inflate": -0.001, "uv": [14, 7]}
+					]
+				},
+				{
+					"name": "bone",
+					"parent": "camera",
+					"pivot": [-2, -7.875, -2.5],
+					"cubes": [
+						{"origin": [-3, -8.5, -4.21651], "size": [2, 3, 1], "inflate": 0.001, "pivot": [-2, -6, -3.71651], "rotation": [30, 0, 0], "uv": [20, 0]},
+						{"origin": [-3, -5.81699, -4.39952], "size": [2, 1, 1], "uv": [20, 4]},
+						{"origin": [-3, -5.81699, -4.49952], "size": [2, 1, 1], "inflate": -0.099, "uv": [20, 12]}
+					]
+				}
+			]
+		}
+	]
+}

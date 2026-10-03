@@ -1,0 +1,21 @@
+{
+  "item.cult_cryptids.siren_head_spawn_egg": "Siren Head Spawn Egg",
+  "item.cult_cryptids.camera": "Camera",
+  "entity.cult_cryptids.siren_head": "Siren Head",
+  "block.cult_cryptids.toy_hatter": "Toy Hatter",
+  "itemGroup.cult_cryptids": "Cult of the Cryptids",
+  "subtitles.cult_cryptids.siren_ambient": "Siren Head growls",
+  "subtitles.cult_cryptids.siren_step": "Heavy footstep",
+  "subtitles.cult_cryptids.siren_scream": "Siren Head screams",
+  "subtitles.cult_cryptids.siren_screech": "Screech!",
+  "subtitles.cult_cryptids.siren_hurt": "Siren Head hurts",
+  "subtitles.cult_cryptids.siren_death": "Siren Head dies",
+  "subtitles.cult_cryptids.blood_moon_music": "Blood Moon rises",
+  "subtitles.cult_cryptids.siren_far": "Something growls in the distance",
+  "subtitles.cult_cryptids.siren_search": "Siren Head is searching",
+  "subtitles.cult_cryptids.siren_close": "Siren Head growls!",
+  "subtitles.cult_cryptids.siren_chase_far": "Siren Head screams in the distance",
+  "subtitles.cult_cryptids.siren_static": "Radio static",
+  "subtitles.cult_cryptids.siren_walk": "Heavy footsteps",
+  "subtitles.cult_cryptids.siren_run": "Siren Head runs"
+}

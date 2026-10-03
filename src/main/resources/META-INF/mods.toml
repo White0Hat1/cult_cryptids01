@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All rights reserved"
+
+[[mods]]
+modId="cult_cryptids"
+version="1.0.0"
+displayName="Cult of the Cryptids"
+authors="You"
+description='''
+Хоррор-мод с Сиреной.
+'''
+
+[[dependencies.cult_cryptids]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cult_cryptids]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cult_cryptids]]
+modId="geckolib"
+mandatory=true
+versionRange="[4.4.4,)"
+ordering="NONE"
+side="BOTH"

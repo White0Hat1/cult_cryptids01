@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "cult_cryptids:block/toy_hatter" },
+    "facing=east":  { "model": "cult_cryptids:block/toy_hatter", "y": 90 },
+    "facing=south": { "model": "cult_cryptids:block/toy_hatter", "y": 180 },
+    "facing=west":  { "model": "cult_cryptids:block/toy_hatter", "y": 270 }
+  }
+}

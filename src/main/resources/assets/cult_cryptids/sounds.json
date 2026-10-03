@@ -1,0 +1,80 @@
+{
+  "siren_ambient": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_ambient",
+    "sounds": [{ "name": "cult_cryptids:siren_ambient", "stream": true }]
+  },
+  "siren_step": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_step",
+    "sounds": ["cult_cryptids:siren_step"]
+  },
+  "siren_scream": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_scream",
+    "sounds": ["cult_cryptids:siren_scream"]
+  },
+  "siren_screech": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_screech",
+    "sounds": ["cult_cryptids:siren_screech"]
+  },
+  "siren_hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_hurt",
+    "sounds": ["cult_cryptids:siren_hurt"]
+  },
+  "siren_death": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_death",
+    "sounds": ["cult_cryptids:siren_death"]
+  },
+  "blood_moon_music": {
+    "category": "music",
+    "subtitle": "subtitles.cult_cryptids.blood_moon_music",
+    "sounds": [{ "name": "cult_cryptids:blood_moon_music", "stream": true }]
+  },
+
+  "siren_far": {
+    "category": "ambient",
+    "subtitle": "subtitles.cult_cryptids.siren_far",
+    "sounds": [{ "name": "cult_cryptids:siren_far", "stream": true }]
+  },
+  "siren_search": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_search",
+    "sounds": [{ "name": "cult_cryptids:siren_search", "stream": true }]
+  },
+  "siren_close": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_close",
+    "sounds": [{ "name": "cult_cryptids:siren_close", "stream": true }]
+  },
+  "siren_chase_far": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_chase_far",
+    "sounds": [{ "name": "cult_cryptids:siren_chase_far", "stream": true }]
+  },
+  "siren_static": {
+    "category": "ambient",
+    "subtitle": "subtitles.cult_cryptids.siren_static",
+    "sounds": [{ "name": "cult_cryptids:siren_static", "stream": true }]
+  },
+
+  "siren_walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_walk",
+    "sounds": [
+      "cult_cryptids:siren_walk_1",
+      "cult_cryptids:siren_walk_2"
+    ]
+  },
+  "siren_run": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_run",
+    "sounds": [
+      "cult_cryptids:siren_run_1",
+      "cult_cryptids:siren_run_2"
+    ]
+  }
+}
