@@ -59,10 +59,14 @@ public class HandedItemRenderer<T extends Item & GeoAnimatable> extends GeoItemR
                     poseStack.pushPose();
                     poseStack.scale(-1, -1, 1);
                     if (right) {
+                        playerModel.rightArm.resetPose();
                         playerModel.rightArm.render(poseStack, bufferSource.getBuffer(solid), packedLight, packedOverlay);
+                        playerModel.rightSleeve.resetPose();
                         playerModel.rightSleeve.render(poseStack, bufferSource.getBuffer(translucent), packedLight, packedOverlay);
                     } else {
+                        playerModel.leftArm.resetPose();
                         playerModel.leftArm.render(poseStack, bufferSource.getBuffer(solid), packedLight, packedOverlay);
+                        playerModel.leftSleeve.resetPose();
                         playerModel.leftSleeve.render(poseStack, bufferSource.getBuffer(translucent), packedLight, packedOverlay);
                     }
                     poseStack.popPose();
