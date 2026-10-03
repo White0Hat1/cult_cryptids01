@@ -2,11 +2,6 @@ package com.cult.cryptids.event;
 
 import com.cult.cryptids.ModSounds;
 import com.cult.cryptids.network.BloodMoonNetwork;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,6 +16,9 @@ public class BloodMoonEvent {
 
     // ⚙️ Настройки события
     public static final int DURATION_TICKS = 24000;  // 1 игровой день (20 минут)
+
+    /** 🕐 Время суток, с которого стартует Blood Moon (14000 = поздний закат / ранние сумерки). */
+    private static final long START_DAY_TIME = 14000L;
 
     // 🔴 Состояние
     private static boolean active = false;
@@ -37,9 +35,11 @@ public class BloodMoonEvent {
     }
 
     /**
-     * Запускает событие. Показывает Title + subtitle всем игрокам,
-     * переводит время в ночь, задаёт длительность, играет музыку,
-     * и шлёт пакет клиенту (красная луна, шейдер, фильтр).
+     * Запускает событие.
+     * Переводит время, задаёт длительность, играет музыку,
+     * и шлёт пакет клиенту (красная луна, шейдер, кинематографичный текст).
+     *
+     * Ванильные title/subtitle убраны — их роль выполняет CinematicTextHandler на клиенте.
      */
     public static void start(MinecraftServer server) {
         if (active) return;
@@ -47,26 +47,10 @@ public class BloodMoonEvent {
         remainingTicks = DURATION_TICKS;
 
         ServerLevel overworld = server.overworld();
-        // 🕐 Переводим время на ночь (13000 — начало ночи)
-        overworld.setDayTime(13000L);
+        // 🕐 Ставим время начала события
+        overworld.setDayTime(START_DAY_TIME);
 
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            // 📢 Сообщение в чат (курсивом, тёмно-красным)
-            player.sendSystemMessage(Component
-                    .literal("Небо затягивают тучи, и небо начинает краснеть... С небес спустился кошмар")
-                    .withStyle(ChatFormatting.DARK_RED, ChatFormatting.ITALIC));
-
-            // 🎬 Большой титр по центру
-            player.connection.send(new ClientboundSetTitlesAnimationPacket(20, 80, 40));
-            player.connection.send(new ClientboundSetTitleTextPacket(
-                    Component.literal("BLOOD MOON")
-                            .withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD)));
-
-            // 📝 Подзаголовок
-            player.connection.send(new ClientboundSetSubtitleTextPacket(
-                    Component.literal("EVENT | BLOOD MOON")
-                            .withStyle(ChatFormatting.RED, ChatFormatting.BOLD)));
-
             // 🎵 Музыка — играем локально для каждого игрока
             Level level = player.level();
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
@@ -76,7 +60,7 @@ public class BloodMoonEvent {
         }
 
         // 📡 Отправляем пакет всем клиентам: "событие активно"
-        //    → красная луна + шейдер + фильтр включаются
+        //    → красная луна + шейдер + фильтр + CinematicTextHandler включаются
         BloodMoonNetwork.broadcast(true);
     }
 
@@ -87,13 +71,6 @@ public class BloodMoonEvent {
         if (!active) return;
         active = false;
         remainingTicks = 0;
-
-        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            player.connection.send(new ClientboundSetTitlesAnimationPacket(20, 60, 40));
-            player.connection.send(new ClientboundSetTitleTextPacket(
-                    Component.literal("Blood Moon has ended")
-                            .withStyle(ChatFormatting.GRAY, ChatFormatting.BOLD)));
-        }
 
         // 📡 Отправляем пакет: "событие закончилось"
         //    → луна обратно ванильная, шейдер выключается

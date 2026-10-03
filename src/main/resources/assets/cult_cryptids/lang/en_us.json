@@ -1,21 +1,33 @@
 {
-  "item.cult_cryptids.siren_head_spawn_egg": "Siren Head Spawn Egg",
-  "item.cult_cryptids.camera": "Camera",
-  "entity.cult_cryptids.siren_head": "Siren Head",
-  "block.cult_cryptids.toy_hatter": "Toy Hatter",
   "itemGroup.cult_cryptids": "Cult of the Cryptids",
+
+  "item.cult_cryptids.camera": "Camera",
+  "item.cult_cryptids.toy_hatter": "Hatter Plushie",
+  "item.cult_cryptids.siren_head_spawn_egg": "Siren Head Spawn Egg",
+
+  "block.cult_cryptids.toy_hatter": "Hatter Plushie",
+
+  "entity.cult_cryptids.siren_head": "Siren Head",
+
+  "message.cult_cryptids.blood_moon_start": "The Blood Moon rose. The Sky turned red from the presence of an Ancient Nightmare.",
+
+  "subtitles.cult_cryptids.camera_shutter": "Camera shutter clicks",
   "subtitles.cult_cryptids.siren_ambient": "Siren Head growls",
-  "subtitles.cult_cryptids.siren_step": "Heavy footstep",
+  "subtitles.cult_cryptids.siren_step": "Something heavy steps",
   "subtitles.cult_cryptids.siren_scream": "Siren Head screams",
-  "subtitles.cult_cryptids.siren_screech": "Screech!",
+  "subtitles.cult_cryptids.siren_screech": "Siren Head screeches",
   "subtitles.cult_cryptids.siren_hurt": "Siren Head hurts",
   "subtitles.cult_cryptids.siren_death": "Siren Head dies",
-  "subtitles.cult_cryptids.blood_moon_music": "Blood Moon rises",
-  "subtitles.cult_cryptids.siren_far": "Something growls in the distance",
-  "subtitles.cult_cryptids.siren_search": "Siren Head is searching",
-  "subtitles.cult_cryptids.siren_close": "Siren Head growls!",
-  "subtitles.cult_cryptids.siren_chase_far": "Siren Head screams in the distance",
-  "subtitles.cult_cryptids.siren_static": "Radio static",
-  "subtitles.cult_cryptids.siren_walk": "Heavy footsteps",
-  "subtitles.cult_cryptids.siren_run": "Siren Head runs"
+  "subtitles.cult_cryptids.siren_far": "Distant sirens blare",
+  "subtitles.cult_cryptids.siren_search": "Siren Head searches",
+  "subtitles.cult_cryptids.siren_close": "Siren Head looms nearby",
+  "subtitles.cult_cryptids.siren_chase_far": "Siren Head is chasing",
+  "subtitles.cult_cryptids.siren_static": "Radio static crackles",
+  "subtitles.cult_cryptids.siren_walk": "Siren Head walks",
+  "subtitles.cult_cryptids.siren_run": "Siren Head runs",
+  "subtitles.cult_cryptids.siren_speech": "Siren Head speaks",
+  "subtitles.cult_cryptids.blood_moon_music": "Blood Moon theme plays",
+  "subtitles.cult_cryptids.blood_moon_icecream": "Ice cream truck jingle plays",
+  "message.cult_cryptids.fear_warning": "Fear fills the air.",
+  "item.cult_cryptids.flashlight": "Flashlight"
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "cult_cryptids:item/flashlight_item",
+  "textures": {
+    "0": "cult_cryptids:item/flashlight_item_tex",
+    "particle": "cult_cryptids:item/flashlight_item_tex"
+  }
+}

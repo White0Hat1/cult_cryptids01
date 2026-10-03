@@ -20,8 +20,8 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 
 version = '1.0.0'
-group = 'com.example.modid'
-archivesBaseName = 'modid'
+group = 'com.cult.cryptids'
+archivesBaseName = 'cult_cryptids'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -33,12 +33,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            // 👇 Добавлено для исправления миксинов GeckoLib 👇
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            // 👆 Добавлено для исправления миксинов GeckoLib 👆
             mods {
-                modid {
+                cult_cryptids {
                     source sourceSets.main
                 }
             }
@@ -48,7 +46,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {
-                modid {
+                cult_cryptids {
                     source sourceSets.main
                 }
             }
@@ -77,12 +75,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "modid",
-                "Specification-Vendor"    : "examplemodsareus",
+                "Specification-Title"     : "cult_cryptids",
+                "Specification-Vendor"    : "White0Hat1",
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Vendor"   : "White0Hat1",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

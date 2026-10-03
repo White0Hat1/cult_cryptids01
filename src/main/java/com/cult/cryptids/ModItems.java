@@ -1,6 +1,7 @@
 package com.cult.cryptids;
 
 import com.cult.cryptids.item.CameraItem;
+import com.cult.cryptids.item.FlashlightItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -36,6 +37,11 @@ public class ModItems {
             ITEMS.register("camera", () -> new CameraItem(
                     new Item.Properties().stacksTo(1)));
 
+    // 🔦 Фонарик
+    public static final RegistryObject<Item> FLASHLIGHT =
+            ITEMS.register("flashlight", () -> new FlashlightItem(
+                    new Item.Properties().stacksTo(1)));
+
     // ================= КРЕАТИВНАЯ ВКЛАДКА =================
 
     public static final RegistryObject<CreativeModeTab> CULT_CRYPTIDS_TAB =
@@ -45,7 +51,8 @@ public class ModItems {
                     .displayItems((parameters, output) -> {
                         output.accept(SIREN_HEAD_SPAWN_EGG.get());
                         output.accept(ModBlocks.TOY_HATTER_ITEM.get());
-                        output.accept(CAMERA.get());   // 📷
+                        output.accept(CAMERA.get());
+                        output.accept(FLASHLIGHT.get());
                     })
                     .build());
 }

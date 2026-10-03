@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -20,55 +21,45 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class CameraItem extends Item implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    // Тайминги
     private long lastShootGameTime = -100;
     private long lastInspectGameTime = -100;
+    private long lastDrawGameTime = -100;
 
-    private static final int SHOOT_COOLDOWN = 20;
-    private static final int SHOOT_ANIM_TICKS = 8;
-    private static final int INSPECT_ANIM_TICKS = 50;
+    private static final int SHOOT_COOLDOWN     = 20;
+    private static final int SHOOT_ANIM_TICKS   = 8;    // 0.375 сек
+    private static final int INSPECT_ANIM_TICKS = 105;  // 5.25 сек
+    private static final int DRAW_ANIM_TICKS    = 33;   // 1.625 сек
 
-    // Скорости анимаций (1.0 = норма, 0.33 = в 3 раза медленнее)
     private static final double SPEED_IDLE    = 0.33D;
     private static final double SPEED_WALK    = 1.0D;
     private static final double SPEED_SHOOT   = 1.0D;
     private static final double SPEED_INSPECT = 1.0D;
+    private static final double SPEED_DRAW    = 1.0D;
 
     public CameraItem(Properties props) {
         super(props);
+        SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
-    public void markShoot(long gameTime) {
-        this.lastShootGameTime = gameTime;
-    }
+    public void markShoot(long gameTime)   { this.lastShootGameTime = gameTime; }
+    public void markInspect(long gameTime) { this.lastInspectGameTime = gameTime; }
+    public void markDraw(long gameTime)    { this.lastDrawGameTime = gameTime; }
 
-    public void markInspect(long gameTime) {
-        this.lastInspectGameTime = gameTime;
-    }
-
-    public boolean isShooting(long now) {
-        return (now - lastShootGameTime) < SHOOT_ANIM_TICKS;
-    }
-
-    public boolean isInspecting(long now) {
-        return (now - lastInspectGameTime) < INSPECT_ANIM_TICKS;
-    }
+    public boolean isShooting(long now)   { return (now - lastShootGameTime) < SHOOT_ANIM_TICKS; }
+    public boolean isInspecting(long now) { return (now - lastInspectGameTime) < INSPECT_ANIM_TICKS; }
+    public boolean isDrawing(long now)    { return (now - lastDrawGameTime) < DRAW_ANIM_TICKS; }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        // Shift + ПКМ = осмотр
         if (player.isShiftKeyDown()) {
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                     ModSounds.CAMERA_SHUTTER.get(), SoundSource.PLAYERS, 0.5F, 1.5F);
-            if (level.isClientSide) {
-                markInspect(level.getGameTime());
-            }
+            if (level.isClientSide) markInspect(level.getGameTime());
             return InteractionResultHolder.success(stack);
         }
 
-        // Обычный ПКМ = снимок
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
                 ModSounds.CAMERA_SHUTTER.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 
@@ -83,7 +74,6 @@ public class CameraItem extends Item implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        // ⚠️ Transition time = 1 тик → мгновенный переход walk → idle
         controllers.add(new AnimationController<>(this, "controller", 1, state -> {
             AnimationController<CameraItem> ctrl = state.getController();
             Minecraft mc = Minecraft.getInstance();
@@ -94,25 +84,35 @@ public class CameraItem extends Item implements GeoItem {
 
             long now = mc.level.getGameTime();
 
-            // 1. Снимок (приоритет 1)
+            // 0. Draw — приоритет выше всех, играет один раз
+            if (isDrawing(now)) {
+                ctrl.setAnimationSpeed(SPEED_DRAW);
+                return state.setAndContinue(RawAnimation.begin().thenPlay("draw"));
+            }
+
+            // 1. Shoot
             if (isShooting(now)) {
                 ctrl.setAnimationSpeed(SPEED_SHOOT);
                 return state.setAndContinue(RawAnimation.begin().thenPlay("shoot"));
             }
 
-            // 2. Осмотр (приоритет 2)
+            // 2. Inspect
             if (isInspecting(now)) {
                 ctrl.setAnimationSpeed(SPEED_INSPECT);
                 return state.setAndContinue(RawAnimation.begin().thenPlay("inspect"));
             }
 
-            // 3. Ходьба (приоритет 3)
-            if (mc.player.walkAnimation.isMoving()) {
+            // 3. Walk — проверяем ВВОД игрока (мгновенно), а не smoothed-скорость
+            boolean pressingMove = mc.player.xxa != 0.0F
+                    || mc.player.zza != 0.0F
+                    || mc.player.getDeltaMovement().horizontalDistanceSqr() > 0.0005;
+
+            if (pressingMove) {
                 ctrl.setAnimationSpeed(SPEED_WALK);
                 return state.setAndContinue(RawAnimation.begin().thenLoop("walk"));
             }
 
-            // 4. Idle — замедлен в 3 раза
+            // 4. Idle — мгновенный возврат, если игрок отпустил WASD
             ctrl.setAnimationSpeed(SPEED_IDLE);
             return state.setAndContinue(RawAnimation.begin().thenLoop("idle"));
         }));

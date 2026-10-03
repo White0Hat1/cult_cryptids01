@@ -29,10 +29,17 @@
     "subtitle": "subtitles.cult_cryptids.siren_death",
     "sounds": ["cult_cryptids:siren_death"]
   },
+
   "blood_moon_music": {
     "category": "music",
     "subtitle": "subtitles.cult_cryptids.blood_moon_music",
     "sounds": [{ "name": "cult_cryptids:blood_moon_music", "stream": true }]
+  },
+
+  "blood_moon_icecream": {
+    "category": "ambient",
+    "subtitle": "subtitles.cult_cryptids.blood_moon_icecream",
+    "sounds": [{ "name": "cult_cryptids:blood_moon_icecream", "stream": true }]
   },
 
   "siren_far": {
@@ -60,6 +67,11 @@
     "subtitle": "subtitles.cult_cryptids.siren_static",
     "sounds": [{ "name": "cult_cryptids:siren_static", "stream": true }]
   },
+  "siren_speech": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_speech",
+    "sounds": [{ "name": "cult_cryptids:siren_speech", "stream": true }]
+  },
 
   "siren_walk": {
     "category": "hostile",
@@ -76,5 +88,11 @@
       "cult_cryptids:siren_run_1",
       "cult_cryptids:siren_run_2"
     ]
+  },
+
+  "camera_shutter": {
+    "category": "players",
+    "subtitle": "subtitles.cult_cryptids.camera_shutter",
+    "sounds": ["cult_cryptids:camera_shutter"]
   }
 }

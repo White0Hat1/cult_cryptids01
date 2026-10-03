@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "cult_cryptids:item/camera_item",
   "textures": {
-    "layer0": "cult_cryptids:item/camera"
+    "0": "cult_cryptids:item/camera_item_tex",
+    "particle": "cult_cryptids:item/camera_item_tex"
   }
 }

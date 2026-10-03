@@ -1,6 +1,6 @@
 package com.cult.cryptids;
 
-import com.cult.cryptids.command.BloodMoonCommand;
+import com.cult.cryptids.command.CultCryptidsCommand;
 import com.cult.cryptids.entity.SirenHeadEntity;
 import com.cult.cryptids.event.BloodMoonEvent;
 import com.cult.cryptids.network.BloodMoonNetwork;
@@ -51,7 +51,7 @@ public class CultCryptids {
 
         @SubscribeEvent
         public static void onRegisterCommands(RegisterCommandsEvent event) {
-            BloodMoonCommand.register(event.getDispatcher());
+            CultCryptidsCommand.register(event.getDispatcher());
         }
     }
 }

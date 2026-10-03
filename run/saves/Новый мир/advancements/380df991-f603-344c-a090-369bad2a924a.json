@@ -9,6 +9,7 @@
     "criteria": {
       "minecraft:taiga": "2026-09-28 15:17:57 +0300",
       "minecraft:river": "2026-09-28 15:17:49 +0300",
+      "minecraft:dripstone_caves": "2026-10-03 15:11:35 +0300",
       "minecraft:old_growth_spruce_taiga": "2026-09-28 15:17:32 +0300"
     },
     "done": false
@@ -88,6 +89,48 @@
   "minecraft:recipes/redstone/tnt": {
     "criteria": {
       "has_gunpowder": "2026-09-28 15:47:15 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_salmon_from_smoking": {
+    "criteria": {
+      "has_salmon": "2026-09-30 22:16:58 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_salmon_from_campfire_cooking": {
+    "criteria": {
+      "has_salmon": "2026-09-30 22:16:58 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_salmon": {
+    "criteria": {
+      "has_salmon": "2026-09-30 22:16:58 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/spruce_planks": {
+    "criteria": {
+      "has_logs": "2026-10-03 15:10:22 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/charcoal": {
+    "criteria": {
+      "has_log": "2026-10-03 15:10:22 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/spruce_wood": {
+    "criteria": {
+      "has_log": "2026-10-03 15:10:22 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/black_dye": {
+    "criteria": {
+      "has_ink_sac": "2026-10-03 15:13:51 +0300"
     },
     "done": true
   },

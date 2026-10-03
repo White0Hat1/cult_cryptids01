@@ -1,21 +1,33 @@
 {
-  "item.cult_cryptids.siren_head_spawn_egg": "Яйцо призыва Сиреноголового",
-  "item.cult_cryptids.camera": "Фотоаппарат",
-  "entity.cult_cryptids.siren_head": "Сиреноголовый",
-  "block.cult_cryptids.toy_hatter": "Плюшевая игрушка Хэттера",
   "itemGroup.cult_cryptids": "Cult of the Cryptids",
+
+  "item.cult_cryptids.camera": "Фотоаппарат",
+  "item.cult_cryptids.toy_hatter": "Плюшевая игрушка Хэттера",
+  "item.cult_cryptids.siren_head_spawn_egg": "Яйцо призыва: Сиреноголовый",
+
+  "block.cult_cryptids.toy_hatter": "Плюшевая игрушка Хэттера",
+
+  "entity.cult_cryptids.siren_head": "Сиреноголовый",
+
+  "message.cult_cryptids.blood_moon_start": "Взошла Кровавая Луна. Небо окрасилось в Красный цвет от присутствия Древнего Кошмара.",
+
+  "subtitles.cult_cryptids.camera_shutter": "Щелчок фотоаппарата",
   "subtitles.cult_cryptids.siren_ambient": "Сиреноголовый рычит",
-  "subtitles.cult_cryptids.siren_step": "Тяжёлый шаг",
+  "subtitles.cult_cryptids.siren_step": "Что-то тяжёлое шагает",
   "subtitles.cult_cryptids.siren_scream": "Сиреноголовый кричит",
-  "subtitles.cult_cryptids.siren_screech": "Скример!",
+  "subtitles.cult_cryptids.siren_screech": "Сиреноголовый вопит",
   "subtitles.cult_cryptids.siren_hurt": "Сиреноголовый ранен",
-  "subtitles.cult_cryptids.siren_death": "Сиреноголовый погиб",
-  "subtitles.cult_cryptids.blood_moon_music": "Кровавая луна восходит",
-  "subtitles.cult_cryptids.siren_far": "Что-то рычит вдалеке",
+  "subtitles.cult_cryptids.siren_death": "Сиреноголовый погибает",
+  "subtitles.cult_cryptids.siren_far": "Вдалеке воют сирены",
   "subtitles.cult_cryptids.siren_search": "Сиреноголовый ищет",
-  "subtitles.cult_cryptids.siren_close": "Сиреноголовый рычит!",
-  "subtitles.cult_cryptids.siren_chase_far": "Сиреноголовый кричит вдалеке",
-  "subtitles.cult_cryptids.siren_static": "Радиопомехи",
-  "subtitles.cult_cryptids.siren_walk": "Тяжёлые шаги",
-  "subtitles.cult_cryptids.siren_run": "Сиреноголовый бежит"
+  "subtitles.cult_cryptids.siren_close": "Сиреноголовый рядом",
+  "subtitles.cult_cryptids.siren_chase_far": "Сиреноголовый преследует",
+  "subtitles.cult_cryptids.siren_static": "Помехи в радиоэфире",
+  "subtitles.cult_cryptids.siren_walk": "Сиреноголовый идёт",
+  "subtitles.cult_cryptids.siren_run": "Сиреноголовый бежит",
+  "subtitles.cult_cryptids.siren_speech": "Сиреноголовый говорит",
+  "subtitles.cult_cryptids.blood_moon_music": "Играет тема Кровавой Луны",
+  "subtitles.cult_cryptids.blood_moon_icecream": "Играет мелодия грузовика с мороженым",
+  "message.cult_cryptids.fear_warning": "Страх наполняет воздух.",
+  "item.cult_cryptids.flashlight": "Фонарик"
 }
