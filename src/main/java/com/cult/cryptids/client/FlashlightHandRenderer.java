@@ -1,7 +1,7 @@
 package com.cult.cryptids.client;
 
 import com.cult.cryptids.item.FlashlightItem;
-import com.cult.cryptids.item.FlashlightItemRenderer;
+import com.cult.cryptids.item.HandedItemRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -35,7 +35,7 @@ public class FlashlightHandRenderer {
     private static final float ROT_Y = 0.0F;
     private static final float ROT_Z = 0.0F;
 
-    private static final FlashlightItemRenderer RENDERER = new FlashlightItemRenderer();
+    private static final HandedItemRenderer<FlashlightItem> RENDERER = HandedItemRenderer.flashlight();
 
     private static boolean wasInHand = false;
 

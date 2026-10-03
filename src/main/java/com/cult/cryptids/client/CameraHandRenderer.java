@@ -1,7 +1,7 @@
 package com.cult.cryptids.client;
 
 import com.cult.cryptids.item.CameraItem;
-import com.cult.cryptids.item.CameraItemRenderer;
+import com.cult.cryptids.item.HandedItemRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -32,7 +32,7 @@ public class CameraHandRenderer {
     private static final float ROT_Y = 0.0F;
     private static final float ROT_Z = 0.0F;
 
-    private static final CameraItemRenderer RENDERER = new CameraItemRenderer();
+    private static final HandedItemRenderer<CameraItem> RENDERER = HandedItemRenderer.camera();
 
     private static boolean wasInHand = false;
 

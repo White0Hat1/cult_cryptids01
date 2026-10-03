@@ -1,14 +1,24 @@
-# Папка для запуска и тестов
-/run/
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
 
-# Сборка
-/build/
-/.gradle/
-
-# Файлы IDE
-/.idea/
+# idea
+out
+*.ipr
+*.iws
 *.iml
+.idea/*
+!.idea/scopes
 
-# Логи и прочее
-/logs/
-/out/
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+runs
