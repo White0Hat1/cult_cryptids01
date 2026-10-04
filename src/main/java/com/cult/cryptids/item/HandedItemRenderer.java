@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -19,6 +20,7 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
+import software.bernie.geckolib.util.RenderUtils;
 
 public class HandedItemRenderer<T extends Item & GeoAnimatable> extends GeoItemRenderer<T> {
     private static final String[] ARM_BONES = {"arm_right_thick", "arm_left_thick", "arm_right_slim", "arm_left_slim"};
@@ -52,21 +54,23 @@ public class HandedItemRenderer<T extends Item & GeoAnimatable> extends GeoItemR
             boolean right = "RightArm".equals(bone.getName()), left = "LeftArm".equals(bone.getName());
             if (right || left) {
                 AbstractClientPlayer player = Minecraft.getInstance().player;
-                if (Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player) instanceof LivingEntityRenderer<?,?> renderer &&
-                        renderer.getModel() instanceof PlayerModel<?> playerModel) {
+                if (player != null && Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player)
+                        instanceof LivingEntityRenderer<?,?> livingEntityRenderer && livingEntityRenderer.getModel()
+                        instanceof PlayerModel<?> playerModel) {
                     ResourceLocation texture = player.getSkinTextureLocation();
                     RenderType solid = RenderType.entitySolid(texture), translucent = RenderType.entityTranslucent(texture);
                     poseStack.pushPose();
+                    RenderUtils.translateToPivotPoint(poseStack, bone);
                     poseStack.scale(-1, -1, 1);
                     if (right) {
-                        playerModel.rightArm.resetPose();
+                        playerModel.rightArm.loadPose(PartPose.ZERO);
                         playerModel.rightArm.render(poseStack, bufferSource.getBuffer(solid), packedLight, packedOverlay);
-                        playerModel.rightSleeve.resetPose();
+                        playerModel.rightSleeve.loadPose(PartPose.ZERO);
                         playerModel.rightSleeve.render(poseStack, bufferSource.getBuffer(translucent), packedLight, packedOverlay);
                     } else {
-                        playerModel.leftArm.resetPose();
+                        playerModel.leftArm.loadPose(PartPose.ZERO);
                         playerModel.leftArm.render(poseStack, bufferSource.getBuffer(solid), packedLight, packedOverlay);
-                        playerModel.leftSleeve.resetPose();
+                        playerModel.leftSleeve.loadPose(PartPose.ZERO);
                         playerModel.leftSleeve.render(poseStack, bufferSource.getBuffer(translucent), packedLight, packedOverlay);
                     }
                     poseStack.popPose();
