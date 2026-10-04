@@ -61,8 +61,24 @@ public class CinematicTextHandler {
     private static final int FADE_OUT_START = DIVIDER_END + 120;
     private static final int FADE_OUT_END = FADE_OUT_START + 40;
 
-    /** 🎵 Музыка включается вместе с титром BLOOD MOON. */
-    private static final int MUSIC_TRIGGER_TICK = TITLES_START;
+    // ============ 🎵 ЗВУКИ ============
+    /**
+     * 🎬 Длительность blood_moon_impact в тиках (20 тиков = 1 сек).
+     * Подкрути под свою длину звука:
+     *   - 2 сек = 40 тиков
+     *   - 3 сек = 60 тиков
+     *   - 4 сек = 80 тиков
+     */
+    private static final int IMPACT_LENGTH_TICKS = 60;
+
+    /** 🩸 Impact играет при появлении луны — 3-й слайд. */
+    private static final int IMPACT_TRIGGER_TICK = MOON_START;
+
+    /** 🎵 Музыка стартует сразу ПОСЛЕ impact. */
+    private static final int MUSIC_TRIGGER_TICK = IMPACT_TRIGGER_TICK + IMPACT_LENGTH_TICKS;
+
+    /** Флаг, чтобы impact не проигрался дважды за одну последовательность. */
+    private static boolean impactPlayed = false;
 
     // ============ НЕБО ============
     private static final int SKY_FADE_START = TITLES_START;
@@ -78,6 +94,7 @@ public class CinematicTextHandler {
         fearText = Component.translatable("message.cult_cryptids.fear_warning").getString();
         sequenceTick = 0;
         cinematicActive = true;
+        impactPlayed = false;
         stopMusic();
     }
 
@@ -107,14 +124,23 @@ public class CinematicTextHandler {
 
         sequenceTick++;
 
-        // 🎵 Запускаем зацикленную музыку
+        Minecraft mc = Minecraft.getInstance();
+
+        // 🩸 Impact — играет ОДИН РАЗ при появлении луны (3-й слайд).
+        //    Принцип тот же, что у музыки: через SoundManager + MASTER-канал.
+        if (!impactPlayed && sequenceTick >= IMPACT_TRIGGER_TICK
+                && mc.player != null && mc.level != null) {
+            BloodMoonImpactSound impact = new BloodMoonImpactSound(ModSounds.BLOOD_MOON_IMPACT.get());
+            mc.getSoundManager().play(impact);
+            impactPlayed = true;
+        }
+
+        // 🎵 Зацикленная музыка стартует ПОСЛЕ impact.
         if (musicSound == null && sequenceTick >= MUSIC_TRIGGER_TICK) {
-            Minecraft mc = Minecraft.getInstance();
             if (mc.player != null) {
                 LoopingMusicSound sound = new LoopingMusicSound(ModSounds.BLOOD_MOON_MUSIC.get());
                 mc.getSoundManager().play(sound);
                 musicSound = sound;
-                System.out.println("[BLOOD_MOON] Music started (looping x2 volume)");
             }
         }
 
@@ -123,6 +149,7 @@ public class CinematicTextHandler {
             fearText = "";
             sequenceTick = 0;
             cinematicActive = false;
+            impactPlayed = false;
             // ⚠️ музыку НЕ останавливаем — играет до stop() события
         }
     }

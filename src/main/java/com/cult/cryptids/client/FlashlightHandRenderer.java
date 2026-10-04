@@ -24,9 +24,6 @@ import net.minecraftforge.fml.common.Mod;
 )
 public class FlashlightHandRenderer {
 
-    // ========================================================
-    // 🎛️ Позиция ВСЕЙ модели (руки внутри неё — уже на месте)
-    // ========================================================
     private static final float SCALE = 1.0F;
     private static final float POS_X = -0.50F;
     private static final float POS_Y = -0.50F;
@@ -82,16 +79,8 @@ public class FlashlightHandRenderer {
         pose.mulPose(Axis.ZP.rotationDegrees(ROT_Z));
         pose.scale(SCALE, SCALE, SCALE);
 
-        // 🖐️🔦 Всё рисует один GeoItemRenderer — и руки, и корпус.
-        // Текстуры для костей рук подменяются внутри FlashlightItemRenderer.
-        RENDERER.renderByItem(
-                stack,
-                ItemDisplayContext.FIRST_PERSON_RIGHT_HAND,
-                pose,
-                buffer,
-                light,
-                OverlayTexture.NO_OVERLAY
-        );
+        RENDERER.renderByItem(stack, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND,
+                pose, buffer, light, OverlayTexture.NO_OVERLAY);
 
         pose.popPose();
     }

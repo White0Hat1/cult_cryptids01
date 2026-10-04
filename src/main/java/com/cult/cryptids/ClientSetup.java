@@ -15,17 +15,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @Mod.EventBusSubscriber(modid = CultCryptids.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
 
-    // Регистрация рендера сущностей
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.SIREN_HEAD.get(), SirenHeadRenderer::new);
     }
 
-    // Регистрация render layer для блоков (cutout = прозрачность)
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            // 🧸 Плюшевая игрушка — рендер с прозрачностью
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.TOY_HATTER.get(), RenderType.cutout());
         });
     }

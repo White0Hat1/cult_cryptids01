@@ -1,104 +1,238 @@
-[04окт.2026 22:41:53.392] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\chern\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --uuid, 0a808880-6758-4efd-948d-73976cb4dd9b, --username, SlaschavyPedick]
-[04окт.2026 22:41:53.397] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.12 by Oracle Corporation; OS Windows 11 arch amd64 version 10.0
-[04окт.2026 22:41:53.508] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
-[04окт.2026 22:41:53.562] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
-[04окт.2026 22:41:53.632] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
-[04окт.2026 22:41:53.709] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/chern/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[04окт.2026 22:41:53.726] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: Intel(R) RaptorLake-S Mobile Graphics Controller GL version 4.6.0 - Build 32.0.101.7088, Intel
-[04окт.2026 22:41:54.019] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[04окт.2026 22:41:54.021] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[04окт.2026 22:41:54.023] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[04окт.2026 22:41:54.029] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
-[04окт.2026 22:41:54.195] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
-[04окт.2026 22:41:55.573] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[04окт.2026 22:41:55.576] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\chern\.gradle\caches\forge_gradle\assets, --uuid, 0a808880-6758-4efd-948d-73976cb4dd9b, --assetIndex, 5, --username, SlaschavyPedick]
-[04окт.2026 22:41:56.000] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using C:\Users\chern\Che\Minecraft\Mods\cult_cryptids01/build/createSrgToMcp/output.srg
-[04окт.2026 22:42:07.730] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 194 milliseconds
-[04окт.2026 22:42:09.772] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/chern/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[04окт.2026 22:42:09.773] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/chern/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[04окт.2026 22:42:09.816] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[04окт.2026 22:42:09.832] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: SlaschavyPedick
-[04окт.2026 22:42:10.042] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.1 build 7
-[04окт.2026 22:42:10.459] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
-[04окт.2026 22:42:10.467] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
-[04окт.2026 22:42:11.506] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: []
-[04окт.2026 22:42:11.765] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources
-[04окт.2026 22:42:11.952] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_ambient.ogg does not exist, cannot add it to event cult_cryptids:siren_ambient
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_step.ogg does not exist, cannot add it to event cult_cryptids:siren_step
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_scream.ogg does not exist, cannot add it to event cult_cryptids:siren_scream
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_screech.ogg does not exist, cannot add it to event cult_cryptids:siren_screech
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_hurt.ogg does not exist, cannot add it to event cult_cryptids:siren_hurt
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_death.ogg does not exist, cannot add it to event cult_cryptids:siren_death
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/blood_moon_icecream.ogg does not exist, cannot add it to event cult_cryptids:blood_moon_icecream
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_speech.ogg does not exist, cannot add it to event cult_cryptids:siren_speech
-[04окт.2026 22:42:11.953] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/camera_shutter.ogg does not exist, cannot add it to event cult_cryptids:camera_shutter
-[04окт.2026 22:42:12.006] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
-[04окт.2026 22:42:12.022] [Worker-Main-12/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.0.06.hex, loading
-[04окт.2026 22:42:12.609] [Worker-Main-2/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'minecraft:toy_hatter' referenced from: cult_cryptids:toy_hatter#facing=north: java.io.FileNotFoundException: minecraft:models/toy_hatter.json
-[04окт.2026 22:42:12.633] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 47.3.0 Target: 47.4.10
-[04окт.2026 22:42:14.223] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
-[04окт.2026 22:42:14.223] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
-[04окт.2026 22:42:14.276] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Колонки (Realtek(R) Audio)
-[04окт.2026 22:42:14.277] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
-[04окт.2026 22:42:14.425] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
-[04окт.2026 22:42:14.480] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
-[04окт.2026 22:42:14.481] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
-[04окт.2026 22:42:14.483] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
-[04окт.2026 22:42:14.485] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
-[04окт.2026 22:42:14.499] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
-[04окт.2026 22:42:14.501] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
-[04окт.2026 22:42:14.501] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
-[04окт.2026 22:42:14.502] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
-[04окт.2026 22:42:14.595] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
-[04окт.2026 22:42:14.649] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
-[04окт.2026 22:42:14.656] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
-[04окт.2026 22:42:14.657] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
-[04окт.2026 22:42:14.826] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
-[04окт.2026 22:42:18.123] [Render thread/INFO] [net.minecraftforge.registries.GameData/REGISTRIES]: Injecting existing registry data into this CLIENT instance
-[04окт.2026 22:42:19.442] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
-[04окт.2026 22:42:19.572] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1271 advancements
-[04окт.2026 22:42:19.874] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.1
-[04окт.2026 22:42:19.874] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
-[04окт.2026 22:42:20.556] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
-[04окт.2026 22:42:22.616] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[04окт.2026 22:42:22.691] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[04окт.2026 22:42:22.710] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[04окт.2026 22:42:22.710] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[04окт.2026 22:42:22.729] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[04окт.2026 22:42:23.077] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 2%
-[04окт.2026 22:42:23.557] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
-[04окт.2026 22:42:23.567] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 88%
-[04окт.2026 22:42:23.567] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 3005 ms
-[04окт.2026 22:42:23.648] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
-[04окт.2026 22:42:23.649] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
-[04окт.2026 22:42:23.753] [Render thread/WARN] [io.netty.util.internal.SystemPropertyUtil/]: Unable to parse the boolean system property 'java.net.preferIPv6Addresses':system - using the default value: false
-[04окт.2026 22:42:24.269] [Netty Local Client IO #0/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
-[04окт.2026 22:42:24.296] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: SlaschavyPedick[local:E:80071946] logged in with entity id 14 at (44.56238903018678, 76.0, -229.21417352088142)
-[04окт.2026 22:42:24.349] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: SlaschavyPedick (ранее известный как Dev) присоединился к игре
-[04окт.2026 22:42:24.660] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 9 advancements
-[04окт.2026 22:42:25.557] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[04окт.2026 22:42:25.566] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
-[04окт.2026 22:42:25.816] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
-[04окт.2026 22:42:25.818] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
-[04окт.2026 22:42:33.658] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[04окт.2026 22:42:33.665] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
-[04окт.2026 22:42:33.674] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
-[04окт.2026 22:42:33.675] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
-[04окт.2026 22:42:49.308] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[04окт.2026 22:42:49.312] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
-[04окт.2026 22:42:49.319] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
-[04окт.2026 22:42:49.320] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
-[04окт.2026 22:42:50.066] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: SlaschavyPedick lost connection: Отключение
-[04окт.2026 22:42:50.066] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: SlaschavyPedick покинул игру
-[04окт.2026 22:42:50.072] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Stopping singleplayer server as player logged out
-[04окт.2026 22:42:50.123] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
-[04окт.2026 22:42:50.124] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
-[04окт.2026 22:42:50.124] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
-[04окт.2026 22:42:50.304] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
-[04окт.2026 22:42:50.435] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
-[04окт.2026 22:42:50.437] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
-[04окт.2026 22:42:50.448] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (Новый мир): All chunks are saved
-[04окт.2026 22:42:50.448] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
-[04окт.2026 22:42:50.448] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
-[04окт.2026 22:42:50.448] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
-[04окт.2026 22:42:51.499] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
+[04окт.2026 20:24:55.761] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\poe09\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --uuid, 0a808880-6758-4efd-948d-73976cb4dd9b, --username, White_Black_Hat]
+[04окт.2026 20:24:55.765] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.20.1 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[04окт.2026 20:24:55.910] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[04окт.2026 20:24:55.993] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[04окт.2026 20:24:56.240] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
+[04окт.2026 20:24:56.366] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/poe09/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[04окт.2026 20:24:56.636] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: NVIDIA GeForce RTX 3050/PCIe/SSE2 GL version 4.6.0 NVIDIA 591.86, NVIDIA Corporation
+[04окт.2026 20:24:56.923] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[04окт.2026 20:24:56.930] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[04окт.2026 20:24:56.937] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[04окт.2026 20:24:56.943] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
+[04окт.2026 20:24:57.124] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[04окт.2026 20:24:58.968] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[04окт.2026 20:24:58.971] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\poe09\.gradle\caches\forge_gradle\assets, --uuid, 0a808880-6758-4efd-948d-73976cb4dd9b, --assetIndex, 5, --username, White_Black_Hat]
+[04окт.2026 20:24:59.398] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using D:\Minecraft MODS\CultOfTheCryptids\cult_cryptids/build/createSrgToMcp/output.srg
+[04окт.2026 20:25:04.581] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 161 milliseconds
+[04окт.2026 20:25:06.713] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/poe09/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[04окт.2026 20:25:06.714] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/poe09/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[04окт.2026 20:25:06.732] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[04окт.2026 20:25:06.740] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: White_Black_Hat
+[04окт.2026 20:25:06.865] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.1 build 7
+[04окт.2026 20:25:07.213] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
+[04окт.2026 20:25:07.218] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
+[04окт.2026 20:25:08.922] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: []
+[04окт.2026 20:25:09.482] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources
+[04окт.2026 20:25:09.855] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_ambient.ogg does not exist, cannot add it to event cult_cryptids:siren_ambient
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_step.ogg does not exist, cannot add it to event cult_cryptids:siren_step
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_scream.ogg does not exist, cannot add it to event cult_cryptids:siren_scream
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_screech.ogg does not exist, cannot add it to event cult_cryptids:siren_screech
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_hurt.ogg does not exist, cannot add it to event cult_cryptids:siren_hurt
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_death.ogg does not exist, cannot add it to event cult_cryptids:siren_death
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/blood_moon_icecream.ogg does not exist, cannot add it to event cult_cryptids:blood_moon_icecream
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_speech.ogg does not exist, cannot add it to event cult_cryptids:siren_speech
+[04окт.2026 20:25:09.856] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/camera_shutter.ogg does not exist, cannot add it to event cult_cryptids:camera_shutter
+[04окт.2026 20:25:09.878] [Worker-Main-4/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.0.06.hex, loading
+[04окт.2026 20:25:09.945] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[04окт.2026 20:25:11.088] [Worker-Main-1/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'minecraft:toy_hatter' referenced from: cult_cryptids:toy_hatter#facing=north: java.io.FileNotFoundException: minecraft:models/toy_hatter.json
+[04окт.2026 20:25:12.979] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
+[04окт.2026 20:25:12.979] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[04окт.2026 20:25:13.038] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Динамики (Realtek(R) Audio)
+[04окт.2026 20:25:13.039] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
+[04окт.2026 20:25:13.210] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
+[04окт.2026 20:25:13.233] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[04окт.2026 20:25:13.233] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[04окт.2026 20:25:13.235] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[04окт.2026 20:25:13.236] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[04окт.2026 20:25:13.243] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[04окт.2026 20:25:13.243] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[04окт.2026 20:25:13.244] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[04окт.2026 20:25:13.244] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[04окт.2026 20:25:13.393] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[04окт.2026 20:25:13.447] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
+[04окт.2026 20:25:13.448] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[04окт.2026 20:25:13.448] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[04окт.2026 20:25:14.034] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
+[04окт.2026 20:25:22.044] [Render thread/INFO] [net.minecraftforge.registries.GameData/REGISTRIES]: Injecting existing registry data into this CLIENT instance
+[04окт.2026 20:25:23.768] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[04окт.2026 20:25:23.882] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1271 advancements
+[04окт.2026 20:25:24.295] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.1
+[04окт.2026 20:25:24.295] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[04окт.2026 20:25:25.054] [Forge Version Check/WARN] [net.minecraftforge.fml.VersionChecker/]: Failed to process update information
+java.net.http.HttpConnectTimeoutException: HTTP connect timed out
+	at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:894) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133) ~[java.net.http:?]
+	at net.minecraftforge.fml.VersionChecker$1.openUrlString(VersionChecker.java:139) ~[fmlcore-1.20.1-47.3.0.jar%23195!/:?]
+	at net.minecraftforge.fml.VersionChecker$1.process(VersionChecker.java:177) ~[fmlcore-1.20.1-47.3.0.jar%23195!/:?]
+	at java.lang.Iterable.forEach(Iterable.java:75) ~[?:?]
+	at net.minecraftforge.fml.VersionChecker$1.run(VersionChecker.java:114) ~[fmlcore-1.20.1-47.3.0.jar%23195!/:?]
+Caused by: java.net.http.HttpConnectTimeoutException: HTTP connect timed out
+	at jdk.internal.net.http.MultiExchange.toTimeoutException(MultiExchange.java:606) ~[java.net.http:?]
+	at jdk.internal.net.http.MultiExchange.getExceptionalCF(MultiExchange.java:550) ~[java.net.http:?]
+	at jdk.internal.net.http.MultiExchange.lambda$responseAsyncImpl$7(MultiExchange.java:469) ~[java.net.http:?]
+	at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?]
+	at java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911) ~[?:?]
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2162) ~[?:?]
+	at jdk.internal.net.http.common.SSLFlowDelegate.stopOnError(SSLFlowDelegate.java:1006) ~[java.net.http:?]
+	at java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:990) ~[?:?]
+	at java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:974) ~[?:?]
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2162) ~[?:?]
+	at jdk.internal.net.http.common.SubscriberWrapper$DownstreamPusher.run1(SubscriberWrapper.java:295) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SubscriberWrapper$DownstreamPusher.run(SubscriberWrapper.java:259) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$LockingRestartableTask.run(SequentialScheduler.java:205) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$CompleteRestartableTask.run(SequentialScheduler.java:149) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:230) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:303) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:256) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SubscriberWrapper.errorCommon(SubscriberWrapper.java:421) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SSLFlowDelegate$Reader.errorCommon(SSLFlowDelegate.java:385) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SubscriberWrapper.onError(SubscriberWrapper.java:412) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadSubscription.signalCompletion(SocketTube.java:645) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:829) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:230) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:303) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:256) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.signalError(SocketTube.java:778) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube.signalClosed(SocketTube.java:159) ~[java.net.http:?]
+	at jdk.internal.net.http.PlainHttpConnection.close(PlainHttpConnection.java:384) ~[java.net.http:?]
+	at jdk.internal.net.http.AsyncSSLConnection.close(AsyncSSLConnection.java:111) ~[java.net.http:?]
+	at jdk.internal.net.http.Exchange$ConnectionAborter.closeConnection(Exchange.java:193) ~[java.net.http:?]
+	at jdk.internal.net.http.Exchange$ConnectionAborter.closeConnection(Exchange.java:177) ~[java.net.http:?]
+	at jdk.internal.net.http.Exchange.cancel(Exchange.java:276) ~[java.net.http:?]
+	at jdk.internal.net.http.MultiExchange.cancel(MultiExchange.java:261) ~[java.net.http:?]
+	at jdk.internal.net.http.ResponseTimerEvent.handle(ResponseTimerEvent.java:71) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl.purgeTimeoutsAndReturnNextDeadline(HttpClientImpl.java:1693) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1311) ~[java.net.http:?]
+Caused by: java.net.ConnectException: HTTP connect timed out
+	at jdk.internal.net.http.MultiExchange.toTimeoutException(MultiExchange.java:607) ~[java.net.http:?]
+	at jdk.internal.net.http.MultiExchange.getExceptionalCF(MultiExchange.java:550) ~[java.net.http:?]
+	at jdk.internal.net.http.MultiExchange.lambda$responseAsyncImpl$7(MultiExchange.java:469) ~[java.net.http:?]
+	at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?]
+	at java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911) ~[?:?]
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2162) ~[?:?]
+	at jdk.internal.net.http.common.SSLFlowDelegate.stopOnError(SSLFlowDelegate.java:1006) ~[java.net.http:?]
+	at java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:990) ~[?:?]
+	at java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:974) ~[?:?]
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
+	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2162) ~[?:?]
+	at jdk.internal.net.http.common.SubscriberWrapper$DownstreamPusher.run1(SubscriberWrapper.java:295) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SubscriberWrapper$DownstreamPusher.run(SubscriberWrapper.java:259) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$LockingRestartableTask.run(SequentialScheduler.java:205) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$CompleteRestartableTask.run(SequentialScheduler.java:149) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:230) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:303) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:256) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SubscriberWrapper.errorCommon(SubscriberWrapper.java:421) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SSLFlowDelegate$Reader.errorCommon(SSLFlowDelegate.java:385) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SubscriberWrapper.onError(SubscriberWrapper.java:412) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadSubscription.signalCompletion(SocketTube.java:645) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:829) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:230) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:303) ~[java.net.http:?]
+	at jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:256) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.signalError(SocketTube.java:778) ~[java.net.http:?]
+	at jdk.internal.net.http.SocketTube.signalClosed(SocketTube.java:159) ~[java.net.http:?]
+	at jdk.internal.net.http.PlainHttpConnection.close(PlainHttpConnection.java:384) ~[java.net.http:?]
+	at jdk.internal.net.http.AsyncSSLConnection.close(AsyncSSLConnection.java:111) ~[java.net.http:?]
+	at jdk.internal.net.http.Exchange$ConnectionAborter.closeConnection(Exchange.java:193) ~[java.net.http:?]
+	at jdk.internal.net.http.Exchange$ConnectionAborter.closeConnection(Exchange.java:177) ~[java.net.http:?]
+	at jdk.internal.net.http.Exchange.cancel(Exchange.java:276) ~[java.net.http:?]
+	at jdk.internal.net.http.MultiExchange.cancel(MultiExchange.java:261) ~[java.net.http:?]
+	at jdk.internal.net.http.ResponseTimerEvent.handle(ResponseTimerEvent.java:71) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl.purgeTimeoutsAndReturnNextDeadline(HttpClientImpl.java:1693) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1311) ~[java.net.http:?]
+[04окт.2026 20:25:26.206] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[04окт.2026 20:25:29.275] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:29.313] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:29.332] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:29.501] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:29.520] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:29.539] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:29.539] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:29.717] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:25:30.231] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 35%
+[04окт.2026 20:25:30.631] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[04окт.2026 20:25:30.642] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 4426 ms
+[04окт.2026 20:25:30.788] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
+[04окт.2026 20:25:30.790] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
+[04окт.2026 20:25:30.889] [Render thread/WARN] [io.netty.util.internal.SystemPropertyUtil/]: Unable to parse the boolean system property 'java.net.preferIPv6Addresses':system - using the default value: false
+[04окт.2026 20:25:31.597] [Netty Local Client IO #0/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
+[04окт.2026 20:25:31.668] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: White_Black_Hat[local:E:89e77457] logged in with entity id 118 at (-29.371108044348034, 65.0, -22.288065688251645)
+[04окт.2026 20:25:31.785] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: White_Black_Hat присоединился к игре
+[04окт.2026 20:25:32.585] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 14 advancements
+[04окт.2026 20:25:38.496] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[04окт.2026 20:25:38.511] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
+[04окт.2026 20:25:38.538] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
+[04окт.2026 20:25:38.540] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
+[04окт.2026 20:25:46.353] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 15 advancements
+[04окт.2026 20:25:48.202] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Unable to play empty soundEvent: minecraft:entity.salmon.ambient
+[04окт.2026 20:25:58.701] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Unable to play empty soundEvent: cult_cryptids:camera_shutter
+[04окт.2026 20:26:13.732] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[04окт.2026 20:26:13.739] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
+[04окт.2026 20:26:13.746] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
+[04окт.2026 20:26:13.747] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
+[04окт.2026 20:27:40.132] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[04окт.2026 20:27:40.138] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
+[04окт.2026 20:27:40.145] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
+[04окт.2026 20:27:40.147] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
+[04окт.2026 20:27:40.537] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: White_Black_Hat lost connection: Отключение
+[04окт.2026 20:27:40.537] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: White_Black_Hat покинул игру
+[04окт.2026 20:27:40.545] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Stopping singleplayer server as player logged out
+[04окт.2026 20:27:40.592] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[04окт.2026 20:27:40.593] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[04окт.2026 20:27:40.593] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[04окт.2026 20:27:40.761] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:overworld
+[04окт.2026 20:27:41.199] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_end
+[04окт.2026 20:27:41.200] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Лес]'/minecraft:the_nether
+[04окт.2026 20:27:41.214] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (Новый мир): All chunks are saved
+[04окт.2026 20:27:41.214] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[04окт.2026 20:27:41.214] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[04окт.2026 20:27:41.214] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[04окт.2026 20:27:43.760] [Render thread/INFO] [net.minecraftforge.registries.GameData/REGISTRIES]: Injecting existing registry data into this CLIENT instance
+[04окт.2026 20:27:43.785] [Render thread/WARN] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Object did not get ID it asked for. Name: cult_cryptids:blood_moon_impact Expected: 1481 Got: 1492
+[04окт.2026 20:27:43.785] [Render thread/WARN] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Object did not get ID it asked for. Name: cult_cryptids:flashlight_toggle Expected: 1491 Got: 1493
+[04окт.2026 20:27:44.593] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[04окт.2026 20:27:44.628] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1271 advancements
+[04окт.2026 20:27:44.997] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.1
+[04окт.2026 20:27:44.997] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[04окт.2026 20:27:45.140] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[04окт.2026 20:27:46.295] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:27:46.295] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:27:46.295] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[04окт.2026 20:27:46.670] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 18%
+[04окт.2026 20:27:46.893] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[04окт.2026 20:27:46.894] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 1741 ms
+[04окт.2026 20:27:46.896] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
+[04окт.2026 20:27:46.898] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
+[04окт.2026 20:27:47.198] [Netty Local Client IO #1/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
+[04окт.2026 20:27:47.203] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: White_Black_Hat[local:E:2469eb37] logged in with entity id 395 at (-5.591624205668859, -57.0, 8.478221034580692)
+[04окт.2026 20:27:47.215] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: White_Black_Hat присоединился к игре
+[04окт.2026 20:27:47.401] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 2 advancements
+[04окт.2026 20:27:50.248] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 16 advancements
+[04окт.2026 20:28:29.644] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[04окт.2026 20:28:29.660] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[04окт.2026 20:28:29.662] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[04окт.2026 20:28:29.664] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[04окт.2026 20:29:43.794] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[04окт.2026 20:29:43.799] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[04окт.2026 20:29:43.802] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[04окт.2026 20:29:43.803] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[04окт.2026 20:29:44.245] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: White_Black_Hat lost connection: Отключение
+[04окт.2026 20:29:44.245] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: White_Black_Hat покинул игру
+[04окт.2026 20:29:44.251] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Stopping singleplayer server as player logged out
+[04окт.2026 20:29:44.294] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[04окт.2026 20:29:44.294] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[04окт.2026 20:29:44.294] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[04окт.2026 20:29:44.486] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[04окт.2026 20:29:44.945] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[04окт.2026 20:29:44.947] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[04окт.2026 20:29:44.972] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (New World): All chunks are saved
+[04окт.2026 20:29:44.972] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[04окт.2026 20:29:44.972] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[04окт.2026 20:29:44.972] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[04окт.2026 20:29:52.416] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!

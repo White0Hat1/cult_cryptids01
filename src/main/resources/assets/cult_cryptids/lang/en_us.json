@@ -29,5 +29,7 @@
   "subtitles.cult_cryptids.blood_moon_music": "Blood Moon theme plays",
   "subtitles.cult_cryptids.blood_moon_icecream": "Ice cream truck jingle plays",
   "message.cult_cryptids.fear_warning": "Fear fills the air.",
-  "item.cult_cryptids.flashlight": "Flashlight"
+  "item.cult_cryptids.flashlight": "Flashlight",
+  "subtitles.cult_cryptids.blood_moon_impact": "The Blood Moon rises",
+  "subtitles.cult_cryptids.flashlight_toggle": "Flashlight clicks"
 }

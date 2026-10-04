@@ -1,7 +1,9 @@
 package com.cult.cryptids.item;
 
+import com.cult.cryptids.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -34,6 +36,14 @@ public class FlashlightItem extends Item implements GeoItem {
     private static final double SPEED_WALK   = 1.0D;
     private static final double SPEED_TOGGLE = 1.0D;
     private static final double SPEED_DRAW   = 1.0D;
+
+    // 🔦 Звуки
+    private static final float TOGGLE_VOLUME = 0.7F;
+    private static final float PITCH_ON  = 1.15F;
+    private static final float PITCH_OFF = 0.85F;
+
+    /** Ссылка на контроллер, чтобы можно было сбрасывать анимацию. */
+    private AnimationController<FlashlightItem> controller;
 
     public FlashlightItem(Properties props) {
         super(props);
@@ -69,12 +79,27 @@ public class FlashlightItem extends Item implements GeoItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        // Переключаем состояние на обеих сторонах
+        boolean willBeOn = !isOn(stack);
         toggle(stack);
 
-        // Анимация — только на клиенте
+        // 🔦 Звук
+        level.playSound(
+                null,
+                player.getX(), player.getY(), player.getZ(),
+                ModSounds.FLASHLIGHT_TOGGLE.get(),
+                SoundSource.PLAYERS,
+                TOGGLE_VOLUME,
+                willBeOn ? PITCH_ON : PITCH_OFF
+        );
+
         if (level.isClientSide) {
             markToggle(level.getGameTime());
+
+            // 🔁 Сбрасываем контроллер, чтобы анимация toggle запустилась заново,
+            //    даже если она только что играла.
+            if (controller != null) {
+                controller.forceAnimationReset();
+            }
         }
 
         return InteractionResultHolder.success(stack);
@@ -84,7 +109,8 @@ public class FlashlightItem extends Item implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 1, state -> {
+        // Сохраняем ссылку на контроллер в поле — нужно для forceAnimationReset().
+        this.controller = new AnimationController<>(this, "controller", 1, state -> {
             AnimationController<FlashlightItem> ctrl = state.getController();
             Minecraft mc = Minecraft.getInstance();
             if (mc.player == null || mc.level == null) {
@@ -106,7 +132,7 @@ public class FlashlightItem extends Item implements GeoItem {
                 return state.setAndContinue(RawAnimation.begin().thenPlay("draw"));
             }
 
-            // 2. Walk — по вводу игрока (мгновенно)
+            // 2. Walk — по вводу игрока
             boolean pressingMove = mc.player.xxa != 0.0F
                     || mc.player.zza != 0.0F
                     || mc.player.getDeltaMovement().horizontalDistanceSqr() > 0.0005;
@@ -119,7 +145,9 @@ public class FlashlightItem extends Item implements GeoItem {
             // 3. Idle
             ctrl.setAnimationSpeed(SPEED_IDLE);
             return state.setAndContinue(RawAnimation.begin().thenLoop("idle"));
-        }));
+        });
+
+        controllers.add(this.controller);
     }
 
     @Override

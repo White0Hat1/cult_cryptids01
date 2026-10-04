@@ -35,7 +35,11 @@
     "subtitle": "subtitles.cult_cryptids.blood_moon_music",
     "sounds": [{ "name": "cult_cryptids:blood_moon_music", "stream": true }]
   },
-
+  "blood_moon_impact": {
+    "category": "ambient",
+    "subtitle": "subtitles.cult_cryptids.blood_moon_impact",
+    "sounds": [{ "name": "cult_cryptids:blood_moon_impact", "stream": true }]
+  },
   "blood_moon_icecream": {
     "category": "ambient",
     "subtitle": "subtitles.cult_cryptids.blood_moon_icecream",
@@ -94,5 +98,11 @@
     "category": "players",
     "subtitle": "subtitles.cult_cryptids.camera_shutter",
     "sounds": ["cult_cryptids:camera_shutter"]
+  },
+
+  "flashlight_toggle": {
+    "category": "players",
+    "subtitle": "subtitles.cult_cryptids.flashlight_toggle",
+    "sounds": ["cult_cryptids:flashlight_toggle"]
   }
 }

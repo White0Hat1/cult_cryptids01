@@ -40,7 +40,7 @@ minecraft {
                     source sourceSets.main
                 }
             }
-            args('--uuid', '0a808880-6758-4efd-948d-73976cb4dd9b', '--username', 'DeltaByte2023')
+            args('--uuid', '0a808880-6758-4efd-948d-73976cb4dd9b', '--username', 'White_Black_Hat')
         }
         server {
             workingDirectory project.file('run')

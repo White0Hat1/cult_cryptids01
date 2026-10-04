@@ -22,19 +22,19 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 🔦 Ставит/убирает невидимый блок света (Blocks.LIGHT) перед игроком,
- * пока фонарик включён. Работает только на сервере.
+ * 🔦 Ставит/убирает невидимый блок света перед игроком, пока фонарик включён.
+ *
+ * ⚠️ Свет ставится ТОЛЬКО в чистый воздух:
+ *   - не поверх травы / цветов / водорослей (иначе они исчезают)
+ *   - не в воду / лаву (иначе ломаются водные потоки)
+ *   - не в блоки с коллизией (стены, брёвна и т.д.)
  */
 @Mod.EventBusSubscriber(modid = CultCryptids.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FlashlightLightHandler {
 
-    /** Дистанция луча (в блоках). */
     private static final double REACH = 6.0D;
-
-    /** Уровень света (0–15). 15 = как факел. */
     private static final int LIGHT_LEVEL = 15;
 
-    /** Позиции, где мы в прошлый раз поставили свет (по UUID игрока). */
     private static final Map<UUID, BlockPos> PLACED = new HashMap<>();
 
     @SubscribeEvent
@@ -43,14 +43,11 @@ public class FlashlightLightHandler {
 
         Player player = event.player;
         Level level = player.level();
-
-        // Только сервер — свет должен быть в мировых данных
         if (level.isClientSide) return;
 
         UUID id = player.getUUID();
         ItemStack mainHand = player.getMainHandItem();
 
-        // Фонарик в руке и включён?
         boolean shouldShine =
                 mainHand.getItem() instanceof FlashlightItem && FlashlightItem.isOn(mainHand);
 
@@ -59,32 +56,37 @@ public class FlashlightLightHandler {
             return;
         }
 
-        // Куда смотрит игрок?
         Vec3 eye = player.getEyePosition();
         Vec3 look = player.getLookAngle();
         Vec3 end = eye.add(look.scale(REACH));
 
+        // 🎯 Жидкости = препятствие. Свет не полетит сквозь воду/лаву.
         BlockHitResult hit = level.clip(new ClipContext(
                 eye, end,
                 ClipContext.Block.OUTLINE,
-                ClipContext.Fluid.NONE,
+                ClipContext.Fluid.ANY,
                 player
         ));
 
+        // Позиция для света — воздух ПЕРЕД блоком, в который попали.
         BlockPos targetPos;
         if (hit.getType() == HitResult.Type.BLOCK) {
-            // Воздух прямо перед стеной
+            // Если попали в жидкость — свет не ставим вообще.
+            BlockState hitState = level.getBlockState(hit.getBlockPos());
+            if (!hitState.getFluidState().isEmpty()) {
+                removeLight(level, id);
+                return;
+            }
             targetPos = hit.getBlockPos().relative(hit.getDirection());
         } else {
-            // Ничего не задели — ставим в конечной точке луча
             targetPos = BlockPos.containing(end);
         }
 
-        // Ничего не поменялось — не трогаем мир
+        // Ничего не поменялось — не трогаем мир.
         BlockPos old = PLACED.get(id);
         if (old != null && old.equals(targetPos)) return;
 
-        // Убираем старый свет
+        // Убираем старый свет перед тем, как ставить новый.
         if (old != null) {
             BlockState oldState = level.getBlockState(old);
             if (oldState.is(Blocks.LIGHT)) {
@@ -92,13 +94,16 @@ public class FlashlightLightHandler {
             }
         }
 
-        // Проверяем, можно ли поставить свет в новое место
-        BlockState existing = level.getBlockState(targetPos);
-        if (!existing.isAir() && !existing.canBeReplaced()) {
+        // 🚫 КЛЮЧЕВАЯ ПРОВЕРКА: ставим только в чистый воздух.
+        BlockState targetState = level.getBlockState(targetPos);
+        if (!targetState.isAir()) {
+            // Там трава / вода / снег / цветок / стена / что угодно ещё —
+            // просто не ставим свет, чтобы ничего не сломать.
             PLACED.remove(id);
             return;
         }
 
+        // Ставим свет.
         BlockState lightState = Blocks.LIGHT.defaultBlockState()
                 .setValue(LightBlock.LEVEL, LIGHT_LEVEL);
         level.setBlockAndUpdate(targetPos, lightState);

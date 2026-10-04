@@ -57,7 +57,7 @@ public class CultCryptidsCommand {
             return 0;
         }
         BloodMoonEvent.start(src.getServer());
-        src.sendSuccess(() -> Component.literal("§4§lКровавая Луна началась!"), true);
+        // 🔇 Сообщение в чат убрано — вместо него кинематографичный текст.
         return 1;
     }
 
@@ -68,7 +68,7 @@ public class CultCryptidsCommand {
             return 0;
         }
         BloodMoonEvent.stop(src.getServer());
-        src.sendSuccess(() -> Component.literal("§7Кровавая Луна закончилась."), true);
+        // 🔇 Сообщение в чат убрано.
         return 1;
     }
 
