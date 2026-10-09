@@ -62,7 +62,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SIREN_SPEECH =
             registerSound("siren_speech");
 
-    // Утилита — создаёт SoundEvent по имени
+    // ================= 🏃 ТЕМА ПОГОНИ =================
+    public static final RegistryObject<SoundEvent> SIREN_CHASE_THEME =
+            registerSound("siren_chase_theme");
+
+    // ================= УТИЛИТА =================
     private static RegistryObject<SoundEvent> registerSound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(
                 new ResourceLocation("cult_cryptids", name)));

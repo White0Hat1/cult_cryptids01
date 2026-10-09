@@ -104,5 +104,12 @@
     "category": "players",
     "subtitle": "subtitles.cult_cryptids.flashlight_toggle",
     "sounds": ["cult_cryptids:flashlight_toggle"]
+   },
+
+    "siren_chase_theme": {
+      "category": "hostile",
+      "subtitle": "subtitles.cult_cryptids.siren_chase_theme",
+      "sounds": [{ "name": "cult_cryptids:siren_chase_theme", "stream": true }]
+    }
   }
 }

@@ -19,6 +19,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class CameraItem extends Item implements GeoItem {
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private long lastShootGameTime = -100;
@@ -26,15 +27,18 @@ public class CameraItem extends Item implements GeoItem {
     private long lastDrawGameTime = -100;
 
     private static final int SHOOT_COOLDOWN     = 20;
-    private static final int SHOOT_ANIM_TICKS   = 8;    // 0.375 сек
-    private static final int INSPECT_ANIM_TICKS = 105;  // 5.25 сек
-    private static final int DRAW_ANIM_TICKS    = 33;   // 1.625 сек
+    private static final int SHOOT_ANIM_TICKS   = 8;
+    private static final int INSPECT_ANIM_TICKS = 105;
+    private static final int DRAW_ANIM_TICKS    = 33;
 
     private static final double SPEED_IDLE    = 0.33D;
     private static final double SPEED_WALK    = 1.0D;
     private static final double SPEED_SHOOT   = 1.0D;
     private static final double SPEED_INSPECT = 1.0D;
     private static final double SPEED_DRAW    = 1.0D;
+
+    /** Ссылка на контроллер — для forceAnimationReset(). */
+    private AnimationController<CameraItem> controller;
 
     public CameraItem(Properties props) {
         super(props);
@@ -48,6 +52,13 @@ public class CameraItem extends Item implements GeoItem {
     public boolean isShooting(long now)   { return (now - lastShootGameTime) < SHOOT_ANIM_TICKS; }
     public boolean isInspecting(long now) { return (now - lastInspectGameTime) < INSPECT_ANIM_TICKS; }
     public boolean isDrawing(long now)    { return (now - lastDrawGameTime) < DRAW_ANIM_TICKS; }
+
+    /** 🆕 Публичный сброс анимации — используется при переключении предметов в FP. */
+    public void resetAnimation() {
+        if (controller != null) {
+            controller.forceAnimationReset();
+        }
+    }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -74,7 +85,7 @@ public class CameraItem extends Item implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 1, state -> {
+        this.controller = new AnimationController<>(this, "controller", 1, state -> {
             AnimationController<CameraItem> ctrl = state.getController();
             Minecraft mc = Minecraft.getInstance();
             if (mc.player == null || mc.level == null) {
@@ -84,25 +95,21 @@ public class CameraItem extends Item implements GeoItem {
 
             long now = mc.level.getGameTime();
 
-            // 0. Draw — приоритет выше всех, играет один раз
             if (isDrawing(now)) {
                 ctrl.setAnimationSpeed(SPEED_DRAW);
                 return state.setAndContinue(RawAnimation.begin().thenPlay("draw"));
             }
 
-            // 1. Shoot
             if (isShooting(now)) {
                 ctrl.setAnimationSpeed(SPEED_SHOOT);
                 return state.setAndContinue(RawAnimation.begin().thenPlay("shoot"));
             }
 
-            // 2. Inspect
             if (isInspecting(now)) {
                 ctrl.setAnimationSpeed(SPEED_INSPECT);
                 return state.setAndContinue(RawAnimation.begin().thenPlay("inspect"));
             }
 
-            // 3. Walk — проверяем ВВОД игрока (мгновенно), а не smoothed-скорость
             boolean pressingMove = mc.player.xxa != 0.0F
                     || mc.player.zza != 0.0F
                     || mc.player.getDeltaMovement().horizontalDistanceSqr() > 0.0005;
@@ -112,10 +119,11 @@ public class CameraItem extends Item implements GeoItem {
                 return state.setAndContinue(RawAnimation.begin().thenLoop("walk"));
             }
 
-            // 4. Idle — мгновенный возврат, если игрок отпустил WASD
             ctrl.setAnimationSpeed(SPEED_IDLE);
             return state.setAndContinue(RawAnimation.begin().thenLoop("idle"));
-        }));
+        });
+
+        controllers.add(this.controller);
     }
 
     @Override
