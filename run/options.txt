@@ -15,7 +15,7 @@ reducedDebugInfo:false
 showSubtitles:false
 directionalAudio:false
 touchscreen:false
-fullscreen:false
+fullscreen:true
 bobView:true
 toggleCrouch:false
 toggleSprint:false
@@ -30,7 +30,7 @@ glintSpeed:0.5
 glintStrength:1.0
 damageTiltStrength:1.0
 highContrast:false
-gamma:0.5023474178403756
+gamma:0.5093896713615024
 renderDistance:12
 simulationDistance:12
 entityDistanceScaling:1.0
