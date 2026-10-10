@@ -24,7 +24,7 @@ public class ModItems {
     // ================= ПРЕДМЕТЫ =================
 
     // 🥚 Спавн-яйцо Сирена
-    public static final RegistryObject<Item> SIREN_HEAD_SPAWN_EGG =
+    public static final RegistryObject<ForgeSpawnEggItem> SIREN_HEAD_SPAWN_EGG =
             ITEMS.register("siren_head_spawn_egg", () -> new ForgeSpawnEggItem(
                     ModEntities.SIREN_HEAD,
                     0xFFFFFF,
@@ -33,12 +33,12 @@ public class ModItems {
             ));
 
     // 📷 Фотоаппарат
-    public static final RegistryObject<Item> CAMERA =
+    public static final RegistryObject<CameraItem> CAMERA =
             ITEMS.register("camera", () -> new CameraItem(
                     new Item.Properties().stacksTo(1)));
 
     // 🔦 Фонарик
-    public static final RegistryObject<Item> FLASHLIGHT =
+    public static final RegistryObject<FlashlightItem> FLASHLIGHT =
             ITEMS.register("flashlight", () -> new FlashlightItem(
                     new Item.Properties().stacksTo(1)));
 

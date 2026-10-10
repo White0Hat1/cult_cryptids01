@@ -32,12 +32,12 @@ public class FlashlightHandler {
         entities.players().forEach(player -> {
             Vec3 vec3 = center.subtract(player.getEyePosition()); // Вектор от глаз игрока до центра блока
             double d = vec3.lengthSqr();
-            if (d > 1 && d <= 225 && isHoldingFlashlight(player)) { // Проверяем, что до блока 1-15 блоков, а в руке включённый фонарь
+            if (d > 1 && d <= 256 && isHoldingFlashlight(player)) { // Проверяем, что до блока 1-15 блоков, а в руке включённый фонарь
                 double cos = vec3.dot(player.getLookAngle()); // Скалярное произведение векторов, равное косинусу угла между ними на их длины
                 if (cos < 0) return; // Отрицательное значение означает, что блок позади нас
-                cos /= (d = Math.sqrt(d)); // Делим на длину вектора, (длина второго вектора - 1), чтобы получить косинус
+                cos /= Math.sqrt(d); // Делим на длину вектора, (длина второго вектора - 1), чтобы получить косинус
                 cos = 2 * cos * cos - 1; // Cos 2a = 2cos^2 a - 1. Теперь свет полностью угасает при отклонении на 45 градусов
-                brightness.set(Math.max(brightness.get(), (int) (cos * (16 - d))));
+                brightness.set(Math.max(brightness.get(), (int) (cos * (16 - 0.058 * d))));
             }
         });
         return brightness.get();

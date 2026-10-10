@@ -1,0 +1,6 @@
+{
+	"parent": "cult_cryptids:item/flashlight",
+	"textures": {
+		"1": "cult_cryptids:item/flashlight_on"
+	}
+}

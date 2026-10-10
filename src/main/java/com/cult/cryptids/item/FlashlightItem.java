@@ -25,7 +25,7 @@ public class FlashlightItem extends Item implements GeoItem {
     private static final String NBT_ON = "isOn";
 
     private long lastToggleGameTime = -100;
-    private long lastDrawGameTime   = -100;
+    private long lastDrawGameTime = -100;
 
     private static final int TOGGLE_ANIM_TICKS = 10;
     private static final int DRAW_ANIM_TICKS   = 20;
