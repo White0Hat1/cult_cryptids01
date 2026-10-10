@@ -11,7 +11,7 @@ public class BloodMoonNetwork {
     private static final String PROTOCOL = "1";
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-            ResourceLocation.fromNamespaceAndPath(CultCryptids.MODID, "blood_moon"),
+            new ResourceLocation(CultCryptids.MODID, "blood_moon"),
             () -> PROTOCOL,
             PROTOCOL::equals,
             PROTOCOL::equals

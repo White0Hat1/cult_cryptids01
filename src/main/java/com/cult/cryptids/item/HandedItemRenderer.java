@@ -37,11 +37,11 @@ public class HandedItemRenderer<T extends Item & GeoAnimatable> extends GeoItemR
     }
 
     public static HandedItemRenderer<CameraItem> camera() {
-        return new HandedItemRenderer<>(new DefaultedItemGeoModel<>(ResourceLocation.fromNamespaceAndPath(CultCryptids.MODID, "camera")));
+        return new HandedItemRenderer<>(new DefaultedItemGeoModel<>(new ResourceLocation(CultCryptids.MODID, "camera")));
     }
 
     public static HandedItemRenderer<FlashlightItem> flashlight() {
-        return new HandedItemRenderer<>(new DefaultedItemGeoModel<>(ResourceLocation.fromNamespaceAndPath(CultCryptids.MODID, "flashlight")));
+        return new HandedItemRenderer<>(new DefaultedItemGeoModel<>(new ResourceLocation(CultCryptids.MODID, "flashlight")));
     }
 
     public static class ArmsLayer<T extends GeoAnimatable> extends GeoRenderLayer<T> {

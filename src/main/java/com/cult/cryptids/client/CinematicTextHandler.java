@@ -29,7 +29,7 @@ import org.joml.Matrix4f;
 public class CinematicTextHandler {
 
     private static final ResourceLocation MOON_TEX =
-            ResourceLocation.fromNamespaceAndPath("cult_cryptids", "textures/gui/blood_moon_icon.png");
+            new ResourceLocation("cult_cryptids", "textures/gui/blood_moon_icon.png");
 
     private static String fullText = "";
     private static String fearText = "";

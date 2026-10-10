@@ -24,10 +24,10 @@ import java.util.Objects;
 public class LevelRendererMixin {
     // 🌕 Ванильная текстура луны (вшита в Minecraft)
     private static final @Unique ResourceLocation VANILLA_MOON =
-            ResourceLocation.withDefaultNamespace("textures/environment/moon_phases.png");
+            new ResourceLocation("textures/environment/moon_phases.png");
     // 🩸 Наша кровавая текстура (лежит в assets/cult_cryptids/textures/environment/)
     private static final @Unique ResourceLocation BLOOD_MOON =
-            ResourceLocation.fromNamespaceAndPath(CultCryptids.MODID, "textures/environment/blood_moon_phases.png");
+            new ResourceLocation(CultCryptids.MODID, "textures/environment/blood_moon_phases.png");
 
     /** Заменяет текстуру Луны на кровавую. **/
     @Redirect(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"))
