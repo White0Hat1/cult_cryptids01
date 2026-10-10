@@ -17,7 +17,7 @@ public class SirenHeadModel extends DefaultedEntityGeoModel<SirenHeadEntity> {
     private static final int SPIN_DURATION_TICKS = 40;  // длительность = 2 сек
 
     public SirenHeadModel() {
-        super(new ResourceLocation("cult_cryptids", "siren_head"), false);
+        super(ResourceLocation.fromNamespaceAndPath("cult_cryptids", "siren_head"), false);
     }
 
     @Override

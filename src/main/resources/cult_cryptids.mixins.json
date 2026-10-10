@@ -5,12 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "cult_cryptids.refmap.json",
   "client": [
-    "MoonTextureMixin",
-    "BloodSkyMixin"
+    "EntityRendererMixin",
+    "LevelRendererMixin"
   ],
-  "mixins": [
-    "LeavesNoCollisionMixin"
-  ],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   }

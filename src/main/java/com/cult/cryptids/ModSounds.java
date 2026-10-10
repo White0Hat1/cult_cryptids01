@@ -57,6 +57,6 @@ public class ModSounds {
     // Утилита — создаёт SoundEvent по имени
     private static RegistryObject<SoundEvent> registerSound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(
-                new ResourceLocation("cult_cryptids", name)));
+                ResourceLocation.fromNamespaceAndPath("cult_cryptids", name)));
     }
 }

@@ -20,8 +20,8 @@ public class CultCryptids {
     public static final String MODID = "cult_cryptids";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public CultCryptids() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public CultCryptids(FMLJavaModLoadingContext ctx) {
+        IEventBus modEventBus = ctx.getModEventBus();
 
         ModEntities.ENTITY_TYPES.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
