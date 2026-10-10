@@ -30,7 +30,7 @@ glintSpeed:0.5
 glintStrength:1.0
 damageTiltStrength:1.0
 highContrast:false
-gamma:0.5093896713615024
+gamma:0.5046948356807511
 renderDistance:12
 simulationDistance:12
 entityDistanceScaling:1.0

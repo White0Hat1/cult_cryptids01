@@ -22,6 +22,7 @@ import java.util.Objects;
 
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
+
     // 🌕 Ванильная текстура луны (вшита в Minecraft)
     private static final @Unique ResourceLocation VANILLA_MOON =
             new ResourceLocation("textures/environment/moon_phases.png");
@@ -29,50 +30,47 @@ public class LevelRendererMixin {
     private static final @Unique ResourceLocation BLOOD_MOON =
             new ResourceLocation(CultCryptids.MODID, "textures/environment/blood_moon_phases.png");
 
-    /** Заменяет текстуру Луны на кровавую. **/
-    @Redirect(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"))
-    private void bloodMoon$replaceMoonTexture(int shaderTexture, ResourceLocation location) {
-        if (BloodMoonClientState.isActive() && VANILLA_MOON.equals(location)) RenderSystem.setShaderTexture(shaderTexture, BLOOD_MOON);
-        RenderSystem.setShaderTexture(shaderTexture, location);
-    }
-
     /**
-     * Перехватываем ВСЕ вызовы RenderSystem.setShaderColor внутри renderSky.
-     * Во время Blood Moon любой цвет заменяется на красный оттенок,
-     * сохраняя яркость (чтобы градиент неба остался, но стал красным).
-     * Так мы одновременно:
-     * - Красим ванильное небо (день/закат/ночь) в красный
-     * - Красим солнце в красный
-     * - Красим звёзды в красноватый
-     * - Оставляем градиент (он формируется через разные яркости r/g/b)
+     * Заменяет текстуру Луны на кровавую во время Blood Moon.
+     * ⚠️ Именно здесь, а не отдельным MoonTextureMixin — чтобы не плодить лишние файлы.
      */
     @Redirect(
             method = "renderSky",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderColor(FFFF)V"
+                    target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"
             )
     )
-    private void bloodMoon$redSkyColors(float r, float g, float b, float a) {
-        if (BloodMoonClientState.isActive()) {
-            // Вычисляем яркость исходного цвета (0.0 — 1.0)
-            float brightness = Math.max(r, Math.max(g, b));
-
-            // 🩸 Тёмно-красный для тёмных участков, ярко-красный для светлых
-            // Формула: R = яркость, G/B = минимум (даёт оттенок "мяса")
-            float newG = brightness * 0.08F;   // немножко зелёного → "кровавый" оттенок
-            float newB = brightness * 0.08F;   // немножко синего — то же
-
-            RenderSystem.setShaderColor(brightness, newG, newB, a);
+    private void bloodMoon$replaceMoonTexture(int shaderTexture, ResourceLocation location) {
+        if (BloodMoonClientState.isActive() && VANILLA_MOON.equals(location)) {
+            RenderSystem.setShaderTexture(shaderTexture, BLOOD_MOON);
         } else {
-            RenderSystem.setShaderColor(r, g, b, a);
+            RenderSystem.setShaderTexture(shaderTexture, location);
         }
     }
 
-    @Inject(method = "getLightColor(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)I", at = @At("TAIL"), cancellable = true)
-    private static void getLightColor(BlockAndTintGetter bitg, BlockState state, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
-        int brightness = FlashlightHandler.calculateBrightness(Objects.requireNonNull(Minecraft.getInstance().level), pos);
-        if (brightness > 0) cir.setReturnValue(LightTexture.pack(Math.max(LightTexture.block(cir.getReturnValue()),
-                brightness), LightTexture.sky(cir.getReturnValue())));
+    // ❌ Блок bloodMoon$redSkyColors удалён — теперь эта логика в SkyColorMixin.
+    //    Два @Redirect на один и тот же RenderSystem.setShaderColor внутри renderSky
+    //    Mixin не разрешает.
+
+    /**
+     * 🔦 Дополнительное освещение от фонарика.
+     * Работает поверх ванильного — берёт максимум из ванильного и нашего света.
+     */
+    @Inject(
+            method = "getLightColor(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)I",
+            at = @At("TAIL"),
+            cancellable = true
+    )
+    private static void getLightColor(BlockAndTintGetter bitg, BlockState state, BlockPos pos,
+                                      CallbackInfoReturnable<Integer> cir) {
+        int brightness = FlashlightHandler.calculateBrightness(
+                Objects.requireNonNull(Minecraft.getInstance().level), pos);
+        if (brightness > 0) {
+            cir.setReturnValue(LightTexture.pack(
+                    Math.max(LightTexture.block(cir.getReturnValue()), brightness),
+                    LightTexture.sky(cir.getReturnValue())
+            ));
+        }
     }
 }

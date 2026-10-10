@@ -8,7 +8,8 @@
   "client": [
     "EntityRendererMixin",
     "LevelRendererMixin",
-    "MoonScaleMixin"
+    "MoonScaleMixin",
+    "SkyColorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
