@@ -4,11 +4,12 @@
   "package": "com.cult.cryptids.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "cult_cryptids.refmap.json",
+  "mixins": [],
   "client": [
     "EntityRendererMixin",
-    "LevelRendererMixin"
+    "LevelRendererMixin",
+    "MoonScaleMixin"
   ],
-  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   }

@@ -36,7 +36,6 @@ public class CinematicTextHandler {
     private static int sequenceTick = 0;
     private static boolean cinematicActive = false;
 
-    /** 🎵 Ссылка на играющий зацикленный трек (чтобы потом остановить). */
     private static LoopingMusicSound musicSound = null;
 
     // ============ ТАЙМИНГИ ============
@@ -61,23 +60,17 @@ public class CinematicTextHandler {
     private static final int FADE_OUT_START = DIVIDER_END + 120;
     private static final int FADE_OUT_END = FADE_OUT_START + 40;
 
+    // ============ 🌕 УВЕЛИЧЕНИЕ ЛУНЫ ============
+    /** 🎯 Начинаем увеличение ровно в момент появления надписи "BLOOD MOON". */
+    private static final int MOON_SCALE_START = TITLES_START;
+    /** ⏱️ Длительность увеличения — 5 секунд (100 тиков). */
+    private static final int MOON_SCALE_DURATION = 100;
+
     // ============ 🎵 ЗВУКИ ============
-    /**
-     * 🎬 Длительность blood_moon_impact в тиках (20 тиков = 1 сек).
-     * Подкрути под свою длину звука:
-     *   - 2 сек = 40 тиков
-     *   - 3 сек = 60 тиков
-     *   - 4 сек = 80 тиков
-     */
     private static final int IMPACT_LENGTH_TICKS = 60;
-
-    /** 🩸 Impact играет при появлении луны — 3-й слайд. */
     private static final int IMPACT_TRIGGER_TICK = MOON_START;
-
-    /** 🎵 Музыка стартует сразу ПОСЛЕ impact. */
     private static final int MUSIC_TRIGGER_TICK = IMPACT_TRIGGER_TICK + IMPACT_LENGTH_TICKS;
 
-    /** Флаг, чтобы impact не проигрался дважды за одну последовательность. */
     private static boolean impactPlayed = false;
 
     // ============ НЕБО ============
@@ -109,7 +102,24 @@ public class CinematicTextHandler {
         return Mth.clamp(p, 0.0F, 1.0F);
     }
 
-    /** 🎵 Останавливаем музыку вручную. */
+    /**
+     * 🌕 Прогресс увеличения луны (0.0 = обычный размер, 1.0 = полный Blood Moon).
+     * Стартует в момент появления надписи "BLOOD MOON", растёт 5 секунд.
+     */
+    public static float getMoonScaleProgress() {
+        if (!BloodMoonClientState.isActive()) return 0.0F;
+
+        // Кинематик уже закончился, но Blood Moon ещё идёт → полный размер.
+        if (!cinematicActive || fullText.isEmpty()) return 1.0F;
+
+        if (sequenceTick < MOON_SCALE_START) return 0.0F;
+        if (sequenceTick >= MOON_SCALE_START + MOON_SCALE_DURATION) return 1.0F;
+
+        float p = (sequenceTick - MOON_SCALE_START) / (float) MOON_SCALE_DURATION;
+        // smoothstep для плавности
+        return p * p * (3.0F - 2.0F * p);
+    }
+
     public static void stopMusic() {
         if (musicSound != null) {
             Minecraft.getInstance().getSoundManager().stop(musicSound);
@@ -126,8 +136,6 @@ public class CinematicTextHandler {
 
         Minecraft mc = Minecraft.getInstance();
 
-        // 🩸 Impact — играет ОДИН РАЗ при появлении луны (3-й слайд).
-        //    Принцип тот же, что у музыки: через SoundManager + MASTER-канал.
         if (!impactPlayed && sequenceTick >= IMPACT_TRIGGER_TICK
                 && mc.player != null && mc.level != null) {
             BloodMoonImpactSound impact = new BloodMoonImpactSound(ModSounds.BLOOD_MOON_IMPACT.get());
@@ -135,7 +143,6 @@ public class CinematicTextHandler {
             impactPlayed = true;
         }
 
-        // 🎵 Зацикленная музыка стартует ПОСЛЕ impact.
         if (musicSound == null && sequenceTick >= MUSIC_TRIGGER_TICK) {
             if (mc.player != null) {
                 LoopingMusicSound sound = new LoopingMusicSound(ModSounds.BLOOD_MOON_MUSIC.get());
@@ -150,7 +157,6 @@ public class CinematicTextHandler {
             sequenceTick = 0;
             cinematicActive = false;
             impactPlayed = false;
-            // ⚠️ музыку НЕ останавливаем — играет до stop() события
         }
     }
 
@@ -225,7 +231,7 @@ public class CinematicTextHandler {
         }
         masterAlpha = Mth.clamp(masterAlpha, 0.0F, 1.0F);
 
-        // MOON
+        // MOON (иконка на экране)
         float moonP = 0.0F;
         if (s >= MOON_START && s < MOON_END) {
             float t = (s - MOON_START) / (float)(MOON_END - MOON_START);

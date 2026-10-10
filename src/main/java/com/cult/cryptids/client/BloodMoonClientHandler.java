@@ -10,10 +10,10 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = CultCryptids.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BloodMoonClientHandler {
 
-    // 🩸 Красно-коричневый цвет неба
-    private static final float FOG_R = 0.45F;
-    private static final float FOG_G = 0.03F;
-    private static final float FOG_B = 0.03F;
+    // 🩸 Цвет #3c0707 — глубокий тёмно-красный
+    private static final float FOG_R = 0.235F;
+    private static final float FOG_G = 0.027F;
+    private static final float FOG_B = 0.027F;
 
     // 🌫️ Плотность тумана (5–80 блоков)
     private static final float FOG_NEAR = 5.0F;

@@ -30,13 +30,13 @@ glintSpeed:0.5
 glintStrength:1.0
 damageTiltStrength:1.0
 highContrast:false
-gamma:0.5070422535211268
+gamma:0.5023474178403756
 renderDistance:12
 simulationDistance:12
 entityDistanceScaling:1.0
 guiScale:3
 particles:0
-maxFps:120
+maxFps:60
 graphicsMode:1
 ao:true
 prioritizeChunkUpdates:0
@@ -118,7 +118,7 @@ key_key.hotbar.6:key.keyboard.6
 key_key.hotbar.7:key.keyboard.7
 key_key.hotbar.8:key.keyboard.8
 key_key.hotbar.9:key.keyboard.9
-soundCategory_master:1.0
+soundCategory_master:0.5044150110375275
 soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0
