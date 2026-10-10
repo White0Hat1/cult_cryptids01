@@ -12,7 +12,7 @@ discrete_mouse_scroll:false
 invertYMouse:false
 realmsNotifications:true
 reducedDebugInfo:false
-showSubtitles:true
+showSubtitles:false
 directionalAudio:false
 touchscreen:false
 fullscreen:false
@@ -30,7 +30,7 @@ glintSpeed:0.5
 glintStrength:1.0
 damageTiltStrength:1.0
 highContrast:false
-gamma:0.5
+gamma:0.5070422535211268
 renderDistance:12
 simulationDistance:12
 entityDistanceScaling:1.0

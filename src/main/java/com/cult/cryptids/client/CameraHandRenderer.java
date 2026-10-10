@@ -1,5 +1,6 @@
 package com.cult.cryptids.client;
 
+import com.cult.cryptids.ModItems;
 import com.cult.cryptids.item.CameraItem;
 import com.cult.cryptids.item.HandedItemRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,6 +10,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,8 +51,19 @@ public class CameraHandRenderer {
         ItemStack mainHand = mc.player.getMainHandItem();
         boolean inHand = mainHand.getItem() instanceof CameraItem;
 
+        // Ушла из руки → сброс.
+        if (!inHand && wasInHand) {
+            Item item = ModItems.CAMERA.get();
+            if (item instanceof CameraItem camera) {
+                camera.resetAnimation();
+            }
+        }
+
+        // Пришла в руку → сброс + draw.
         if (inHand && !wasInHand) {
-            ((CameraItem) mainHand.getItem()).markDraw(mc.level.getGameTime());
+            CameraItem item = (CameraItem) mainHand.getItem();
+            item.markDraw(mc.level.getGameTime());
+            item.resetAnimation();
         }
 
         wasInHand = inHand;
@@ -79,15 +92,8 @@ public class CameraHandRenderer {
         pose.mulPose(Axis.ZP.rotationDegrees(ROT_Z));
         pose.scale(SCALE, SCALE, SCALE);
 
-        // 🖐️📷 Один рендер — руки и камера внутри geo.json.
-        RENDERER.renderByItem(
-                stack,
-                ItemDisplayContext.FIRST_PERSON_RIGHT_HAND,
-                pose,
-                buffer,
-                light,
-                OverlayTexture.NO_OVERLAY
-        );
+        RENDERER.renderByItem(stack, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND,
+                pose, buffer, light, OverlayTexture.NO_OVERLAY);
 
         pose.popPose();
     }

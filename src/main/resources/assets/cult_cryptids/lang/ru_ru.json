@@ -29,5 +29,8 @@
   "subtitles.cult_cryptids.blood_moon_music": "Играет тема Кровавой Луны",
   "subtitles.cult_cryptids.blood_moon_icecream": "Играет мелодия грузовика с мороженым",
   "message.cult_cryptids.fear_warning": "Страх наполняет воздух.",
-  "item.cult_cryptids.flashlight": "Фонарик"
+  "item.cult_cryptids.flashlight": "Фонарик",
+  "subtitles.cult_cryptids.blood_moon_impact": "Восходит Кровавая Луна",
+  "subtitles.cult_cryptids.flashlight_toggle": "Щелчок фонарика",
+  "subtitles.cult_cryptids.siren_chase_theme": "Сиреноголовый охотится"
 }

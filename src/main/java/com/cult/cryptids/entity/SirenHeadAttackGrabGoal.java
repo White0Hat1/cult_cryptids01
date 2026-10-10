@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+
 import java.util.EnumSet;
 import java.util.Random;
 
@@ -11,8 +12,8 @@ public class SirenHeadAttackGrabGoal extends Goal {
     private final SirenHeadEntity mob;
     private LivingEntity target;
 
-    // 🎯 Скорость погони ≈ 2.0 блока/сек
-    private static final double CHASE_SPEED = 1.6D;
+    // 🏃 Скорость погони ≈ как у игрока в спринте + прыжки.
+    private static final double CHASE_SPEED = 1.8D;
 
     // 📏 Радиус обычной атаки — 5 блоков (squared = 25)
     private static final double ATTACK_DISTANCE_SQ = 25.0D;
@@ -20,7 +21,7 @@ public class SirenHeadAttackGrabGoal extends Goal {
     // 📏 Максимальная дистанция погони (50 блоков)
     private static final double MAX_CHASE_DISTANCE_SQ = 2500.0D;
 
-    // 🖐️ Радиус, в котором включается "тянущаяся рука" (8 блоков)
+    // 🖐️ Радиус, в котором включается «тянущаяся рука» (8 блоков)
     private static final double REACH_TRIGGER_DISTANCE_SQ = 64.0D;
 
     // ⏱️ Сколько тиков без пути, чтобы начать тянуться
@@ -64,18 +65,14 @@ public class SirenHeadAttackGrabGoal extends Goal {
         double dz = this.mob.getZ() - this.target.getZ();
         double horizontalDistSq = dx * dx + dz * dz;
 
-        // 🔍 Есть ли прямая видимость (нет стены)
+        // 🔍 Есть ли прямая видимость
         boolean hasSight = this.mob.getSensing().hasLineOfSight(this.target);
 
         // 🔍 Может ли Siren физически дойти?
-        //    Строим путь — если null, значит пути нет (стена, узкий проход)
         Path testPath = this.mob.getNavigation().createPath(this.target, 0);
         boolean canReach = testPath != null && testPath.canReach();
 
-        // 💥 ОБЫЧНАЯ АТАКА (grab/slam) — только если:
-        //    1. Близко (<5 блоков)
-        //    2. Есть прямая видимость
-        //    3. Есть физический путь
+        // 💥 ОБЫЧНАЯ АТАКА
         if (horizontalDistSq <= ATTACK_DISTANCE_SQ && hasSight && canReach) {
             this.mob.getNavigation().stop();
             if (RNG.nextBoolean()) {
@@ -97,7 +94,7 @@ public class SirenHeadAttackGrabGoal extends Goal {
             stuckTicks = 0;
         }
 
-        // 🖐️ Застрял 20+ тиков и цель в 8 блоках — тянемся рукой
+        // 🖐️ Застрял — тянемся рукой
         if (stuckTicks >= STUCK_TICKS_THRESHOLD) {
             this.mob.getNavigation().stop();
             this.mob.startReaching(this.target);

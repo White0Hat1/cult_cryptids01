@@ -1,5 +1,6 @@
 package com.cult.cryptids.client;
 
+import com.cult.cryptids.ModItems;
 import com.cult.cryptids.item.FlashlightItem;
 import com.cult.cryptids.item.HandedItemRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,6 +10,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,9 +26,6 @@ import net.minecraftforge.fml.common.Mod;
 )
 public class FlashlightHandRenderer {
 
-    // ========================================================
-    // 🎛️ Позиция ВСЕЙ модели (руки внутри неё — уже на месте)
-    // ========================================================
     private static final float SCALE = 1.0F;
     private static final float POS_X = -0.50F;
     private static final float POS_Y = -0.50F;
@@ -52,8 +51,19 @@ public class FlashlightHandRenderer {
         ItemStack mainHand = mc.player.getMainHandItem();
         boolean inHand = mainHand.getItem() instanceof FlashlightItem;
 
+        // Ушёл из руки → сброс.
+        if (!inHand && wasInHand) {
+            Item item = ModItems.FLASHLIGHT.get();
+            if (item instanceof FlashlightItem flashlight) {
+                flashlight.resetAnimation();
+            }
+        }
+
+        // Пришёл в руку → сброс + draw.
         if (inHand && !wasInHand) {
-            ((FlashlightItem) mainHand.getItem()).markDraw(mc.level.getGameTime());
+            FlashlightItem item = (FlashlightItem) mainHand.getItem();
+            item.markDraw(mc.level.getGameTime());
+            item.resetAnimation();
         }
 
         wasInHand = inHand;
@@ -82,16 +92,8 @@ public class FlashlightHandRenderer {
         pose.mulPose(Axis.ZP.rotationDegrees(ROT_Z));
         pose.scale(SCALE, SCALE, SCALE);
 
-        // 🖐️🔦 Всё рисует один GeoItemRenderer — и руки, и корпус.
-        // Текстуры для костей рук подменяются внутри FlashlightItemRenderer.
-        RENDERER.renderByItem(
-                stack,
-                ItemDisplayContext.FIRST_PERSON_RIGHT_HAND,
-                pose,
-                buffer,
-                light,
-                OverlayTexture.NO_OVERLAY
-        );
+        RENDERER.renderByItem(stack, ItemDisplayContext.FIRST_PERSON_RIGHT_HAND,
+                pose, buffer, light, OverlayTexture.NO_OVERLAY);
 
         pose.popPose();
     }

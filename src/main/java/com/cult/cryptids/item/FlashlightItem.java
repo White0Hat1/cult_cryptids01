@@ -1,7 +1,9 @@
 package com.cult.cryptids.item;
 
+import com.cult.cryptids.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -20,20 +22,25 @@ public class FlashlightItem extends Item implements GeoItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    /** Ключ NBT для хранения состояния фонарика. */
     private static final String NBT_ON = "isOn";
 
-    // Тайминги анимаций
     private long lastToggleGameTime = -100;
     private long lastDrawGameTime   = -100;
 
-    private static final int TOGGLE_ANIM_TICKS = 10;   // 0.5 сек
-    private static final int DRAW_ANIM_TICKS   = 20;   // 1.0 сек
+    private static final int TOGGLE_ANIM_TICKS = 10;
+    private static final int DRAW_ANIM_TICKS   = 20;
 
     private static final double SPEED_IDLE   = 0.33D;
     private static final double SPEED_WALK   = 1.0D;
     private static final double SPEED_TOGGLE = 1.0D;
     private static final double SPEED_DRAW   = 1.0D;
+
+    private static final float TOGGLE_VOLUME = 0.7F;
+    private static final float PITCH_ON  = 1.15F;
+    private static final float PITCH_OFF = 0.85F;
+
+    /** Ссылка на контроллер — нужна для forceAnimationReset(). */
+    private AnimationController<FlashlightItem> controller;
 
     public FlashlightItem(Properties props) {
         super(props);
@@ -55,7 +62,7 @@ public class FlashlightItem extends Item implements GeoItem {
         setOn(stack, !isOn(stack));
     }
 
-    // ==================== ТАЙМИНГИ АНИМАЦИЙ ====================
+    // ==================== ТАЙМИНГИ ====================
 
     public void markToggle(long gameTime) { this.lastToggleGameTime = gameTime; }
     public void markDraw(long gameTime)   { this.lastDrawGameTime   = gameTime; }
@@ -63,18 +70,28 @@ public class FlashlightItem extends Item implements GeoItem {
     public boolean isToggling(long now) { return (now - lastToggleGameTime) < TOGGLE_ANIM_TICKS; }
     public boolean isDrawing(long now)  { return (now - lastDrawGameTime)   < DRAW_ANIM_TICKS; }
 
+    /** 🆕 Публичный сброс анимации — используется при переключении предметов в FP. */
+    public void resetAnimation() {
+        if (controller != null) {
+            controller.forceAnimationReset();
+        }
+    }
+
     // ==================== USE (ПКМ) ====================
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-
-        // Переключаем состояние на обеих сторонах
+        boolean willBeOn = !isOn(stack);
         toggle(stack);
 
-        // Анимация — только на клиенте
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                ModSounds.FLASHLIGHT_TOGGLE.get(), SoundSource.PLAYERS,
+                TOGGLE_VOLUME, willBeOn ? PITCH_ON : PITCH_OFF);
+
         if (level.isClientSide) {
             markToggle(level.getGameTime());
+            resetAnimation();
         }
 
         return InteractionResultHolder.success(stack);
@@ -84,7 +101,7 @@ public class FlashlightItem extends Item implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 1, state -> {
+        this.controller = new AnimationController<>(this, "controller", 1, state -> {
             AnimationController<FlashlightItem> ctrl = state.getController();
             Minecraft mc = Minecraft.getInstance();
             if (mc.player == null || mc.level == null) {
@@ -94,19 +111,16 @@ public class FlashlightItem extends Item implements GeoItem {
 
             long now = mc.level.getGameTime();
 
-            // 0. Toggle — приоритет выше всех
             if (isToggling(now)) {
                 ctrl.setAnimationSpeed(SPEED_TOGGLE);
                 return state.setAndContinue(RawAnimation.begin().thenPlay("toggle"));
             }
 
-            // 1. Draw
             if (isDrawing(now)) {
                 ctrl.setAnimationSpeed(SPEED_DRAW);
                 return state.setAndContinue(RawAnimation.begin().thenPlay("draw"));
             }
 
-            // 2. Walk — по вводу игрока (мгновенно)
             boolean pressingMove = mc.player.xxa != 0.0F
                     || mc.player.zza != 0.0F
                     || mc.player.getDeltaMovement().horizontalDistanceSqr() > 0.0005;
@@ -116,10 +130,11 @@ public class FlashlightItem extends Item implements GeoItem {
                 return state.setAndContinue(RawAnimation.begin().thenLoop("walk"));
             }
 
-            // 3. Idle
             ctrl.setAnimationSpeed(SPEED_IDLE);
             return state.setAndContinue(RawAnimation.begin().thenLoop("idle"));
-        }));
+        });
+
+        controllers.add(this.controller);
     }
 
     @Override

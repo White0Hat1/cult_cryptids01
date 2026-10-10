@@ -23,8 +23,14 @@ public class ModSounds {
             registerSound("siren_hurt");
     public static final RegistryObject<SoundEvent> SIREN_DEATH =
             registerSound("siren_death");
+
+    // ================= BLOOD MOON =================
     public static final RegistryObject<SoundEvent> BLOOD_MOON_MUSIC =
             registerSound("blood_moon_music");
+    public static final RegistryObject<SoundEvent> BLOOD_MOON_IMPACT =
+            registerSound("blood_moon_impact");
+    public static final RegistryObject<SoundEvent> BLOOD_MOON_ICECREAM =
+            registerSound("blood_moon_icecream");
 
     // ================= AMBIENT СИСТЕМА =================
     public static final RegistryObject<SoundEvent> SIREN_FAR =
@@ -48,13 +54,19 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CAMERA_SHUTTER =
             registerSound("camera_shutter");
 
-    // ================= 🆕 BLOOD MOON AMBIENT =================
-    public static final RegistryObject<SoundEvent> BLOOD_MOON_ICECREAM =
-            registerSound("blood_moon_icecream");
+    // ================= 🔦 ФОНАРИК =================
+    public static final RegistryObject<SoundEvent> FLASHLIGHT_TOGGLE =
+            registerSound("flashlight_toggle");
+
+    // ================= РЕЧЬ СИРЕНА =================
     public static final RegistryObject<SoundEvent> SIREN_SPEECH =
             registerSound("siren_speech");
 
-    // Утилита — создаёт SoundEvent по имени
+    // ================= 🏃 ТЕМА ПОГОНИ =================
+    public static final RegistryObject<SoundEvent> SIREN_CHASE_THEME =
+            registerSound("siren_chase_theme");
+
+    // ================= УТИЛИТА =================
     private static RegistryObject<SoundEvent> registerSound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(
                 ResourceLocation.fromNamespaceAndPath("cult_cryptids", name)));

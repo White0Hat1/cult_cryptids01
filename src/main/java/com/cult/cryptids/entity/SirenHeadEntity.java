@@ -12,8 +12,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,10 +25,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -34,6 +37,7 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
@@ -42,6 +46,10 @@ import java.util.Random;
 public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final Random RNG = new Random();
+
+    // ================= 🏷️ NBT-МЕТКИ =================
+    /** 🏷️ Метка: этот Siren Head появился ночью и исчезнет на рассвете. */
+    public static final String NBT_NIGHT_SPAWNED = "cult_cryptids.night_spawned";
 
     // ================= СИНХРОНИЗИРУЕМЫЕ ДАННЫЕ =================
     private static final EntityDataAccessor<Boolean> DATA_GRABBING =
@@ -53,6 +61,16 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final EntityDataAccessor<Boolean> DATA_REACHING =
             SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
 
+    private static final EntityDataAccessor<Boolean> DATA_NIGHTMARE =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_TRANSFORMING =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Integer> DATA_HIT_COUNTER =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_HIT_VARIATION =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.INT);
+
     // ================= ДИНАМИЧЕСКИЙ ХИТБОКС =================
     private static final EntityDimensions NORMAL_DIMENSIONS =
             EntityDimensions.scalable(3.0F, 12.0F);
@@ -63,14 +81,11 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private int stuckCounter = 0;
     private static final int STUCK_THRESHOLD = 8;
 
-    // ================= 🪓 РАЗРУШЕНИЕ ЛИСТВЫ/БРЁВЕН =================
-    // Кулдаун между поломками (тиков)
-    private static final int BREAK_COOLDOWN_TICKS = 4;
+    // ================= 🪓 РАЗРУШЕНИЕ =================
+    private static final int BREAK_COOLDOWN_TICKS = 1;
     private int breakCooldown = 0;
-    // Сколько блоков ломать за один «тик разрушения» (в ширину)
     private static final int BREAK_WIDTH = 1;
-    // Сколько тиков застрял, чтобы начать ломать
-    private static final int BREAK_STUCK_TRIGGER = 6;
+    private static final int BREAK_STUCK_TRIGGER = 2;
 
     // ================= ЛОКАЛЬНЫЕ ПЕРЕМЕННЫЕ =================
     private LivingEntity caughtEntity = null;
@@ -82,7 +97,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final int TOTAL_GRAB_TICKS = LIFT_TICKS + HOLD_TICKS;
     private static final double LIFT_HEIGHT = 8.0D;
     private static final double FORWARD_OFFSET = 4.0D;
-    private static final double LERP_FACTOR = 0.35;
+    private static final double LERP_FACTOR = 0.35D;
     private static final double ORIGINAL_SPEED = 0.25D;
 
     // ================= УДАР ПО ЗЕМЛЕ =================
@@ -127,7 +142,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final double RANGE_SEARCH_MIN = 30.0;
     private static final double RANGE_CLOSE      = 15.0;
 
-    private static final int CD_FAR         = 20 * 75;
+    private static final int CD_FAR         = 20 * 20;
     private static final int CD_SEARCH      = 20 * 50;
     private static final int CD_CLOSE       = 20 * 30;
     private static final int CD_CHASE_FAR   = 20 * 25;
@@ -138,8 +153,8 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
 
     private static final float VOL_AMBIENT       = 3.75F;
     private static final float VOL_AMBIENT_FAR   = 6.0F;
-    private static final float VOL_STEP_WALK     = 2.0F;
-    private static final float VOL_STEP_RUN      = 2.5F;
+    private static final float VOL_STEP_WALK     = 4.0F;
+    private static final float VOL_STEP_RUN      = 5.0F;
 
     // ================= СКОРОСТИ АНИМАЦИЙ =================
     private static final double SPEED_IDLE        = 0.4D;
@@ -148,6 +163,25 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final double SPEED_ATTACK_GRAB = 0.7D;
     private static final double SPEED_GROUND_SLAM = 1.0D;
     private static final double SPEED_REACH       = 0.75D;
+    private static final double SPEED_TRANSFORM   = 1.0D;
+
+    // ================= 🩸 ТРАНСФОРМАЦИЯ =================
+    private static final int TRANSFORM_DURATION = 100;
+    private static final float NORMAL_HP = 300.0F;
+    private static final float NIGHTMARE_HP = 4500.0F;
+
+    private int transformTicks = 0;
+
+    // ================= 🌙 НОЧНЫЕ КОНСТАНТЫ =================
+    /** 🌅 Время рассвета — конец ночи. */
+    private static final long DAWN_TIME = 12000L;
+    /** 🌀 Дистанция, после которой ночной Siren телепортируется. */
+    private static final double NIGHT_TELEPORT_TRIGGER = 150.0D;
+    /** 🎯 Куда телепортируется: 60–70 блоков от игрока. */
+    private static final double NIGHT_TELEPORT_MIN = 60.0D;
+    private static final double NIGHT_TELEPORT_MAX = 70.0D;
+    /** 🕐 Раз в сколько тиков проверять телепорт. */
+    private static final int NIGHT_TELEPORT_CHECK_INTERVAL = 100;
 
     public SirenHeadEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -200,24 +234,19 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     }
 
     // ================= 🪓 РАЗРУШЕНИЕ =================
-    /**
-     * Если Siren упёрся в листву или брёвна в направлении движения —
-     * он их ломает, как Wither или Ender Dragon.
-     * Работает только на листву и брёвна, не на землю/камень.
-     */
     private void tryBreakObstacles() {
+        if (this.getTarget() != null && this.getTarget().isAlive()) {
+            breakLeavesAround();
+        }
+
         if (breakCooldown > 0) {
             breakCooldown--;
             return;
         }
 
-        // Не ломает во время атак
         if (this.isGrabbing() || this.isSlamming() || this.isReaching()) return;
-
-        // Только если застрял
         if (stuckCounter < BREAK_STUCK_TRIGGER) return;
 
-        // Куда двигаться? Направление на цель, либо look-вектор
         Vec3 dir;
         if (this.getTarget() != null) {
             Vec3 toTarget = this.getTarget().position().subtract(this.position()).normalize();
@@ -226,15 +255,12 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             dir = Vec3.directionFromRotation(0, this.getYRot());
         }
 
-        // Проверяем блоки в направлении движения
         boolean brokeSomething = false;
         BlockPos origin = this.blockPosition();
 
-        // Ломаем на разной высоте (ноги, грудь, голова)
         int[] heights = {0, 1, 2, 3, 4, 5};
 
         for (int h : heights) {
-            // Проверяем 1 блок прямо перед Siren + по бокам (для ширины)
             for (int w = -BREAK_WIDTH; w <= BREAK_WIDTH; w++) {
                 BlockPos checkPos = origin.offset(
                         (int) Math.round(dir.x) + (w == 0 ? 0 : (Math.abs(dir.x) > Math.abs(dir.z) ? 0 : w)),
@@ -248,8 +274,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             }
         }
 
-        // Проверяем блоки прямо на пути Siren (внутри его хитбокса)
-        // — чтобы он не «застрял» внутри листвы
         AABB box = this.getBoundingBox().inflate(0.3);
         BlockPos min = BlockPos.containing(box.minX, box.minY, box.minZ);
         BlockPos max = BlockPos.containing(box.maxX, box.maxY, box.maxZ);
@@ -265,40 +289,56 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         }
     }
 
-    /**
-     * Пытается сломать блок. Возвращает true, если сломал.
-     * Ломает только листву и брёвна.
-     */
+    private void breakLeavesAround() {
+        if (this.level().isClientSide) return;
+        if (this.level().getGameTime() % 2 != 0) return;
+
+        AABB area = this.getBoundingBox().inflate(2.5, 1.0, 2.5);
+        BlockPos min = BlockPos.containing(area.minX, area.minY, area.minZ);
+        BlockPos max = BlockPos.containing(area.maxX, area.maxY, area.maxZ);
+
+        for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
+            BlockState state = this.level().getBlockState(pos);
+            if (!state.is(BlockTags.LEAVES)) continue;
+
+            if (this.level() instanceof ServerLevel sl) {
+                sl.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state),
+                        pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                        6, 0.3, 0.3, 0.3, 0.1);
+            }
+
+            this.level().removeBlock(pos.immutable(), false);
+        }
+    }
+
     private boolean tryBreakBlock(BlockPos pos) {
         BlockState state = this.level().getBlockState(pos);
         if (state.isAir()) return false;
         if (state.is(Blocks.BEDROCK)) return false;
         if (state.is(Blocks.OBSIDIAN)) return false;
 
-        // Ломаем ТОЛЬКО листву и брёвна/доски (дерево)
         boolean isLeaves = state.is(BlockTags.LEAVES);
         boolean isLog = state.is(BlockTags.LOGS);
         boolean isPlanks = state.is(BlockTags.PLANKS);
-        boolean isWoodenFence = state.is(BlockTags.FENCES) && state.getBlock().getName().getString().toLowerCase().contains("wood");
+        boolean isWoodenFence = state.is(BlockTags.FENCES)
+                && state.getBlock().getName().getString().toLowerCase().contains("wood");
         boolean isSapling = state.is(BlockTags.SAPLINGS);
 
         if (!isLeaves && !isLog && !isPlanks && !isWoodenFence && !isSapling) {
             return false;
         }
 
-        // Частицы (до разрушения, чтобы знать текстуру)
         if (this.level() instanceof ServerLevel sl) {
             sl.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state),
                     pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                     8, 0.3, 0.3, 0.3, 0.1);
         }
 
-        // Звук разрушения — берём ванильный звук блока
-        this.level().playSound(null, pos, state.getSoundType().getBreakSound(),
-                SoundSource.BLOCKS, 1.0F, 0.8F + RNG.nextFloat() * 0.4F);
-
-        // Ломаем без дропа (как Wither)
-        this.level().destroyBlock(pos, false, this);
+        if (isLeaves) {
+            this.level().removeBlock(pos, false);
+        } else {
+            this.level().destroyBlock(pos, false, this);
+        }
 
         return true;
     }
@@ -310,11 +350,15 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.entityData.define(DATA_CHASING, false);
         this.entityData.define(DATA_SLAMMING, false);
         this.entityData.define(DATA_REACHING, false);
+        this.entityData.define(DATA_NIGHTMARE, false);
+        this.entityData.define(DATA_TRANSFORMING, false);
+        this.entityData.define(DATA_HIT_COUNTER, 0);
+        this.entityData.define(DATA_HIT_VARIATION, 0);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return PathfinderMob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 300.0D)
+                .add(Attributes.MAX_HEALTH, NORMAL_HP)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 20.0D)
                 .add(Attributes.FOLLOW_RANGE, 64.0D);
@@ -333,120 +377,285 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
     }
 
+    // ================= 🩸 ТРАНСФОРМАЦИЯ =================
+    public boolean isNightmare() {
+        return this.entityData.get(DATA_NIGHTMARE);
+    }
+
+    public boolean isTransforming() {
+        return this.entityData.get(DATA_TRANSFORMING);
+    }
+
+    public void startTransformation() {
+        if (this.level().isClientSide) return;
+        if (isNightmare() || isTransforming()) return;
+
+        this.entityData.set(DATA_TRANSFORMING, true);
+        this.transformTicks = 0;
+        this.setInvulnerable(true);
+        this.getNavigation().stop();
+        this.setDeltaMovement(Vec3.ZERO);
+        if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.0D);
+        }
+
+        this.level().playSound(null,
+                this.getX(), this.getY(), this.getZ(),
+                ModSounds.SIREN_SCREAM.get(),
+                SoundSource.HOSTILE,
+                5.0F, 0.6F);
+    }
+
+    private void finishTransformation() {
+        this.entityData.set(DATA_TRANSFORMING, false);
+        this.entityData.set(DATA_NIGHTMARE, true);
+        this.setInvulnerable(false);
+
+        if (this.getAttribute(Attributes.MAX_HEALTH) != null) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(NIGHTMARE_HP);
+        }
+        this.setHealth(NIGHTMARE_HP);
+
+        if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ORIGINAL_SPEED);
+        }
+
+        this.level().playSound(null,
+                this.getX(), this.getY(), this.getZ(),
+                ModSounds.SIREN_SCREAM.get(),
+                SoundSource.HOSTILE,
+                8.0F, 0.5F);
+    }
+
+    // ================= 🌙 ДЕСПАВН + ТЕЛЕПОРТ =================
+    /**
+     * Красивое исчезновение ночного Siren Head на рассвете.
+     */
+    private void despawnWithEffects() {
+        if (this.level() instanceof ServerLevel sl) {
+            sl.sendParticles(ParticleTypes.LARGE_SMOKE,
+                    this.getX(), this.getY() + 6, this.getZ(),
+                    60, 2.0, 5.0, 2.0, 0.15);
+            sl.sendParticles(ParticleTypes.SOUL_FIRE_FLAME,
+                    this.getX(), this.getY() + 6, this.getZ(),
+                    30, 1.5, 4.0, 1.5, 0.05);
+        }
+        this.level().playSound(null,
+                this.getX(), this.getY(), this.getZ(),
+                ModSounds.SIREN_SCREAM.get(), SoundSource.HOSTILE, 6.0F, 0.5F);
+
+        this.discard();
+    }
+
+    /**
+     * 🌙 Если игрок ушёл далеко (> 150 блоков), телепортируемся в 60–70 блоках от него.
+     */
+    private void tickNightTeleport() {
+        Player nearest = this.level().getNearestPlayer(this, 500.0D);
+        if (nearest == null) return;
+        if (nearest.isCreative() || nearest.isSpectator()) return;
+
+        double dist = this.distanceTo(nearest);
+        if (dist < NIGHT_TELEPORT_TRIGGER) return;
+
+        RandomSource rng = this.level().random;
+
+        for (int attempt = 0; attempt < 20; attempt++) {
+            double angle = rng.nextDouble() * Math.PI * 2.0;
+            double tpDist = NIGHT_TELEPORT_MIN + rng.nextDouble() * (NIGHT_TELEPORT_MAX - NIGHT_TELEPORT_MIN);
+
+            int x = (int) (nearest.getX() + Math.cos(angle) * tpDist);
+            int z = (int) (nearest.getZ() + Math.sin(angle) * tpDist);
+            int y = this.level().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+            BlockPos pos = new BlockPos(x, y, z);
+
+            if (this.level().getBlockState(pos).isAir()
+                    && this.level().getBlockState(pos.above()).isAir()) {
+
+                if (this.level() instanceof ServerLevel sl) {
+                    sl.sendParticles(ParticleTypes.LARGE_SMOKE,
+                            this.getX(), this.getY() + 3, this.getZ(),
+                            40, 1.5, 3.0, 1.5, 0.15);
+                }
+
+                this.teleportTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                this.getNavigation().stop();
+
+                if (this.level() instanceof ServerLevel sl) {
+                    sl.sendParticles(ParticleTypes.LARGE_SMOKE,
+                            pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5,
+                            40, 1.5, 3.0, 1.5, 0.15);
+                }
+                return;
+            }
+        }
+    }
+
+    // ================= 👊 HIT REACTION =================
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        boolean result = super.hurt(source, amount);
+
+        if (result && !this.level().isClientSide && !isTransforming()) {
+            int counter = this.entityData.get(DATA_HIT_COUNTER);
+            this.entityData.set(DATA_HIT_COUNTER, counter + 1);
+            this.entityData.set(DATA_HIT_VARIATION, RNG.nextInt(3));
+        }
+        return result;
+    }
+
+    // ================= TICK =================
     @Override
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide) {
-            updateCompactMode();
-            tryBreakObstacles();
+        if (this.level().isClientSide) return;
 
-            this.entityData.set(DATA_CHASING, this.getTarget() != null && this.getTarget().isAlive());
+        // 🌙 Ночной Siren Head — живёт до рассвета.
+        if (this.getPersistentData().getBoolean(NBT_NIGHT_SPAWNED)) {
+            long dayTime = this.level().getDayTime() % 24000L;
 
-            if (this.getTarget() instanceof Player p && (p.isCreative() || p.isSpectator())) {
-                this.setTarget(null);
-            }
-
-            if (caughtEntity instanceof Player p && (p.isCreative() || p.isSpectator())) {
-                releaseCaught();
-                caughtEntity = null;
-                grabTicks = 0;
-                this.entityData.set(DATA_GRABBING, false);
+            // 🌅 Рассвет — конец ночи → деспавн.
+            if (dayTime < DAWN_TIME) {
+                despawnWithEffects();
                 return;
             }
 
-            tickAmbientSounds();
-            tickStepSounds();
+            // 🌀 Раз в 5 секунд проверяем, не убежал ли игрок.
+            if (this.tickCount % NIGHT_TELEPORT_CHECK_INTERVAL == 0) {
+                tickNightTeleport();
+            }
+        }
 
-            // ================= ЗАХВАТ =================
-            if (caughtEntity != null) {
-                if (caughtEntity.isAlive() && grabTicks < TOTAL_GRAB_TICKS) {
-                    grabTicks++;
+        // 🩸 АВТО-ТРАНСФОРМАЦИЯ ПРИ BLOOD MOON
+        if (com.cult.cryptids.event.BloodMoonEvent.isActive() && !isNightmare() && !isTransforming()) {
+            startTransformation();
+        }
 
-                    double heightOffset;
-                    if (grabTicks <= LIFT_TICKS) {
-                        double progress = (double) grabTicks / LIFT_TICKS;
-                        heightOffset = progress * LIFT_HEIGHT;
-                    } else {
-                        heightOffset = LIFT_HEIGHT;
-                    }
+        if (isTransforming()) {
+            transformTicks++;
+            this.setDeltaMovement(Vec3.ZERO);
+            this.getNavigation().stop();
 
-                    double yawRad = Math.toRadians(this.getYRot());
-                    double dx = -Math.sin(yawRad) * FORWARD_OFFSET;
-                    double dz = Math.cos(yawRad) * FORWARD_OFFSET;
+            if (this.level() instanceof ServerLevel sl && transformTicks % 4 == 0) {
+                sl.sendParticles(ParticleTypes.LARGE_SMOKE,
+                        this.getX(), this.getY() + 3, this.getZ(),
+                        6, 1.5, 3.0, 1.5, 0.05);
+                sl.sendParticles(ParticleTypes.SOUL_FIRE_FLAME,
+                        this.getX(), this.getY() + 4, this.getZ(),
+                        3, 1.0, 2.5, 1.0, 0.02);
+            }
 
-                    double targetX = this.getX() + dx;
-                    double targetY = this.getY() + heightOffset;
-                    double targetZ = this.getZ() + dz;
+            if (transformTicks >= TRANSFORM_DURATION) {
+                finishTransformation();
+            }
+            return;
+        }
 
-                    double newX = lerp(caughtEntity.getX(), targetX, LERP_FACTOR);
-                    double newY = lerp(caughtEntity.getY(), targetY, LERP_FACTOR);
-                    double newZ = lerp(caughtEntity.getZ(), targetZ, LERP_FACTOR);
+        updateCompactMode();
+        tryBreakObstacles();
 
-                    caughtEntity.setDeltaMovement(Vec3.ZERO);
-                    caughtEntity.setNoGravity(true);
-                    caughtEntity.fallDistance = 0;
+        this.entityData.set(DATA_CHASING, this.getTarget() != null && this.getTarget().isAlive());
 
-                    if (caughtEntity instanceof ServerPlayer sp) {
-                        sp.connection.teleport(newX, newY, newZ, sp.getYRot(), sp.getXRot());
-                    } else {
-                        caughtEntity.setPos(newX, newY, newZ);
-                        caughtEntity.hurtMarked = true;
-                    }
+        if (this.getTarget() instanceof Player p && (p.isCreative() || p.isSpectator())) {
+            this.setTarget(null);
+        }
 
-                    float desiredYaw = (float) (Math.toDegrees(Math.atan2(
-                            this.getZ() - caughtEntity.getZ(),
-                            this.getX() - caughtEntity.getX()
-                    )) - 90F);
-                    caughtEntity.setYRot(desiredYaw);
-                    caughtEntity.setYHeadRot(desiredYaw);
+        if (caughtEntity instanceof Player p && (p.isCreative() || p.isSpectator())) {
+            releaseCaught();
+            caughtEntity = null;
+            grabTicks = 0;
+            this.entityData.set(DATA_GRABBING, false);
+            return;
+        }
 
-                    if (grabTicks >= TOTAL_GRAB_TICKS - 1) {
-                        releaseCaught();
-                        caughtEntity.hurt(this.damageSources().mobAttack(this), 200.0F);
-                        caughtEntity = null;
-                        grabTicks = 0;
-                        this.entityData.set(DATA_GRABBING, false);
-                    }
+        tickAmbientSounds();
+        tickStepSounds();
+
+        if (caughtEntity != null) {
+            if (caughtEntity.isAlive() && grabTicks < TOTAL_GRAB_TICKS) {
+                grabTicks++;
+
+                double heightOffset;
+                if (grabTicks <= LIFT_TICKS) {
+                    double progress = (double) grabTicks / LIFT_TICKS;
+                    heightOffset = progress * LIFT_HEIGHT;
                 } else {
+                    heightOffset = LIFT_HEIGHT;
+                }
+
+                double yawRad = Math.toRadians(this.getYRot());
+                double dx = -Math.sin(yawRad) * FORWARD_OFFSET;
+                double dz = Math.cos(yawRad) * FORWARD_OFFSET;
+
+                double targetX = this.getX() + dx;
+                double targetY = this.getY() + heightOffset;
+                double targetZ = this.getZ() + dz;
+
+                double newX = lerp(caughtEntity.getX(), targetX, LERP_FACTOR);
+                double newY = lerp(caughtEntity.getY(), targetY, LERP_FACTOR);
+                double newZ = lerp(caughtEntity.getZ(), targetZ, LERP_FACTOR);
+
+                caughtEntity.setDeltaMovement(Vec3.ZERO);
+                caughtEntity.setNoGravity(true);
+                caughtEntity.fallDistance = 0;
+
+                if (caughtEntity instanceof ServerPlayer sp) {
+                    sp.connection.teleport(newX, newY, newZ, sp.getYRot(), sp.getXRot());
+                } else {
+                    caughtEntity.setPos(newX, newY, newZ);
+                    caughtEntity.hurtMarked = true;
+                }
+
+                float desiredYaw = (float) (Math.toDegrees(Math.atan2(
+                        this.getZ() - caughtEntity.getZ(),
+                        this.getX() - caughtEntity.getX()
+                )) - 90F);
+                caughtEntity.setYRot(desiredYaw);
+                caughtEntity.setYHeadRot(desiredYaw);
+
+                if (grabTicks >= TOTAL_GRAB_TICKS - 1) {
                     releaseCaught();
+                    caughtEntity.hurt(this.damageSources().mobAttack(this), 200.0F);
                     caughtEntity = null;
                     grabTicks = 0;
                     this.entityData.set(DATA_GRABBING, false);
                 }
+            } else {
+                releaseCaught();
+                caughtEntity = null;
+                grabTicks = 0;
+                this.entityData.set(DATA_GRABBING, false);
+            }
+        }
+
+        if (this.isSlamming()) {
+            slamTicks++;
+
+            if (slamTicks == SLAM_IMPACT_TICK && !slamImpactDone) {
+                doGroundSlamImpact();
+                slamImpactDone = true;
+                dustWaveActive = true;
+                dustWaveTicks = 0;
             }
 
-            // ================= УДАР ПО ЗЕМЛЕ =================
-            if (this.isSlamming()) {
-                slamTicks++;
-
-                if (slamTicks == SLAM_IMPACT_TICK && !slamImpactDone) {
-                    doGroundSlamImpact();
-                    slamImpactDone = true;
-                    dustWaveActive = true;
-                    dustWaveTicks = 0;
-                }
-
-                if (slamTicks >= SLAM_TOTAL_TICKS) {
-                    resetSlam();
-                }
+            if (slamTicks >= SLAM_TOTAL_TICKS) {
+                resetSlam();
             }
+        }
 
-            // ================= ВОЛНА ДЫМА =================
-            if (dustWaveActive) {
-                dustWaveTicks++;
-                spawnDustWave();
+        if (dustWaveActive) {
+            dustWaveTicks++;
+            spawnDustWave();
 
-                if (dustWaveTicks >= DUST_WAVE_TOTAL_TICKS) {
-                    dustWaveActive = false;
-                    dustWaveTicks = 0;
-                }
+            if (dustWaveTicks >= DUST_WAVE_TOTAL_TICKS) {
+                dustWaveActive = false;
+                dustWaveTicks = 0;
             }
+        }
 
-            // ================= REACH + PULL =================
-            if (this.isReaching()) {
-                handleReachAndPull();
-            }
+        if (this.isReaching()) {
+            handleReachAndPull();
         }
     }
 
@@ -472,30 +681,17 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         double dist = this.distanceTo(nearest);
         boolean hasTarget = this.getTarget() != null;
 
-        if (hasTarget && dist <= RANGE_CLOSE) {
-            if (ambientCooldownClose == 0) {
-                playSirenSound(ModSounds.SIREN_CLOSE.get(), VOL_AMBIENT, 1.0F);
-                ambientCooldownClose = CD_CLOSE + RNG.nextInt(CD_CLOSE);
-            }
-            return;
-        }
-
-        if (dist > RANGE_CLOSE && dist <= RANGE_FAR_MIN) {
-            if (ambientCooldownChaseFar == 0) {
-                playSirenSound(ModSounds.SIREN_CHASE_FAR.get(), VOL_AMBIENT, 1.0F);
-                ambientCooldownChaseFar = CD_CHASE_FAR + RNG.nextInt(CD_CHASE_FAR);
-            } else if (!hasTarget && dist >= RANGE_SEARCH_MIN && ambientCooldownSearch == 0) {
-                playSirenSound(ModSounds.SIREN_SEARCH.get(), VOL_AMBIENT, 1.0F);
-                ambientCooldownSearch = CD_SEARCH + RNG.nextInt(CD_SEARCH);
-            }
-            return;
-        }
-
         if (dist > RANGE_FAR_MIN) {
             if (ambientCooldownFar == 0) {
                 playSirenSound(ModSounds.SIREN_FAR.get(), VOL_AMBIENT_FAR, 1.0F);
                 ambientCooldownFar = CD_FAR + RNG.nextInt(CD_FAR);
             }
+            return;
+        }
+
+        if (!hasTarget && dist >= RANGE_SEARCH_MIN && ambientCooldownSearch == 0) {
+            playSirenSound(ModSounds.SIREN_SEARCH.get(), VOL_AMBIENT, 1.0F);
+            ambientCooldownSearch = CD_SEARCH + RNG.nextInt(CD_SEARCH);
         }
     }
 
@@ -779,11 +975,23 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     }
 
     // ================= АНИМАЦИИ =================
+    private static final RawAnimation[] HIT_ANIMS = new RawAnimation[] {
+            RawAnimation.begin().thenPlay("hit_1"),
+            RawAnimation.begin().thenPlay("hit_2"),
+            RawAnimation.begin().thenPlay("hit_3"),
+    };
+
+    private int lastSeenHitCounter = -1;
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 5, event -> {
             AnimationController<SirenHeadEntity> ctrl = event.getController();
 
+            if (isTransforming()) {
+                ctrl.setAnimationSpeed(SPEED_TRANSFORM);
+                return event.setAndContinue(RawAnimation.begin().thenPlay("transform"));
+            }
             if (this.isReaching()) {
                 ctrl.setAnimationSpeed(SPEED_REACH);
                 return event.setAndContinue(RawAnimation.begin().thenPlay("reach_arm"));
@@ -806,6 +1014,16 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             }
             ctrl.setAnimationSpeed(SPEED_IDLE);
             return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
+        }));
+
+        controllers.add(new AnimationController<>(this, "hit_reaction", 1, event -> {
+            int counter = this.entityData.get(DATA_HIT_COUNTER);
+            if (counter != lastSeenHitCounter) {
+                lastSeenHitCounter = counter;
+                int idx = this.entityData.get(DATA_HIT_VARIATION) % HIT_ANIMS.length;
+                return event.setAndContinue(HIT_ANIMS[idx]);
+            }
+            return PlayState.CONTINUE;
         }));
     }
 
