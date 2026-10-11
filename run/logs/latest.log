@@ -1,60 +1,60 @@
-[11окт.2026 13:29:33.477] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\poe09\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin.config, cult_cryptids.mixins.json]
-[11окт.2026 13:29:33.482] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.20.1 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
-[11окт.2026 13:29:33.605] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
-[11окт.2026 13:29:33.698] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
-[11окт.2026 13:29:33.899] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
-[11окт.2026 13:29:34.008] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/poe09/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[11окт.2026 13:29:34.048] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: NVIDIA GeForce RTX 3050/PCIe/SSE2 GL version 4.6.0 NVIDIA 591.86, NVIDIA Corporation
-[11окт.2026 13:29:34.448] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[11окт.2026 13:29:34.454] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[11окт.2026 13:29:34.460] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[11окт.2026 13:29:34.467] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
-[11окт.2026 13:29:34.663] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
-[11окт.2026 13:29:36.035] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[11окт.2026 13:29:36.043] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\poe09\.gradle\caches\forge_gradle\assets, --assetIndex, 5]
-[11окт.2026 13:29:36.128] [main/WARN] [mixin/]: Reference map 'cult_cryptids.refmap.json' for cult_cryptids.mixins.json could not be read. If this is a development environment you can ignore this message
-[11окт.2026 13:29:36.453] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using D:\Minecraft MODS\CultOfTheCryptids\cult_cryptids\build\createSrgToMcp\output.srg
-[11окт.2026 13:29:40.378] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 182 milliseconds
-[11окт.2026 13:29:42.242] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/poe09/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[11окт.2026 13:29:42.243] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/poe09/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[11окт.2026 13:29:42.268] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[11окт.2026 13:29:42.273] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
-[11окт.2026 13:29:42.389] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.1 build 7
-[11окт.2026 13:29:42.675] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
-[11окт.2026 13:29:42.707] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
-[11окт.2026 13:29:45.441] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [cult_cryptids]
-[11окт.2026 13:29:46.011] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources
-[11окт.2026 13:29:46.269] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_ambient.ogg does not exist, cannot add it to event cult_cryptids:siren_ambient
-[11окт.2026 13:29:46.270] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_step.ogg does not exist, cannot add it to event cult_cryptids:siren_step
-[11окт.2026 13:29:46.270] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_scream.ogg does not exist, cannot add it to event cult_cryptids:siren_scream
-[11окт.2026 13:29:46.270] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_screech.ogg does not exist, cannot add it to event cult_cryptids:siren_screech
-[11окт.2026 13:29:46.270] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_hurt.ogg does not exist, cannot add it to event cult_cryptids:siren_hurt
-[11окт.2026 13:29:46.270] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_death.ogg does not exist, cannot add it to event cult_cryptids:siren_death
-[11окт.2026 13:29:46.270] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/blood_moon_icecream.ogg does not exist, cannot add it to event cult_cryptids:blood_moon_icecream
-[11окт.2026 13:29:46.270] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_speech.ogg does not exist, cannot add it to event cult_cryptids:siren_speech
-[11окт.2026 13:29:46.271] [Worker-Main-6/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/camera_shutter.ogg does not exist, cannot add it to event cult_cryptids:camera_shutter
-[11окт.2026 13:29:46.305] [Worker-Main-6/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.0.06.hex, loading
-[11окт.2026 13:29:46.438] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
-[11окт.2026 13:29:47.762] [Worker-Main-5/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'minecraft:toy_hatter' referenced from: cult_cryptids:toy_hatter#facing=north: java.io.FileNotFoundException: minecraft:models/toy_hatter.json
-[11окт.2026 13:29:50.154] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
-[11окт.2026 13:29:50.184] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
-[11окт.2026 13:29:50.224] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Динамики (Realtek(R) Audio)
-[11окт.2026 13:29:50.225] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
-[11окт.2026 13:29:50.352] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
-[11окт.2026 13:29:50.371] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
-[11окт.2026 13:29:50.371] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
-[11окт.2026 13:29:50.372] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
-[11окт.2026 13:29:50.374] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
-[11окт.2026 13:29:50.378] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
-[11окт.2026 13:29:50.378] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
-[11окт.2026 13:29:50.379] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
-[11окт.2026 13:29:50.379] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
-[11окт.2026 13:29:50.499] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
-[11окт.2026 13:29:50.545] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
-[11окт.2026 13:29:50.547] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
-[11окт.2026 13:29:50.547] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
-[11окт.2026 13:29:50.969] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
-[11окт.2026 13:30:01.731] [Forge Version Check/WARN] [net.minecraftforge.fml.VersionChecker/]: Failed to process update information
+[11окт.2026 14:15:35.537] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\poe09\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin.config, cult_cryptids.mixins.json]
+[11окт.2026 14:15:35.543] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.20.1 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[11окт.2026 14:15:35.704] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[11окт.2026 14:15:35.803] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[11окт.2026 14:15:36.022] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
+[11окт.2026 14:15:36.152] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/poe09/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[11окт.2026 14:15:36.206] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: NVIDIA GeForce RTX 3050/PCIe/SSE2 GL version 4.6.0 NVIDIA 591.86, NVIDIA Corporation
+[11окт.2026 14:15:36.586] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[11окт.2026 14:15:36.593] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[11окт.2026 14:15:36.598] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[11окт.2026 14:15:36.603] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\poe09\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
+[11окт.2026 14:15:36.776] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[11окт.2026 14:15:38.378] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[11окт.2026 14:15:38.388] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\poe09\.gradle\caches\forge_gradle\assets, --assetIndex, 5]
+[11окт.2026 14:15:38.505] [main/WARN] [mixin/]: Reference map 'cult_cryptids.refmap.json' for cult_cryptids.mixins.json could not be read. If this is a development environment you can ignore this message
+[11окт.2026 14:15:38.946] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using D:\Minecraft MODS\CultOfTheCryptids\cult_cryptids\build\createSrgToMcp\output.srg
+[11окт.2026 14:15:44.192] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 194 milliseconds
+[11окт.2026 14:15:46.447] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/poe09/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[11окт.2026 14:15:46.449] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/poe09/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[11окт.2026 14:15:46.480] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[11окт.2026 14:15:46.487] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[11окт.2026 14:15:46.657] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.1 build 7
+[11окт.2026 14:15:47.034] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
+[11окт.2026 14:15:47.039] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
+[11окт.2026 14:15:48.528] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [cult_cryptids]
+[11окт.2026 14:15:48.908] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources
+[11окт.2026 14:15:49.167] [Worker-Main-1/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.0.06.hex, loading
+[11окт.2026 14:15:49.211] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_ambient.ogg does not exist, cannot add it to event cult_cryptids:siren_ambient
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_step.ogg does not exist, cannot add it to event cult_cryptids:siren_step
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_scream.ogg does not exist, cannot add it to event cult_cryptids:siren_scream
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_screech.ogg does not exist, cannot add it to event cult_cryptids:siren_screech
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_hurt.ogg does not exist, cannot add it to event cult_cryptids:siren_hurt
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_death.ogg does not exist, cannot add it to event cult_cryptids:siren_death
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/blood_moon_icecream.ogg does not exist, cannot add it to event cult_cryptids:blood_moon_icecream
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/siren_speech.ogg does not exist, cannot add it to event cult_cryptids:siren_speech
+[11окт.2026 14:15:49.232] [Worker-Main-3/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/camera_shutter.ogg does not exist, cannot add it to event cult_cryptids:camera_shutter
+[11окт.2026 14:15:50.692] [Worker-Main-6/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'minecraft:toy_hatter' referenced from: cult_cryptids:toy_hatter#facing=north: java.io.FileNotFoundException: minecraft:models/toy_hatter.json
+[11окт.2026 14:15:52.279] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
+[11окт.2026 14:15:52.279] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11окт.2026 14:15:52.341] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Динамики (Realtek(R) Audio)
+[11окт.2026 14:15:52.342] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
+[11окт.2026 14:15:52.484] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
+[11окт.2026 14:15:52.511] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11окт.2026 14:15:52.512] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11окт.2026 14:15:52.513] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11окт.2026 14:15:52.515] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11окт.2026 14:15:52.525] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11окт.2026 14:15:52.526] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11окт.2026 14:15:52.526] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11окт.2026 14:15:52.527] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11окт.2026 14:15:52.675] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11окт.2026 14:15:52.733] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
+[11окт.2026 14:15:52.735] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11окт.2026 14:15:52.736] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11окт.2026 14:15:53.102] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
+[11окт.2026 14:16:04.366] [Forge Version Check/WARN] [net.minecraftforge.fml.VersionChecker/]: Failed to process update information
 java.net.http.HttpConnectTimeoutException: HTTP connect timed out
 	at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:894) ~[java.net.http:?]
 	at jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133) ~[java.net.http:?]
@@ -142,3 +142,115 @@ Caused by: java.net.ConnectException: HTTP connect timed out
 	at jdk.internal.net.http.ResponseTimerEvent.handle(ResponseTimerEvent.java:71) ~[java.net.http:?]
 	at jdk.internal.net.http.HttpClientImpl.purgeTimeoutsAndReturnNextDeadline(HttpClientImpl.java:1693) ~[java.net.http:?]
 	at jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1311) ~[java.net.http:?]
+[11окт.2026 14:16:10.424] [Render thread/INFO] [net.minecraftforge.registries.GameData/REGISTRIES]: Injecting existing registry data into this CLIENT instance
+[11окт.2026 14:16:12.084] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[11окт.2026 14:16:12.181] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1271 advancements
+[11окт.2026 14:16:12.625] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.1
+[11окт.2026 14:16:12.626] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[11окт.2026 14:16:14.127] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[11окт.2026 14:16:16.840] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[11окт.2026 14:16:16.858] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[11окт.2026 14:16:16.954] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[11окт.2026 14:16:16.975] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[11окт.2026 14:16:16.975] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[11окт.2026 14:16:16.994] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[11окт.2026 14:16:17.145] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[11окт.2026 14:16:17.641] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 36%
+[11окт.2026 14:16:17.938] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[11окт.2026 14:16:17.952] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 3818 ms
+[11окт.2026 14:16:18.061] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
+[11окт.2026 14:16:18.063] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
+[11окт.2026 14:16:18.152] [Render thread/WARN] [io.netty.util.internal.SystemPropertyUtil/]: Unable to parse the boolean system property 'java.net.preferIPv6Addresses':system - using the default value: false
+[11окт.2026 14:16:18.703] [Netty Local Client IO #0/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
+[11окт.2026 14:16:18.770] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:1572ebb6] logged in with entity id 1 at (75.39060717976226, 95.79673560066871, 320.0952490908054)
+[11окт.2026 14:16:18.832] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev присоединился к игре
+[11окт.2026 14:16:19.378] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 89 advancements
+[11окт.2026 14:16:33.657] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[11окт.2026 14:16:53.647] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:16:59.107] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:17:27.841] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:17:29.158] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:17:41.143] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:17:41.153] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:17:44.707] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:17:49.732] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:18:47.941] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:18:47.948] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:18:57.017] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Установлено время: 1000]
+[11окт.2026 14:18:57.020] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Установлено время: 1000
+[11окт.2026 14:18:58.795] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Ваш режим игры изменён на Творческий режим]
+[11окт.2026 14:18:58.805] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Ваш режим игры изменён на Творческий режим
+[11окт.2026 14:19:04.475] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:19:25.088] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[11окт.2026 14:19:25.099] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:overworld
+[11окт.2026 14:19:25.108] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_end
+[11окт.2026 14:19:25.109] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_nether
+[11окт.2026 14:19:37.483] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:19:41.388] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[11окт.2026 14:19:41.394] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:overworld
+[11окт.2026 14:19:41.405] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_end
+[11окт.2026 14:19:41.406] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_nether
+[11окт.2026 14:19:57.949] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[11окт.2026 14:19:57.957] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:overworld
+[11окт.2026 14:19:57.964] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_end
+[11окт.2026 14:19:57.965] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_nether
+[11окт.2026 14:19:58.795] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4180, l='ServerLevel[Новый Лес]', x=89.36, y=109.00, z=321.47] died, message: 'Крестьянин был убит Сиреноголовый'
+[11окт.2026 14:19:58.812] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4180, l='ClientLevel', x=89.36, y=109.00, z=321.47] died, message: 'Крестьянин умер'
+[11окт.2026 14:20:12.309] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:20:13.299] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:20:23.191] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4332, l='ServerLevel[Новый Лес]', x=91.56, y=102.00, z=320.56] died, message: 'Крестьянин был убит Сиреноголовый'
+[11окт.2026 14:20:23.204] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4332, l='ClientLevel', x=90.94, y=102.00, z=319.98] died, message: 'Крестьянин умер'
+[11окт.2026 14:20:32.269] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:20:32.635] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:20:40.794] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:20:41.139] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:20:43.471] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:20:47.505] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:20:52.293] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4479, l='ServerLevel[Новый Лес]', x=71.55, y=87.00, z=322.40] died, message: 'Крестьянин разбился вдребезги, спасаясь от Сиреноголовый'
+[11окт.2026 14:20:52.299] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4479, l='ClientLevel', x=71.49, y=91.88, z=322.49] died, message: 'Крестьянин умер'
+[11окт.2026 14:21:26.192] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4607, l='ServerLevel[Новый Лес]', x=106.05, y=104.00, z=320.82] died, message: 'Крестьянин разбился вдребезги, спасаясь от Сиреноголовый'
+[11окт.2026 14:21:26.201] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4607, l='ClientLevel', x=105.92, y=107.62, z=320.81] died, message: 'Крестьянин умер'
+[11окт.2026 14:21:43.492] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4898, l='ServerLevel[Новый Лес]', x=92.05, y=98.00, z=313.91] died, message: 'Крестьянин разбился вдребезги, спасаясь от Сиреноголовый'
+[11окт.2026 14:21:43.496] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/4898, l='ClientLevel', x=92.05, y=102.34, z=314.00] died, message: 'Крестьянин умер'
+[11окт.2026 14:21:53.443] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/5221, l='ServerLevel[Новый Лес]', x=80.51, y=101.00, z=324.12] died, message: 'Крестьянин разбился вдребезги, спасаясь от Сиреноголовый'
+[11окт.2026 14:21:53.460] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/5221, l='ClientLevel', x=80.61, y=104.65, z=324.09] died, message: 'Крестьянин умер'
+[11окт.2026 14:22:02.092] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/5260, l='ServerLevel[Новый Лес]', x=97.06, y=99.00, z=308.77] died, message: 'Крестьянин разбился вдребезги, спасаясь от Сиреноголовый'
+[11окт.2026 14:22:02.093] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/5260, l='ClientLevel', x=97.06, y=103.50, z=308.87] died, message: 'Крестьянин умер'
+[11окт.2026 14:22:10.891] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/5348, l='ServerLevel[Новый Лес]', x=92.35, y=110.00, z=322.52] died, message: 'Крестьянин был убит Сиреноголовый'
+[11окт.2026 14:22:10.905] [Render thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Крестьянин'/5348, l='ClientLevel', x=92.35, y=110.00, z=322.52] died, message: 'Крестьянин умер'
+[11окт.2026 14:22:11.727] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Ваш режим игры изменён на Режим выживания]
+[11окт.2026 14:22:11.740] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Ваш режим игры изменён на Режим выживания
+[11окт.2026 14:22:18.811] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
+[11окт.2026 14:22:18.991] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:22:18.999] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:22:31.940] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:22:31.948] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:22:44.515] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: выкл.
+[11окт.2026 14:22:47.741] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:22:47.750] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:22:57.244] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:22:57.260] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:23:09.541] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:23:09.558] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:23:30.558] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:23:30.574] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:23:48.511] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:23:48.527] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:24:03.790] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:24:03.798] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:24:15.558] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev разбился насмерть
+[11окт.2026 14:24:15.574] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev разбился насмерть
+[11окт.2026 14:24:32.340] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:24:32.345] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:24:41.392] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:24:41.407] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:24:52.005] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:24:52.021] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был обречён на падение благодаря Сиреноголовый
+[11окт.2026 14:25:06.490] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:25:06.493] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:25:31.840] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev был убит Сиреноголовый
+[11окт.2026 14:25:31.855] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Dev был убит Сиреноголовый
+[11окт.2026 14:26:08.388] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[11окт.2026 14:26:08.393] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:overworld
+[11окт.2026 14:26:08.398] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_end
+[11окт.2026 14:26:08.399] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Новый Лес]'/minecraft:the_nether

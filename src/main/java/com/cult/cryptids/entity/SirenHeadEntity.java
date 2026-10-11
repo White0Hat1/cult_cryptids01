@@ -75,6 +75,10 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final EntityDataAccessor<Boolean> DATA_WALL_CLIMBING =
             SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
 
+    /** 🆔 ID сущности, которую сейчас держит Siren (0 = никого). */
+    private static final EntityDataAccessor<Integer> DATA_GRABBED_TARGET_ID =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.INT);
+
     // ================= ДИНАМИЧЕСКИЙ ХИТБОКС =================
     private static final EntityDimensions NORMAL_DIMENSIONS =
             EntityDimensions.scalable(3.0F, 12.0F);
@@ -88,17 +92,16 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final int STUCK_THRESHOLD = 8;
 
     // ================= 🐾 ПОЛЗАНИЕ =================
-    /** 📏 Дистанция до игрока, при которой Siren переходит на четвереньки. */
     private static final double CRAWL_TRIGGER_DISTANCE = 45.0D;
-    /** 📏 Дистанция, при которой Siren автоматически встаёт (догнал). */
     private static final double CRAWL_EXIT_DISTANCE = 15.0D;
-    /** 🏃 Скорость на четвереньках. */
     private static final double CRAWL_FORCED_SPEED = 2.0D;
 
     // ================= 🧗 ЛАЗАНИЕ ПО СТЕНЕ =================
-    private static final int WALL_CLIMB_TRIGGER_TICKS = 20;
+    private static final int WALL_CLIMB_TRIGGER_TICKS = 15;
     private static final double WALL_CLIMB_SPEED = 0.35D;
     private static final double WALL_CLIMB_EXIT_ABOVE = 1.5D;
+    private static final int WALL_CLIMB_MAX_TICKS = 20 * 15;
+    private static final double WALL_CLIMB_MIN_TARGET_ABOVE = 2.0D;
 
     // ================= 🪓 РАЗРУШЕНИЕ =================
     private static final int BREAK_COOLDOWN_TICKS = 1;
@@ -203,6 +206,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
 
     // 🧗 лазание по стене
     private int wallClimbTicks = 0;
+    private int wallClimbTotalTicks = 0;
 
     public SirenHeadEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -276,7 +280,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         }
     }
 
-    /** 🐾 Публичный сеттер — используется командой /cult_cryptids siren crawl. */
     public void setForceCrawl(boolean value) {
         this.forceCrawl = value;
         setCrawling(value);
@@ -285,31 +288,26 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         }
     }
 
-    /**
-     * 🐾 Проверяет дистанцию до цели. Если игрок убежал на 45+ блоков —
-     * Siren переходит на четвереньки. Если игрок подошёл ближе 15 — встаёт.
-     */
     private void updateCrawlTrigger() {
         LivingEntity target = this.getTarget();
 
         if (target == null || !target.isAlive()) {
-            // Цели нет — сбрасываем всё, включая ручную активацию.
             forceCrawl = false;
             setCrawling(false);
             return;
         }
 
+        if (isWallClimbing()) return;
+
         double distSq = this.distanceToSqr(target);
         double triggerSq = CRAWL_TRIGGER_DISTANCE * CRAWL_TRIGGER_DISTANCE;
         double exitSq = CRAWL_EXIT_DISTANCE * CRAWL_EXIT_DISTANCE;
 
-        // Автопереход в crawl при большом отрыве
         if (!forceCrawl && distSq >= triggerSq) {
             forceCrawl = true;
             setCrawling(true);
         }
 
-        // Автовыход из crawl, когда игрок близко
         if (forceCrawl && distSq <= exitSq) {
             forceCrawl = false;
             setCrawling(false);
@@ -332,11 +330,18 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             return;
         }
 
-        boolean targetAbove = target.getY() - this.getY() > 3.0D;
-        boolean blocked = this.horizontalCollision;
+        boolean targetAbove = target.getY() - this.getY() > WALL_CLIMB_MIN_TARGET_ABOVE;
+        if (!targetAbove) {
+            wallClimbTicks = Math.max(0, wallClimbTicks - 1);
+            if (isWallClimbing()) stopWallClimb();
+            return;
+        }
+
+        boolean wallAhead = isWallAhead(target);
+        boolean notMoving = this.getDeltaMovement().horizontalDistanceSqr() < 0.0005D;
         boolean noPath = this.getNavigation().isDone();
 
-        if (targetAbove && blocked && noPath) {
+        if (wallAhead && notMoving && noPath) {
             wallClimbTicks++;
         } else {
             wallClimbTicks = Math.max(0, wallClimbTicks - 1);
@@ -347,17 +352,70 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         }
     }
 
+    private boolean isWallAhead(LivingEntity target) {
+        Vec3 dir = target.position().subtract(this.position());
+        double len = Math.sqrt(dir.x * dir.x + dir.z * dir.z);
+        if (len < 0.001D) return false;
+
+        double nx = dir.x / len;
+        double nz = dir.z / len;
+
+        int baseY = this.blockPosition().getY();
+
+        for (int dist = 1; dist <= 3; dist++) {
+            int x = (int) Math.floor(this.getX() + nx * dist);
+            int z = (int) Math.floor(this.getZ() + nz * dist);
+
+            int solidCount = 0;
+            for (int yOff = 0; yOff <= 8; yOff++) {
+                BlockPos pos = new BlockPos(x, baseY + yOff, z);
+                BlockState state = this.level().getBlockState(pos);
+                if (state.isAir() || state.is(BlockTags.LEAVES)) break;
+                solidCount++;
+            }
+
+            if (solidCount >= 3) return true;
+        }
+
+        return false;
+    }
+
+    private boolean isWallStillAhead(LivingEntity target) {
+        Vec3 dir = target.position().subtract(this.position());
+        double len = Math.sqrt(dir.x * dir.x + dir.z * dir.z);
+        if (len < 0.001D) return false;
+
+        double nx = dir.x / len;
+        double nz = dir.z / len;
+
+        int x = (int) Math.floor(this.getX() + nx * 1.5D);
+        int z = (int) Math.floor(this.getZ() + nz * 1.5D);
+        int baseY = this.blockPosition().getY();
+
+        BlockPos pos = new BlockPos(x, baseY, z);
+        BlockState state = this.level().getBlockState(pos);
+        return !state.isAir() && !state.is(BlockTags.LEAVES);
+    }
+
     private void startWallClimb() {
         this.entityData.set(DATA_WALL_CLIMBING, true);
         this.setNoGravity(true);
         this.getNavigation().stop();
         this.setDeltaMovement(Vec3.ZERO);
+        this.fallDistance = 0;
+        wallClimbTotalTicks = 0;
+
+        if (forceCrawl) {
+            forceCrawl = false;
+            setCrawling(false);
+        }
     }
 
     private void stopWallClimb() {
         this.entityData.set(DATA_WALL_CLIMBING, false);
         this.setNoGravity(false);
         this.setDeltaMovement(Vec3.ZERO);
+        wallClimbTotalTicks = 0;
     }
 
     private void tickWallClimb() {
@@ -368,16 +426,24 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             return;
         }
 
-        Vec3 motion = this.getDeltaMovement();
-        this.setDeltaMovement(motion.x * 0.3D, WALL_CLIMB_SPEED, motion.z * 0.3D);
+        wallClimbTotalTicks++;
+
+        if (wallClimbTotalTicks >= WALL_CLIMB_MAX_TICKS) {
+            stopWallClimb();
+            return;
+        }
+
+        double newY = this.getY() + WALL_CLIMB_SPEED;
+        this.setPos(this.getX(), newY, this.getZ());
         this.hurtMarked = true;
+        this.fallDistance = 0;
 
         if (this.getY() >= target.getY() + WALL_CLIMB_EXIT_ABOVE) {
             stopWallClimb();
             return;
         }
 
-        if (!this.horizontalCollision && this.getY() > target.getY()) {
+        if (!isWallStillAhead(target) && this.getY() >= target.getY()) {
             stopWallClimb();
         }
     }
@@ -505,6 +571,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.entityData.define(DATA_HIT_VARIATION, 0);
         this.entityData.define(DATA_CRAWLING, false);
         this.entityData.define(DATA_WALL_CLIMBING, false);
+        this.entityData.define(DATA_GRABBED_TARGET_ID, 0);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -693,7 +760,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             return;
         }
 
-        // 🧗 Лазание по стене — приоритетное состояние
         if (isWallClimbing()) {
             this.entityData.set(DATA_CHASING, this.getTarget() != null && this.getTarget().isAlive());
             tickWallClimb();
@@ -701,10 +767,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             return;
         }
 
-        // 🐾 Проверяем дистанцию до цели → возможен переход в crawl
         updateCrawlTrigger();
-
-        // 🧗 Проверяем, не пора ли лезть по стене
         updateWallClimbDetection();
 
         updateCompactMode();
@@ -721,6 +784,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             caughtEntity = null;
             grabTicks = 0;
             this.entityData.set(DATA_GRABBING, false);
+            this.entityData.set(DATA_GRABBED_TARGET_ID, 0);
             return;
         }
 
@@ -775,12 +839,14 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
                     caughtEntity = null;
                     grabTicks = 0;
                     this.entityData.set(DATA_GRABBING, false);
+                    this.entityData.set(DATA_GRABBED_TARGET_ID, 0);
                 }
             } else {
                 releaseCaught();
                 caughtEntity = null;
                 grabTicks = 0;
                 this.entityData.set(DATA_GRABBING, false);
+                this.entityData.set(DATA_GRABBED_TARGET_ID, 0);
             }
         }
 
@@ -1117,12 +1183,18 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.caughtEntity = target;
         this.grabTicks = 0;
         this.entityData.set(DATA_GRABBING, true);
+        this.entityData.set(DATA_GRABBED_TARGET_ID, target.getId());
         this.getNavigation().stop();
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.0D);
     }
 
     public boolean isGrabbing() {
         return this.entityData.get(DATA_GRABBING);
+    }
+
+    /** 🆔 ID пойманной сущности (0 = никого). */
+    public int getGrabbedTargetId() {
+        return this.entityData.get(DATA_GRABBED_TARGET_ID);
     }
 
     public boolean isChasing() {
