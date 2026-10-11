@@ -66,6 +66,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SIREN_CHASE_THEME =
             registerSound("siren_chase_theme");
 
+    // ================= 🔫 M14 =================
+    public static final RegistryObject<SoundEvent> M14_SHOOT =
+            registerSound("m14_shoot");
+    public static final RegistryObject<SoundEvent> M14_RELOAD =
+            registerSound("m14_reload");
+
     // ================= УТИЛИТА =================
     private static RegistryObject<SoundEvent> registerSound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(

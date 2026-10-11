@@ -44,6 +44,10 @@ public class HandedItemRenderer<T extends Item & GeoAnimatable> extends GeoItemR
         return new HandedItemRenderer<>(new DefaultedItemGeoModel<>(new ResourceLocation(CultCryptids.MODID, "flashlight")));
     }
 
+    public static HandedItemRenderer<M14Item> m14() {
+        return new HandedItemRenderer<>(new M14ItemModel());
+    }
+
     public static class ArmsLayer<T extends GeoAnimatable> extends GeoRenderLayer<T> {
         public ArmsLayer(GeoRenderer<T> entityRendererIn) {
             super(entityRendererIn);

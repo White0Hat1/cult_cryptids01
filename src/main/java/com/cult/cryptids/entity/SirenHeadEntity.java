@@ -48,7 +48,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final Random RNG = new Random();
 
     // ================= 🏷️ NBT-МЕТКИ =================
-    /** 🏷️ Метка: этот Siren Head появился ночью и исчезнет на рассвете. */
     public static final String NBT_NIGHT_SPAWNED = "cult_cryptids.night_spawned";
 
     // ================= СИНХРОНИЗИРУЕМЫЕ ДАННЫЕ =================
@@ -71,15 +70,35 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final EntityDataAccessor<Integer> DATA_HIT_VARIATION =
             SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.INT);
 
+    private static final EntityDataAccessor<Boolean> DATA_CRAWLING =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_WALL_CLIMBING =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
+
     // ================= ДИНАМИЧЕСКИЙ ХИТБОКС =================
     private static final EntityDimensions NORMAL_DIMENSIONS =
             EntityDimensions.scalable(3.0F, 12.0F);
     private static final EntityDimensions COMPACT_DIMENSIONS =
             EntityDimensions.scalable(1.4F, 8.0F);
+    private static final EntityDimensions CRAWL_DIMENSIONS =
+            EntityDimensions.scalable(3.0F, 5.0F);
 
     private boolean compactMode = false;
     private int stuckCounter = 0;
     private static final int STUCK_THRESHOLD = 8;
+
+    // ================= 🐾 ПОЛЗАНИЕ =================
+    /** 📏 Дистанция до игрока, при которой Siren переходит на четвереньки. */
+    private static final double CRAWL_TRIGGER_DISTANCE = 45.0D;
+    /** 📏 Дистанция, при которой Siren автоматически встаёт (догнал). */
+    private static final double CRAWL_EXIT_DISTANCE = 15.0D;
+    /** 🏃 Скорость на четвереньках. */
+    private static final double CRAWL_FORCED_SPEED = 2.0D;
+
+    // ================= 🧗 ЛАЗАНИЕ ПО СТЕНЕ =================
+    private static final int WALL_CLIMB_TRIGGER_TICKS = 20;
+    private static final double WALL_CLIMB_SPEED = 0.35D;
+    private static final double WALL_CLIMB_EXIT_ABOVE = 1.5D;
 
     // ================= 🪓 РАЗРУШЕНИЕ =================
     private static final int BREAK_COOLDOWN_TICKS = 1;
@@ -173,15 +192,17 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private int transformTicks = 0;
 
     // ================= 🌙 НОЧНЫЕ КОНСТАНТЫ =================
-    /** 🌅 Время рассвета — конец ночи. */
     private static final long DAWN_TIME = 12000L;
-    /** 🌀 Дистанция, после которой ночной Siren телепортируется. */
     private static final double NIGHT_TELEPORT_TRIGGER = 150.0D;
-    /** 🎯 Куда телепортируется: 60–70 блоков от игрока. */
     private static final double NIGHT_TELEPORT_MIN = 60.0D;
     private static final double NIGHT_TELEPORT_MAX = 70.0D;
-    /** 🕐 Раз в сколько тиков проверять телепорт. */
     private static final int NIGHT_TELEPORT_CHECK_INTERVAL = 100;
+
+    // 🐾 ползание
+    private boolean forceCrawl = false;
+
+    // 🧗 лазание по стене
+    private int wallClimbTicks = 0;
 
     public SirenHeadEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -203,6 +224,12 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     // ================= ДИНАМИЧЕСКИЙ ХИТБОКС =================
     @Override
     public EntityDimensions getDimensions(Pose pose) {
+        if (isWallClimbing()) {
+            return compactMode ? COMPACT_DIMENSIONS : NORMAL_DIMENSIONS;
+        }
+        if (isCrawling()) {
+            return CRAWL_DIMENSIONS;
+        }
         return compactMode ? COMPACT_DIMENSIONS : NORMAL_DIMENSIONS;
     }
 
@@ -230,6 +257,128 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         if (shouldCompact != compactMode) {
             compactMode = shouldCompact;
             this.refreshDimensions();
+        }
+    }
+
+    // ================= 🐾 ПОЛЗАНИЕ =================
+    public boolean isCrawling() {
+        return this.entityData.get(DATA_CRAWLING);
+    }
+
+    public boolean isForceCrawling() {
+        return forceCrawl;
+    }
+
+    private void setCrawling(boolean value) {
+        if (this.entityData.get(DATA_CRAWLING) != value) {
+            this.entityData.set(DATA_CRAWLING, value);
+            this.refreshDimensions();
+        }
+    }
+
+    /** 🐾 Публичный сеттер — используется командой /cult_cryptids siren crawl. */
+    public void setForceCrawl(boolean value) {
+        this.forceCrawl = value;
+        setCrawling(value);
+        if (value) {
+            this.getNavigation().stop();
+        }
+    }
+
+    /**
+     * 🐾 Проверяет дистанцию до цели. Если игрок убежал на 45+ блоков —
+     * Siren переходит на четвереньки. Если игрок подошёл ближе 15 — встаёт.
+     */
+    private void updateCrawlTrigger() {
+        LivingEntity target = this.getTarget();
+
+        if (target == null || !target.isAlive()) {
+            // Цели нет — сбрасываем всё, включая ручную активацию.
+            forceCrawl = false;
+            setCrawling(false);
+            return;
+        }
+
+        double distSq = this.distanceToSqr(target);
+        double triggerSq = CRAWL_TRIGGER_DISTANCE * CRAWL_TRIGGER_DISTANCE;
+        double exitSq = CRAWL_EXIT_DISTANCE * CRAWL_EXIT_DISTANCE;
+
+        // Автопереход в crawl при большом отрыве
+        if (!forceCrawl && distSq >= triggerSq) {
+            forceCrawl = true;
+            setCrawling(true);
+        }
+
+        // Автовыход из crawl, когда игрок близко
+        if (forceCrawl && distSq <= exitSq) {
+            forceCrawl = false;
+            setCrawling(false);
+        }
+    }
+
+    // ================= 🧗 ЛАЗАНИЕ ПО СТЕНЕ =================
+    public boolean isWallClimbing() {
+        return this.entityData.get(DATA_WALL_CLIMBING);
+    }
+
+    private void updateWallClimbDetection() {
+        if (this.level().isClientSide) return;
+
+        LivingEntity target = this.getTarget();
+
+        if (target == null || !target.isAlive()) {
+            wallClimbTicks = 0;
+            if (isWallClimbing()) stopWallClimb();
+            return;
+        }
+
+        boolean targetAbove = target.getY() - this.getY() > 3.0D;
+        boolean blocked = this.horizontalCollision;
+        boolean noPath = this.getNavigation().isDone();
+
+        if (targetAbove && blocked && noPath) {
+            wallClimbTicks++;
+        } else {
+            wallClimbTicks = Math.max(0, wallClimbTicks - 1);
+        }
+
+        if (wallClimbTicks >= WALL_CLIMB_TRIGGER_TICKS && !isWallClimbing()) {
+            startWallClimb();
+        }
+    }
+
+    private void startWallClimb() {
+        this.entityData.set(DATA_WALL_CLIMBING, true);
+        this.setNoGravity(true);
+        this.getNavigation().stop();
+        this.setDeltaMovement(Vec3.ZERO);
+    }
+
+    private void stopWallClimb() {
+        this.entityData.set(DATA_WALL_CLIMBING, false);
+        this.setNoGravity(false);
+        this.setDeltaMovement(Vec3.ZERO);
+    }
+
+    private void tickWallClimb() {
+        LivingEntity target = this.getTarget();
+
+        if (target == null || !target.isAlive()) {
+            stopWallClimb();
+            return;
+        }
+
+        Vec3 motion = this.getDeltaMovement();
+        this.setDeltaMovement(motion.x * 0.3D, WALL_CLIMB_SPEED, motion.z * 0.3D);
+        this.hurtMarked = true;
+
+        if (this.getY() >= target.getY() + WALL_CLIMB_EXIT_ABOVE) {
+            stopWallClimb();
+            return;
+        }
+
+        if (!this.horizontalCollision && this.getY() > target.getY()) {
+            stopWallClimb();
         }
     }
 
@@ -354,6 +503,8 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.entityData.define(DATA_TRANSFORMING, false);
         this.entityData.define(DATA_HIT_COUNTER, 0);
         this.entityData.define(DATA_HIT_VARIATION, 0);
+        this.entityData.define(DATA_CRAWLING, false);
+        this.entityData.define(DATA_WALL_CLIMBING, false);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -428,9 +579,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     }
 
     // ================= 🌙 ДЕСПАВН + ТЕЛЕПОРТ =================
-    /**
-     * Красивое исчезновение ночного Siren Head на рассвете.
-     */
     private void despawnWithEffects() {
         if (this.level() instanceof ServerLevel sl) {
             sl.sendParticles(ParticleTypes.LARGE_SMOKE,
@@ -447,9 +595,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.discard();
     }
 
-    /**
-     * 🌙 Если игрок ушёл далеко (> 150 блоков), телепортируемся в 60–70 блоках от него.
-     */
     private void tickNightTeleport() {
         Player nearest = this.level().getNearestPlayer(this, 500.0D);
         if (nearest == null) return;
@@ -511,23 +656,19 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
 
         if (this.level().isClientSide) return;
 
-        // 🌙 Ночной Siren Head — живёт до рассвета.
         if (this.getPersistentData().getBoolean(NBT_NIGHT_SPAWNED)) {
             long dayTime = this.level().getDayTime() % 24000L;
 
-            // 🌅 Рассвет — конец ночи → деспавн.
             if (dayTime < DAWN_TIME) {
                 despawnWithEffects();
                 return;
             }
 
-            // 🌀 Раз в 5 секунд проверяем, не убежал ли игрок.
             if (this.tickCount % NIGHT_TELEPORT_CHECK_INTERVAL == 0) {
                 tickNightTeleport();
             }
         }
 
-        // 🩸 АВТО-ТРАНСФОРМАЦИЯ ПРИ BLOOD MOON
         if (com.cult.cryptids.event.BloodMoonEvent.isActive() && !isNightmare() && !isTransforming()) {
             startTransformation();
         }
@@ -551,6 +692,20 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             }
             return;
         }
+
+        // 🧗 Лазание по стене — приоритетное состояние
+        if (isWallClimbing()) {
+            this.entityData.set(DATA_CHASING, this.getTarget() != null && this.getTarget().isAlive());
+            tickWallClimb();
+            tickAmbientSounds();
+            return;
+        }
+
+        // 🐾 Проверяем дистанцию до цели → возможен переход в crawl
+        updateCrawlTrigger();
+
+        // 🧗 Проверяем, не пора ли лезть по стене
+        updateWallClimbDetection();
 
         updateCompactMode();
         tryBreakObstacles();
@@ -991,6 +1146,18 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             if (isTransforming()) {
                 ctrl.setAnimationSpeed(SPEED_TRANSFORM);
                 return event.setAndContinue(RawAnimation.begin().thenPlay("transform"));
+            }
+            if (isWallClimbing()) {
+                ctrl.setAnimationSpeed(0.9D);
+                return event.setAndContinue(RawAnimation.begin().thenLoop("wall_climb"));
+            }
+            if (isCrawling()) {
+                if (event.isMoving()) {
+                    ctrl.setAnimationSpeed(1.4D);
+                    return event.setAndContinue(RawAnimation.begin().thenLoop("crawl_walk"));
+                }
+                ctrl.setAnimationSpeed(0.7D);
+                return event.setAndContinue(RawAnimation.begin().thenLoop("crawl_idle"));
             }
             if (this.isReaching()) {
                 ctrl.setAnimationSpeed(SPEED_REACH);

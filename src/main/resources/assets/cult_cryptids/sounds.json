@@ -29,7 +29,6 @@
     "subtitle": "subtitles.cult_cryptids.siren_death",
     "sounds": ["cult_cryptids:siren_death"]
   },
-
   "blood_moon_music": {
     "category": "music",
     "subtitle": "subtitles.cult_cryptids.blood_moon_music",
@@ -45,7 +44,6 @@
     "subtitle": "subtitles.cult_cryptids.blood_moon_icecream",
     "sounds": [{ "name": "cult_cryptids:blood_moon_icecream", "stream": true }]
   },
-
   "siren_far": {
     "category": "ambient",
     "subtitle": "subtitles.cult_cryptids.siren_far",
@@ -76,7 +74,6 @@
     "subtitle": "subtitles.cult_cryptids.siren_speech",
     "sounds": [{ "name": "cult_cryptids:siren_speech", "stream": true }]
   },
-
   "siren_walk": {
     "category": "hostile",
     "subtitle": "subtitles.cult_cryptids.siren_walk",
@@ -93,23 +90,29 @@
       "cult_cryptids:siren_run_2"
     ]
   },
-
   "camera_shutter": {
     "category": "players",
     "subtitle": "subtitles.cult_cryptids.camera_shutter",
     "sounds": ["cult_cryptids:camera_shutter"]
   },
-
   "flashlight_toggle": {
     "category": "players",
     "subtitle": "subtitles.cult_cryptids.flashlight_toggle",
     "sounds": ["cult_cryptids:flashlight_toggle"]
-   },
-
-    "siren_chase_theme": {
-      "category": "hostile",
-      "subtitle": "subtitles.cult_cryptids.siren_chase_theme",
-      "sounds": [{ "name": "cult_cryptids:siren_chase_theme", "stream": true }]
-    }
+  },
+  "siren_chase_theme": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.siren_chase_theme",
+    "sounds": [{ "name": "cult_cryptids:siren_chase_theme", "stream": true }]
+  },
+  "m14_shoot": {
+    "category": "players",
+    "subtitle": "subtitles.cult_cryptids.m14_shoot",
+    "sounds": ["cult_cryptids:m14_shoot"]
+  },
+  "m14_reload": {
+    "category": "players",
+    "subtitle": "subtitles.cult_cryptids.m14_reload",
+    "sounds": ["cult_cryptids:m14_reload"]
   }
 }

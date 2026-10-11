@@ -1,6 +1,7 @@
 package com.cult.cryptids.entity;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
@@ -15,11 +16,11 @@ public class SirenHeadAttackGrabGoal extends Goal {
     // 🏃 Скорость погони ≈ как у игрока в спринте + прыжки.
     private static final double CHASE_SPEED = 1.8D;
 
+    /** 🐾 Скорость на четвереньках — форсированное ползание после долгой погони. */
+    private static final double CRAWL_FORCED_SPEED = 2.0D;
+
     // 📏 Радиус обычной атаки — 5 блоков (squared = 25)
     private static final double ATTACK_DISTANCE_SQ = 25.0D;
-
-    // 📏 Максимальная дистанция погони (50 блоков)
-    private static final double MAX_CHASE_DISTANCE_SQ = 2500.0D;
 
     // 🖐️ Радиус, в котором включается «тянущаяся рука» (8 блоков)
     private static final double REACH_TRIGGER_DISTANCE_SQ = 64.0D;
@@ -38,10 +39,27 @@ public class SirenHeadAttackGrabGoal extends Goal {
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
+    /** Радиус погони = FOLLOW_RANGE моба (квадрат). */
+    private double maxChaseDistSq() {
+        double range = this.mob.getAttributeValue(Attributes.FOLLOW_RANGE);
+        return range * range;
+    }
+
+    /** 🐾 Скорость с учётом форсированного ползания. */
+    private double getChaseSpeed() {
+        if (this.mob.isForceCrawling()) return CRAWL_FORCED_SPEED;
+        return CHASE_SPEED;
+    }
+
     @Override
     public boolean canUse() {
         LivingEntity livingentity = this.mob.getTarget();
         if (livingentity == null || !livingentity.isAlive()) return false;
+
+        double dx = this.mob.getX() - livingentity.getX();
+        double dz = this.mob.getZ() - livingentity.getZ();
+        if (dx * dx + dz * dz > maxChaseDistSq()) return false;
+
         this.target = livingentity;
         return true;
     }
@@ -51,28 +69,24 @@ public class SirenHeadAttackGrabGoal extends Goal {
         this.lastPathTarget = null;
         this.lastPathTick = -100;
         this.stuckTicks = 0;
-        this.mob.getNavigation().moveTo(this.target, CHASE_SPEED);
+        this.mob.getNavigation().moveTo(this.target, getChaseSpeed());
     }
 
     @Override
     public void tick() {
         this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
 
-        if (mob.isGrabbing() || mob.isSlamming() || mob.isReaching()) return;
+        if (mob.isGrabbing() || mob.isSlamming() || mob.isReaching() || mob.isWallClimbing()) return;
 
-        // 📐 Горизонтальное расстояние
         double dx = this.mob.getX() - this.target.getX();
         double dz = this.mob.getZ() - this.target.getZ();
         double horizontalDistSq = dx * dx + dz * dz;
 
-        // 🔍 Есть ли прямая видимость
         boolean hasSight = this.mob.getSensing().hasLineOfSight(this.target);
 
-        // 🔍 Может ли Siren физически дойти?
         Path testPath = this.mob.getNavigation().createPath(this.target, 0);
         boolean canReach = testPath != null && testPath.canReach();
 
-        // 💥 ОБЫЧНАЯ АТАКА
         if (horizontalDistSq <= ATTACK_DISTANCE_SQ && hasSight && canReach) {
             this.mob.getNavigation().stop();
             if (RNG.nextBoolean()) {
@@ -83,7 +97,6 @@ public class SirenHeadAttackGrabGoal extends Goal {
             return;
         }
 
-        // 🖐️ Застрял?
         boolean stuck = this.mob.getNavigation().isDone()
                 || !canReach
                 || (horizontalDistSq <= ATTACK_DISTANCE_SQ && !hasSight);
@@ -94,7 +107,6 @@ public class SirenHeadAttackGrabGoal extends Goal {
             stuckTicks = 0;
         }
 
-        // 🖐️ Застрял — тянемся рукой
         if (stuckTicks >= STUCK_TICKS_THRESHOLD) {
             this.mob.getNavigation().stop();
             this.mob.startReaching(this.target);
@@ -117,7 +129,7 @@ public class SirenHeadAttackGrabGoal extends Goal {
         }
 
         if (shouldUpdatePath) {
-            this.mob.getNavigation().moveTo(this.target, CHASE_SPEED);
+            this.mob.getNavigation().moveTo(this.target, getChaseSpeed());
             this.lastPathTarget = new Vec3(this.target.getX(), this.target.getY(), this.target.getZ());
             this.lastPathTick = this.mob.tickCount;
         }
@@ -128,10 +140,13 @@ public class SirenHeadAttackGrabGoal extends Goal {
         if (this.target == null || !this.target.isAlive()) return false;
         if (this.mob.isGrabbing() || this.mob.isSlamming() || this.mob.isReaching()) return true;
 
+        // 🐾 Форсированное ползание = не сдаётся на дистанции
+        if (this.mob.isForceCrawling()) return true;
+
         double dx = this.mob.getX() - this.target.getX();
         double dz = this.mob.getZ() - this.target.getZ();
         double horizontalDistSq = dx * dx + dz * dz;
-        return horizontalDistSq < MAX_CHASE_DISTANCE_SQ;
+        return horizontalDistSq < maxChaseDistSq();
     }
 
     @Override

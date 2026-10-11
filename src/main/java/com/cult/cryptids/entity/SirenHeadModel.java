@@ -12,9 +12,8 @@ import java.util.Map;
 public class SirenHeadModel extends DefaultedEntityGeoModel<SirenHeadEntity> {
     private final Map<String, Float> baseRotY = new HashMap<>();
 
-    // 🎡 Кручение сиренов: раз в 20 секунд (400 тиков), длится 2 секунды (40 тиков)
-    private static final int SPIN_PERIOD_TICKS = 400;   // период = 20 сек
-    private static final int SPIN_DURATION_TICKS = 40;  // длительность = 2 сек
+    private static final int SPIN_PERIOD_TICKS = 400;
+    private static final int SPIN_DURATION_TICKS = 40;
 
     public SirenHeadModel() {
         super(new ResourceLocation("cult_cryptids", "siren_head"), false);
@@ -23,33 +22,35 @@ public class SirenHeadModel extends DefaultedEntityGeoModel<SirenHeadEntity> {
     @Override
     public void setCustomAnimations(SirenHeadEntity animatable, long instanceId,
                                     AnimationState<SirenHeadEntity> animationState) {
-        // Восстанавливаем базу — чтобы наш поворот не накапливался
         restoreBase("head");
         restoreBase("torso");
         restoreBase("body");
         restoreBase("rightSiren");
         restoreBase("leftSiren");
 
-        // Играем анимацию из JSON
         super.setCustomAnimations(animatable, instanceId, animationState);
 
-        // Запоминаем базу
         saveBase("head");
         saveBase("torso");
         saveBase("body");
         saveBase("rightSiren");
         saveBase("leftSiren");
 
-        // Во время казни не добавляем своих модификаций
-        if (animatable.isGrabbing() || animatable.isSlamming() || animatable.isReaching()) {
+        // 🛑 Во время grab/slam/reach/crawl/wall_climb — не крутим сиренами
+        // и не поворачиваем тело. Играет только анимация из JSON.
+        if (animatable.isGrabbing()
+                || animatable.isSlamming()
+                || animatable.isReaching()
+                || animatable.isCrawling()
+                || animatable.isWallClimbing()) {
             return;
         }
 
-        // 🎡 Кручение сиренов — короткий импульс раз в 20 сек
+        // 🎡 Кручение сиренов — раз в 20 сек
         long cycleTick = animatable.tickCount % SPIN_PERIOD_TICKS;
         if (cycleTick < SPIN_DURATION_TICKS) {
-            float progress = (float) cycleTick / (float) SPIN_DURATION_TICKS;  // 0.0 → 1.0
-            float spinDeg = progress * 360.0F;                                  // 0° → 360°
+            float progress = (float) cycleTick / (float) SPIN_DURATION_TICKS;
+            float spinDeg = progress * 360.0F;
             float spinRad = (float) Math.toRadians(spinDeg);
 
             CoreGeoBone rightSiren = this.getAnimationProcessor().getBone("rightSiren");

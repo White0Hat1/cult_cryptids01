@@ -2,6 +2,7 @@ package com.cult.cryptids;
 
 import com.cult.cryptids.item.CameraItem;
 import com.cult.cryptids.item.FlashlightItem;
+import com.cult.cryptids.item.M14Item;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,17 +14,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
-    // Реестр предметов
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, "cult_cryptids");
 
-    // Реестр креативных вкладок
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "cult_cryptids");
 
     // ================= ПРЕДМЕТЫ =================
 
-    // 🥚 Спавн-яйцо Сирена
     public static final RegistryObject<ForgeSpawnEggItem> SIREN_HEAD_SPAWN_EGG =
             ITEMS.register("siren_head_spawn_egg", () -> new ForgeSpawnEggItem(
                     ModEntities.SIREN_HEAD,
@@ -32,14 +30,17 @@ public class ModItems {
                     new Item.Properties()
             ));
 
-    // 📷 Фотоаппарат
     public static final RegistryObject<CameraItem> CAMERA =
             ITEMS.register("camera", () -> new CameraItem(
                     new Item.Properties().stacksTo(1)));
 
-    // 🔦 Фонарик
     public static final RegistryObject<FlashlightItem> FLASHLIGHT =
             ITEMS.register("flashlight", () -> new FlashlightItem(
+                    new Item.Properties().stacksTo(1)));
+
+    // 🔫 M14 — американская винтовка
+    public static final RegistryObject<M14Item> M14 =
+            ITEMS.register("m14", () -> new M14Item(
                     new Item.Properties().stacksTo(1)));
 
     // ================= КРЕАТИВНАЯ ВКЛАДКА =================
@@ -53,6 +54,7 @@ public class ModItems {
                         output.accept(ModBlocks.TOY_HATTER_ITEM.get());
                         output.accept(CAMERA.get());
                         output.accept(FLASHLIGHT.get());
+                        output.accept(M14.get());
                     })
                     .build());
 }
