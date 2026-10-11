@@ -30,7 +30,7 @@ public class MobSpawnReducer {
      *   0.7 = отменить 70% спавнов
      *   0.9 = почти никого не спавнится
      */
-    private static final double CANCEL_CHANCE = 0.7D;
+    private static final double CANCEL_CHANCE = 0.97D;
 
     private static final Random RNG = new Random();
 

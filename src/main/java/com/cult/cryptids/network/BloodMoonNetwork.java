@@ -25,12 +25,18 @@ public class BloodMoonNetwork {
                 BloodMoonStatePacket::decode,
                 BloodMoonStatePacket::handle);
 
-        // 🆕 Тряска от удара
         CHANNEL.registerMessage(id++,
                 SlamShakePacket.class,
                 SlamShakePacket::encode,
                 SlamShakePacket::decode,
                 SlamShakePacket::handle);
+
+        // 🆕 ЛКМ-выстрел M14
+        CHANNEL.registerMessage(id++,
+                M14ShootPacket.class,
+                M14ShootPacket::encode,
+                M14ShootPacket::decode,
+                M14ShootPacket::handle);
     }
 
     public static void broadcast(boolean active) {

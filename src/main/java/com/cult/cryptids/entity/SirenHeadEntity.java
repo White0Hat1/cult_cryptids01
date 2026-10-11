@@ -4,6 +4,7 @@ import com.cult.cryptids.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -12,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -75,9 +77,12 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final EntityDataAccessor<Boolean> DATA_WALL_CLIMBING =
             SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
 
-    /** 🆔 ID сущности, которую сейчас держит Siren (0 = никого). */
     private static final EntityDataAccessor<Integer> DATA_GRABBED_TARGET_ID =
             SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.INT);
+
+    /** 🥷 Скрытное преследование. */
+    private static final EntityDataAccessor<Boolean> DATA_STALKING =
+            SynchedEntityData.defineId(SirenHeadEntity.class, EntityDataSerializers.BOOLEAN);
 
     // ================= ДИНАМИЧЕСКИЙ ХИТБОКС =================
     private static final EntityDimensions NORMAL_DIMENSIONS =
@@ -103,6 +108,12 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final int WALL_CLIMB_MAX_TICKS = 20 * 15;
     private static final double WALL_CLIMB_MIN_TARGET_ABOVE = 2.0D;
 
+    // ================= 🥷 СКРЫТНОЕ ПРЕСЛЕДОВАНИЕ =================
+    /** 📏 Дистанция, при которой стелс переключается в погоню. */
+    private static final double CHASE_TRIGGER_DISTANCE = 20.0D;
+    /** 📡 Радиус скрытного обнаружения игрока (сквозь стены). */
+    private static final double STALK_TARGET_RANGE = 200.0D;
+
     // ================= 🪓 РАЗРУШЕНИЕ =================
     private static final int BREAK_COOLDOWN_TICKS = 1;
     private int breakCooldown = 0;
@@ -121,6 +132,9 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     private static final double FORWARD_OFFSET = 4.0D;
     private static final double LERP_FACTOR = 0.35D;
     private static final double ORIGINAL_SPEED = 0.25D;
+
+    /** 🎢 Скорость доворота игрока в захвате (0..1). */
+    private static final float GRAB_YAW_LERP = 0.15F;
 
     // ================= УДАР ПО ЗЕМЛЕ =================
     private int slamTicks = 0;
@@ -189,8 +203,8 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
 
     // ================= 🩸 ТРАНСФОРМАЦИЯ =================
     private static final int TRANSFORM_DURATION = 100;
-    private static final float NORMAL_HP = 300.0F;
-    private static final float NIGHTMARE_HP = 4500.0F;
+    private static final float NORMAL_HP = 1200.0F;
+    private static final float NIGHTMARE_HP = 12000.0F;
 
     private int transformTicks = 0;
 
@@ -207,6 +221,9 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     // 🧗 лазание по стене
     private int wallClimbTicks = 0;
     private int wallClimbTotalTicks = 0;
+
+    // 🥷 стейт стелса
+    private boolean stalkCompleted = false;
 
     public SirenHeadEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -264,6 +281,48 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         }
     }
 
+    // ================= 🥷 СТЕЛС =================
+    public boolean isStalking() {
+        return this.entityData.get(DATA_STALKING);
+    }
+
+    private void startStalking() {
+        this.entityData.set(DATA_STALKING, true);
+        this.entityData.set(DATA_CHASING, false);
+    }
+
+    private void endStalking(boolean startChase) {
+        this.entityData.set(DATA_STALKING, false);
+        this.stalkCompleted = true;
+        if (startChase) {
+            this.entityData.set(DATA_CHASING, true);
+        }
+    }
+
+    private void setChaseMode(boolean chase) {
+        this.entityData.set(DATA_CHASING, chase);
+    }
+
+    /** 🥷 Скрытное преследование — переходит в погоню при дистанции <= 20 блоков. */
+    private void tickStalking() {
+        // Ищем цель сквозь стены, если ещё нет
+        if (!(this.getTarget() instanceof Player)) {
+            Player nearest = this.level().getNearestPlayer(this, STALK_TARGET_RANGE);
+            if (nearest != null && !nearest.isCreative() && !nearest.isSpectator()) {
+                this.setTarget(nearest);
+            }
+            return;
+        }
+
+        Player player = (Player) this.getTarget();
+
+        // 📏 Distance-based триггер: 20 блоков → погоня
+        double distSq = this.distanceToSqr(player);
+        if (distSq <= CHASE_TRIGGER_DISTANCE * CHASE_TRIGGER_DISTANCE) {
+            endStalking(true);
+        }
+    }
+
     // ================= 🐾 ПОЛЗАНИЕ =================
     public boolean isCrawling() {
         return this.entityData.get(DATA_CRAWLING);
@@ -298,6 +357,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         }
 
         if (isWallClimbing()) return;
+        if (isStalking()) return;
 
         double distSq = this.distanceToSqr(target);
         double triggerSq = CRAWL_TRIGGER_DISTANCE * CRAWL_TRIGGER_DISTANCE;
@@ -321,6 +381,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
 
     private void updateWallClimbDetection() {
         if (this.level().isClientSide) return;
+        if (isStalking()) return;
 
         LivingEntity target = this.getTarget();
 
@@ -572,6 +633,24 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.entityData.define(DATA_CRAWLING, false);
         this.entityData.define(DATA_WALL_CLIMBING, false);
         this.entityData.define(DATA_GRABBED_TARGET_ID, 0);
+        this.entityData.define(DATA_STALKING, false);
+    }
+
+    // ================= 💾 NBT =================
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("cult_stalk_done", this.stalkCompleted);
+        tag.putBoolean("cult_stalking", this.isStalking());
+        tag.putBoolean("cult_chase", this.isChasing());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.stalkCompleted = tag.getBoolean("cult_stalk_done");
+        this.entityData.set(DATA_STALKING, tag.getBoolean("cult_stalking"));
+        this.entityData.set(DATA_CHASING, tag.getBoolean("cult_chase"));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -579,7 +658,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
                 .add(Attributes.MAX_HEALTH, NORMAL_HP)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 20.0D)
-                .add(Attributes.FOLLOW_RANGE, 64.0D);
+                .add(Attributes.FOLLOW_RANGE, 128.0D);
     }
 
     @Override
@@ -590,8 +669,7 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true,
-                target -> target instanceof Player p && !p.isCreative() && !p.isSpectator()));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
     }
 
@@ -712,6 +790,11 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             int counter = this.entityData.get(DATA_HIT_COUNTER);
             this.entityData.set(DATA_HIT_COUNTER, counter + 1);
             this.entityData.set(DATA_HIT_VARIATION, RNG.nextInt(3));
+
+            // 🥷 Если ударили во время стелса — сразу в погоню
+            if (isStalking()) {
+                endStalking(true);
+            }
         }
         return result;
     }
@@ -761,10 +844,23 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         }
 
         if (isWallClimbing()) {
-            this.entityData.set(DATA_CHASING, this.getTarget() != null && this.getTarget().isAlive());
             tickWallClimb();
             tickAmbientSounds();
             return;
+        }
+
+        // 🥷 Стелс — обрабатываем ДО всего остального
+        if (!stalkCompleted && !isStalking() && !isChasing() && !isGrabbing()) {
+            startStalking();
+        }
+
+        if (isStalking()) {
+            tickStalking();
+        }
+
+        // Сброс chase mode, если цель потеряна
+        if (isChasing() && (getTarget() == null || !getTarget().isAlive())) {
+            setChaseMode(false);
         }
 
         updateCrawlTrigger();
@@ -772,8 +868,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
 
         updateCompactMode();
         tryBreakObstacles();
-
-        this.entityData.set(DATA_CHASING, this.getTarget() != null && this.getTarget().isAlive());
 
         if (this.getTarget() instanceof Player p && (p.isCreative() || p.isSpectator())) {
             this.setTarget(null);
@@ -819,19 +913,26 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
                 caughtEntity.setNoGravity(true);
                 caughtEntity.fallDistance = 0;
 
-                if (caughtEntity instanceof ServerPlayer sp) {
-                    sp.connection.teleport(newX, newY, newZ, sp.getYRot(), sp.getXRot());
-                } else {
-                    caughtEntity.setPos(newX, newY, newZ);
-                    caughtEntity.hurtMarked = true;
-                }
-
+                // 📐 Считаем целевой угол — игрок смотрит на Siren
                 float desiredYaw = (float) (Math.toDegrees(Math.atan2(
                         this.getZ() - caughtEntity.getZ(),
                         this.getX() - caughtEntity.getX()
                 )) - 90F);
-                caughtEntity.setYRot(desiredYaw);
-                caughtEntity.setYHeadRot(desiredYaw);
+
+                // 🎢 Плавно тянем текущий угол к целевому
+                float currentYaw = caughtEntity.getYRot();
+                float yawDelta = Mth.wrapDegrees(desiredYaw - currentYaw);
+                float smoothYaw = currentYaw + yawDelta * GRAB_YAW_LERP;
+
+                // 📡 Телепорт с новым углом — клиент сам интерполирует
+                if (caughtEntity instanceof ServerPlayer sp) {
+                    sp.connection.teleport(newX, newY, newZ, smoothYaw, sp.getXRot());
+                } else {
+                    caughtEntity.setPos(newX, newY, newZ);
+                    caughtEntity.setYRot(smoothYaw);
+                    caughtEntity.setYHeadRot(smoothYaw);
+                    caughtEntity.hurtMarked = true;
+                }
 
                 if (grabTicks >= TOTAL_GRAB_TICKS - 1) {
                     releaseCaught();
@@ -917,6 +1018,9 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
     }
 
     private void tickStepSounds() {
+        // 🥷 В стелсе шаги беззвучны
+        if (isStalking()) return;
+
         if (stepCooldown > 0) stepCooldown--;
 
         boolean busy = this.isGrabbing() || this.isSlamming() || this.isReaching();
@@ -1192,7 +1296,6 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
         return this.entityData.get(DATA_GRABBING);
     }
 
-    /** 🆔 ID пойманной сущности (0 = никого). */
     public int getGrabbedTargetId() {
         return this.entityData.get(DATA_GRABBED_TARGET_ID);
     }

@@ -32,5 +32,7 @@
   "item.cult_cryptids.flashlight": "Фонарик",
   "subtitles.cult_cryptids.blood_moon_impact": "Восходит Кровавая Луна",
   "subtitles.cult_cryptids.flashlight_toggle": "Щелчок фонарика",
-  "subtitles.cult_cryptids.siren_chase_theme": "Сиреноголовый охотится"
+  "subtitles.cult_cryptids.siren_chase_theme": "Сиреноголовый охотится",
+  "key.cult_cryptids.reload": "Перезарядка",
+  "key.categories.cult_cryptids": "Cult of the Cryptids"
 }

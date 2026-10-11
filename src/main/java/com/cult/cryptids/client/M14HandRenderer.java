@@ -37,6 +37,7 @@ public class M14HandRenderer {
     private static final HandedItemRenderer<M14Item> RENDERER = HandedItemRenderer.m14();
 
     private static boolean wasInHand = false;
+    private static boolean wasAiming = false;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -45,20 +46,44 @@ public class M14HandRenderer {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null) {
             wasInHand = false;
+            wasAiming = false;
             return;
         }
 
         ItemStack mainHand = mc.player.getMainHandItem();
         boolean inHand = mainHand.getItem() instanceof M14Item;
 
+        // Ушла из руки → сброс.
         if (!inHand && wasInHand) {
             Item item = ModItems.M14.get();
-            if (item instanceof M14Item m14) m14.resetAnimation();
+            if (item instanceof M14Item m14) {
+                m14.resetAnimation();
+                m14.markAimEnd();
+            }
         }
+
+        // Пришла в руку → сброс + draw.
         if (inHand && !wasInHand) {
             M14Item item = (M14Item) mainHand.getItem();
             item.markDraw(mc.level.getGameTime());
             item.resetAnimation();
+        }
+
+        // 🎯 Прицеливание: следим за isUsingItem
+        if (inHand) {
+            M14Item item = (M14Item) mainHand.getItem();
+            boolean aiming = mc.player.isUsingItem()
+                    && mc.player.getUseItem().getItem() == item;
+
+            if (aiming && !wasAiming) {
+                item.markAimStart(mc.level.getGameTime());
+            } else if (!aiming && wasAiming) {
+                item.markAimEnd();
+            }
+
+            wasAiming = aiming;
+        } else {
+            wasAiming = false;
         }
 
         wasInHand = inHand;
