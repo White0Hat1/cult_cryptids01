@@ -695,11 +695,11 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.0D);
         }
 
-        this.level().playSound(null,
+        /* this.level().playSound(null,
                 this.getX(), this.getY(), this.getZ(),
                 ModSounds.SIREN_SCREAM.get(),
                 SoundSource.HOSTILE,
-                5.0F, 0.6F);
+                5.0F, 0.6F); */
     }
 
     private void finishTransformation() {
@@ -716,11 +716,11 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ORIGINAL_SPEED);
         }
 
-        this.level().playSound(null,
+        /* this.level().playSound(null,
                 this.getX(), this.getY(), this.getZ(),
                 ModSounds.SIREN_SCREAM.get(),
                 SoundSource.HOSTILE,
-                8.0F, 0.5F);
+                8.0F, 0.5F); */
     }
 
     // ================= 🌙 ДЕСПАВН + ТЕЛЕПОРТ =================
@@ -733,9 +733,9 @@ public class SirenHeadEntity extends PathfinderMob implements GeoEntity {
                     this.getX(), this.getY() + 6, this.getZ(),
                     30, 1.5, 4.0, 1.5, 0.05);
         }
-        this.level().playSound(null,
+        /* this.level().playSound(null,
                 this.getX(), this.getY(), this.getZ(),
-                ModSounds.SIREN_SCREAM.get(), SoundSource.HOSTILE, 6.0F, 0.5F);
+                ModSounds.SIREN_SCREAM.get(), SoundSource.HOSTILE, 6.0F, 0.5F); */
 
         this.discard();
     }

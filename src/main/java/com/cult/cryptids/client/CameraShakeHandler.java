@@ -1,7 +1,7 @@
 package com.cult.cryptids.client;
 
 import com.cult.cryptids.CultCryptids;
-import com.cult.cryptids.entity.SirenHeadEntity;
+import com.cult.cryptids.entity.NewSirenHead;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
@@ -72,23 +72,21 @@ public class CameraShakeHandler {
         }
 
         // ================= 🏃 ОБЫЧНАЯ ТРЯСКА =================
-        SirenHeadEntity nearest = null;
+        NewSirenHead nearest = null;
         double nearestDist = SHAKE_RADIUS;
         boolean nearestChasing = false;
 
-        for (SirenHeadEntity siren : player.level().getEntitiesOfClass(
-                SirenHeadEntity.class,
+        for (NewSirenHead siren : player.level().getEntitiesOfClass(
+                NewSirenHead.class,
                 player.getBoundingBox().inflate(SHAKE_RADIUS))) {
 
-            boolean isMoving = siren.getDeltaMovement().horizontalDistanceSqr() > 0.0005;
-            if (!isMoving) continue;
-            if (siren.isGrabbing() || siren.isSlamming()) continue;
+            if (siren.getDeltaMovement().horizontalDistanceSqr() <= 0.0005 || siren.getAbility() != NewSirenHead.Ability.NONE) continue;
 
             double d = siren.distanceTo(player);
             if (d < nearestDist) {
                 nearestDist = d;
                 nearest = siren;
-                nearestChasing = siren.isChasing();
+                nearestChasing = siren.isAggressive();
             }
         }
 
@@ -105,7 +103,7 @@ public class CameraShakeHandler {
         float amplitude = baseAmplitude * distanceFactor * impulse;
 
         float yawShake   = (float) Math.sin(time * 1.2D) * amplitude;
-        float pitchShake = (float) Math.cos(time * 1.0D) * amplitude * 0.7F;
+        float pitchShake = (float) Math.cos(time) * amplitude * 0.7F;
         float rollShake  = (float) Math.sin(time * 1.5D) * amplitude * 0.5F;
 
         event.setYaw(event.getYaw() + yawShake);

@@ -1,7 +1,7 @@
 package com.cult.cryptids.client;
 
 import com.cult.cryptids.CultCryptids;
-import com.cult.cryptids.entity.SirenHeadEntity;
+import com.cult.cryptids.entity.NewSirenHead;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.Mod;
 
 /**
  * 🌫️ Туман вокруг Siren Head.
- *
  * Особенности:
  *   - Не появляется мгновенно — плавно наступает.
  *   - Плотность зависит от расстояния до ближайшего Siren.
@@ -49,9 +48,6 @@ public class SirenFogHandler {
     /** 🌫️ Текущая плотность — плавно меняется каждый тик. */
     private static float currentFogStrength = 0.0F;
 
-    /** 🎯 Целевая плотность — куда стремимся. */
-    private static float targetFogStrength = 0.0F;
-
     // =========================================================
     // 🧠 ТИК — обновляем current → target
     // =========================================================
@@ -63,23 +59,18 @@ public class SirenFogHandler {
         Player player = mc.player;
 
         if (player == null || mc.level == null || mc.screen != null) {
-            targetFogStrength = 0.0F;
             fadeToward(0.0F);
             return;
         }
 
         // 🩸 Во время Blood Moon — не срабатываем.
         if (BloodMoonClientState.isActive()) {
-            targetFogStrength = 0.0F;
             fadeToward(0.0F);
             return;
         }
 
         // 🎯 Считаем целевую силу по расстоянию до ближайшего Siren.
-        targetFogStrength = computeTargetStrength(player);
-
-        // 🌫️ Плавно двигаем current к target.
-        fadeToward(targetFogStrength);
+        fadeToward(computeTargetStrength(player));
     }
 
     /**
@@ -87,11 +78,11 @@ public class SirenFogHandler {
      * Если Siren нет — 0.
      */
     private static float computeTargetStrength(Player player) {
-        SirenHeadEntity nearest = null;
+        NewSirenHead nearest = null;
         double nearestDist = FOG_RADIUS;
 
-        for (SirenHeadEntity siren : player.level().getEntitiesOfClass(
-                SirenHeadEntity.class,
+        for (NewSirenHead siren: player.level().getEntitiesOfClass(
+                NewSirenHead.class,
                 player.getBoundingBox().inflate(FOG_RADIUS))) {
             double d = siren.distanceTo(player);
             if (d < nearestDist) {

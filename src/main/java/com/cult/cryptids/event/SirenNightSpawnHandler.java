@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
@@ -19,10 +20,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 🌙 Ночной автоспавн Siren Head.
- *
  * Логика:
  *   - В 12500 (сумерки) спавним ОДНОГО Siren Head около одного случайного игрока.
  *   - Дистанция спавна — 100–150 блоков от игрока.
@@ -83,7 +84,7 @@ public class SirenNightSpawnHandler {
         BlockPos spawnPos = findSpawnPos(level, chosen, rng);
         if (spawnPos == null) return;
 
-        SirenHeadEntity siren = ModEntities.SIREN_HEAD.get().create(level);
+        Mob siren = ModEntities.SIREN_HEAD.get().create(level);
         if (siren == null) return;
 
         siren.moveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
@@ -94,7 +95,7 @@ public class SirenNightSpawnHandler {
 
         // 👁️ Расширенное зрение — видеть игрока на 200 блоков.
         if (siren.getAttribute(Attributes.FOLLOW_RANGE) != null) {
-            siren.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(200.0D);
+            Objects.requireNonNull(siren.getAttribute(Attributes.FOLLOW_RANGE)).setBaseValue(200.0D);
         }
 
         level.addFreshEntity(siren);

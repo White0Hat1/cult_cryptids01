@@ -2,7 +2,7 @@ package com.cult.cryptids.client;
 
 import com.cult.cryptids.CultCryptids;
 import com.cult.cryptids.ModSounds;
-import com.cult.cryptids.entity.SirenHeadEntity;
+import com.cult.cryptids.entity.NewSirenHead;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,7 +14,6 @@ import java.util.UUID;
 
 /**
  * 🏃 Управляет темой погони на клиенте.
- *
  * Логика:
  *   - Ищем ближайшего Siren Head с isChasing() == true в радиусе 40 блоков.
  *   - Громкость затухает плавно: 10 блоков → максимум, 40 блоков → тишина.
@@ -48,15 +47,14 @@ public class SirenChaseThemeHandler {
             return;
         }
 
-        SirenHeadEntity target = null;
+        NewSirenHead target = null;
         double nearestDist = Double.MAX_VALUE;
 
-        for (SirenHeadEntity siren : mc.level.getEntitiesOfClass(
-                SirenHeadEntity.class,
+        for (NewSirenHead siren : mc.level.getEntitiesOfClass(
+                NewSirenHead.class,
                 mc.player.getBoundingBox().inflate(HEAR_RADIUS))) {
 
-            if (!siren.isChasing()) continue;
-            if (siren.isGrabbing() || siren.isSlamming() || siren.isReaching()) continue;
+            if (!siren.isAggressive() || siren.getAbility() != NewSirenHead.Ability.NONE) continue;
 
             double d = siren.distanceTo(mc.player);
             if (d < nearestDist) {

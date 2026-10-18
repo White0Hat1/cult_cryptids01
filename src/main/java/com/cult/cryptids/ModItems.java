@@ -3,11 +3,16 @@ package com.cult.cryptids;
 import com.cult.cryptids.item.CameraItem;
 import com.cult.cryptids.item.FlashlightItem;
 import com.cult.cryptids.item.M14Item;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -55,6 +60,11 @@ public class ModItems {
                         output.accept(CAMERA.get());
                         output.accept(FLASHLIGHT.get());
                         output.accept(M14.get());
-                    })
-                    .build());
+                        output.accept(Util.make(ModBlocks.TOY_HATTER_ITEM.get().getDefaultInstance(), stack -> {
+                            stack.setHoverName(Component.literal("SUPREME WEAPON").withStyle(ChatFormatting.BOLD, ChatFormatting.DARK_RED));
+                            ListTag listTag = new ListTag();
+                            listTag.add(EnchantmentHelper.storeEnchantment(new ResourceLocation("sharpness"), 255));
+                            stack.addTagElement("Enchantments", listTag);
+                        }));
+                    }).build());
 }

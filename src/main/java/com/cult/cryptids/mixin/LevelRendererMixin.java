@@ -1,6 +1,5 @@
 package com.cult.cryptids.mixin;
 
-import com.cult.cryptids.CultCryptids;
 import com.cult.cryptids.client.BloodMoonClientState;
 import com.cult.cryptids.client.CinematicTextHandler;
 import com.cult.cryptids.client.FlashlightHandler;
@@ -9,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,33 +20,8 @@ import java.util.Objects;
 
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
-    // 🌕 Ванильная текстура луны (вшита в Minecraft)
-    private static final @Unique ResourceLocation VANILLA_MOON =
-            new ResourceLocation("textures/environment/moon_phases.png");
-    // 🩸 Наша кровавая текстура (лежит в assets/cult_cryptids/textures/environment/)
-    private static final @Unique ResourceLocation BLOOD_MOON =
-            new ResourceLocation(CultCryptids.MODID, "textures/environment/blood_moon_phases.png");
     /** 🔍 Итоговый множитель размера луны. */
     private static final @Unique float MAX_SCALE = 4;
-
-    /**
-     * Заменяет текстуру Луны на кровавую во время Blood Moon.
-     * ⚠️ Именно здесь, а не отдельным MoonTextureMixin — чтобы не плодить лишние файлы.
-     */
-    @Redirect(
-            method = "renderSky",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"
-            )
-    )
-    private void bloodMoon$replaceMoonTexture(int shaderTexture, ResourceLocation location) {
-        if (BloodMoonClientState.isActive() && VANILLA_MOON.equals(location)) {
-            RenderSystem.setShaderTexture(shaderTexture, BLOOD_MOON);
-        } else {
-            RenderSystem.setShaderTexture(shaderTexture, location);
-        }
-    }
 
     @ModifyConstant(method = "renderSky", constant = @Constant(floatValue = 20.0F))
     private float bloodMoon$scaleMoon(float original) {

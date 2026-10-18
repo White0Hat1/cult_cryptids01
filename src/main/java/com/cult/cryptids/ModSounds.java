@@ -10,71 +10,53 @@ public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "cult_cryptids");
 
-    // ================= LEGACY =================
-    public static final RegistryObject<SoundEvent> SIREN_AMBIENT =
-            registerSound("siren_ambient");
-    public static final RegistryObject<SoundEvent> SIREN_STEP =
-            registerSound("siren_step");
-    public static final RegistryObject<SoundEvent> SIREN_SCREAM =
-            registerSound("siren_scream");
-    public static final RegistryObject<SoundEvent> SIREN_SCREECH =
-            registerSound("siren_screech");
-    public static final RegistryObject<SoundEvent> SIREN_HURT =
-            registerSound("siren_hurt");
-    public static final RegistryObject<SoundEvent> SIREN_DEATH =
-            registerSound("siren_death");
-
     // ================= BLOOD MOON =================
     public static final RegistryObject<SoundEvent> BLOOD_MOON_MUSIC =
-            registerSound("blood_moon_music");
+            variableRange("blood_moon_music");
     public static final RegistryObject<SoundEvent> BLOOD_MOON_IMPACT =
-            registerSound("blood_moon_impact");
+            variableRange("blood_moon_impact");
     public static final RegistryObject<SoundEvent> BLOOD_MOON_ICECREAM =
-            registerSound("blood_moon_icecream");
+            variableRange("blood_moon_icecream");
 
     // ================= AMBIENT СИСТЕМА =================
     public static final RegistryObject<SoundEvent> SIREN_FAR =
-            registerSound("siren_far");
+            variableRange("entity.siren.far");
     public static final RegistryObject<SoundEvent> SIREN_SEARCH =
-            registerSound("siren_search");
+            variableRange("entity.siren.search");
     public static final RegistryObject<SoundEvent> SIREN_CLOSE =
-            registerSound("siren_close");
+            variableRange("entity.siren.close");
     public static final RegistryObject<SoundEvent> SIREN_CHASE_FAR =
-            registerSound("siren_chase_far");
+            variableRange("entity.siren.chase_far");
     public static final RegistryObject<SoundEvent> SIREN_STATIC =
-            registerSound("siren_static");
+            variableRange("entity.siren.static");
 
     // ================= ШАГИ =================
     public static final RegistryObject<SoundEvent> SIREN_WALK =
-            registerSound("siren_walk");
+            variableRange("entity.siren.walk");
     public static final RegistryObject<SoundEvent> SIREN_RUN =
-            registerSound("siren_run");
+            variableRange("entity.siren.run");
 
     // ================= 📷 ФОТОАППАРАТ =================
     public static final RegistryObject<SoundEvent> CAMERA_SHUTTER =
-            registerSound("camera_shutter");
+            variableRange("camera_shutter");
 
     // ================= 🔦 ФОНАРИК =================
     public static final RegistryObject<SoundEvent> FLASHLIGHT_TOGGLE =
-            registerSound("flashlight_toggle");
-
-    // ================= РЕЧЬ СИРЕНА =================
-    public static final RegistryObject<SoundEvent> SIREN_SPEECH =
-            registerSound("siren_speech");
+            variableRange("flashlight_toggle");
 
     // ================= 🏃 ТЕМА ПОГОНИ =================
     public static final RegistryObject<SoundEvent> SIREN_CHASE_THEME =
-            registerSound("siren_chase_theme");
+            variableRange("entity.siren.chase_theme");
 
     // ================= 🔫 M14 =================
     public static final RegistryObject<SoundEvent> M14_SHOOT =
-            registerSound("m14_shoot");
+            variableRange("m14_shoot");
     public static final RegistryObject<SoundEvent> M14_RELOAD =
-            registerSound("m14_reload");
+            variableRange("m14_reload");
 
     // ================= УТИЛИТА =================
-    private static RegistryObject<SoundEvent> registerSound(String name) {
+    private static RegistryObject<SoundEvent> variableRange(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(
-                new ResourceLocation("cult_cryptids", name)));
+                new ResourceLocation(CultCryptids.MODID, name)));
     }
 }
