@@ -1,4 +1,4 @@
-package com.cult.cryptids;
+package com.cult.cryptids.reg;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;

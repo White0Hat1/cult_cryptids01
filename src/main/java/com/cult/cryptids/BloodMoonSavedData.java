@@ -1,4 +1,4 @@
-package com.cult.cryptids.event;
+package com.cult.cryptids;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;

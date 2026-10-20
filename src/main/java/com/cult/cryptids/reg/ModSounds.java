@@ -1,5 +1,6 @@
-package com.cult.cryptids;
+package com.cult.cryptids.reg;
 
+import com.cult.cryptids.CultCryptids;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.DeferredRegister;
@@ -12,23 +13,8 @@ public class ModSounds {
 
     // ================= BLOOD MOON =================
     public static final RegistryObject<SoundEvent> BLOOD_MOON_MUSIC =
-            variableRange("blood_moon_music");
-    public static final RegistryObject<SoundEvent> BLOOD_MOON_IMPACT =
-            variableRange("blood_moon_impact");
-    public static final RegistryObject<SoundEvent> BLOOD_MOON_ICECREAM =
-            variableRange("blood_moon_icecream");
-
-    // ================= AMBIENT СИСТЕМА =================
-    public static final RegistryObject<SoundEvent> SIREN_FAR =
-            variableRange("entity.siren.far");
-    public static final RegistryObject<SoundEvent> SIREN_SEARCH =
-            variableRange("entity.siren.search");
-    public static final RegistryObject<SoundEvent> SIREN_CLOSE =
-            variableRange("entity.siren.close");
-    public static final RegistryObject<SoundEvent> SIREN_CHASE_FAR =
-            variableRange("entity.siren.chase_far");
-    public static final RegistryObject<SoundEvent> SIREN_STATIC =
-            variableRange("entity.siren.static");
+            variableRange("music.blood_moon");
+    public static final RegistryObject<SoundEvent> BLOOD_MOON_IMPACT = variableRange("blood_moon_impact");
 
     // ================= ШАГИ =================
     public static final RegistryObject<SoundEvent> SIREN_WALK =
@@ -38,21 +24,21 @@ public class ModSounds {
 
     // ================= 📷 ФОТОАППАРАТ =================
     public static final RegistryObject<SoundEvent> CAMERA_SHUTTER =
-            variableRange("camera_shutter");
+            variableRange("item.camera.shutter");
 
     // ================= 🔦 ФОНАРИК =================
     public static final RegistryObject<SoundEvent> FLASHLIGHT_TOGGLE =
-            variableRange("flashlight_toggle");
+            variableRange("item.flashlight.toggle");
 
     // ================= 🏃 ТЕМА ПОГОНИ =================
     public static final RegistryObject<SoundEvent> SIREN_CHASE_THEME =
-            variableRange("entity.siren.chase_theme");
+            variableRange("music.siren_chase");
 
     // ================= 🔫 M14 =================
     public static final RegistryObject<SoundEvent> M14_SHOOT =
-            variableRange("m14_shoot");
+            variableRange("item.m14.shoot");
     public static final RegistryObject<SoundEvent> M14_RELOAD =
-            variableRange("m14_reload");
+            variableRange("item.m14.reload");
 
     // ================= УТИЛИТА =================
     private static RegistryObject<SoundEvent> variableRange(String name) {

@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "cult_cryptids:item/m14_tex"
+    "layer0": "cult_cryptids:item/m14"
   },
   "display": {
     "thirdperson_righthand": {

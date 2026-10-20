@@ -7,7 +7,7 @@
   "death.attack.cult_cryptids.cryptid": "Мольбы игрока %s не были услышаны.",
   "entity.cult_cryptids.siren_head": "Сиреноголовый",
   "message.cult_cryptids.blood_moon_start": "Взошла Кровавая Луна. Небо окрасилось в Красный цвет от присутствия Древнего Кошмара.",
-  "subtitles.cult_cryptids.camera_shutter": "Щелчок фотоаппарата",
+  "subtitles.cult_cryptids.item.camera.shutter": "Щелчок фотоаппарата",
   "subtitles.cult_cryptids.mob.siren.ambient": "Сиреноголовый рычит",
   "subtitles.cult_cryptids.mob.siren.step": "Что-то тяжёлое шагает",
   "subtitles.cult_cryptids.mob.siren.scream": "Сиреноголовый кричит",
@@ -22,11 +22,10 @@
   "subtitles.cult_cryptids.mob.siren.walk": "Сиреноголовый идёт",
   "subtitles.cult_cryptids.mob.siren.run": "Сиреноголовый бежит",
   "subtitles.cult_cryptids.mob.siren.speech": "Сиреноголовый говорит",
-  "subtitles.cult_cryptids.blood_moon_music": "Играет тема Кровавой Луны",
-  "subtitles.cult_cryptids.blood_moon_icecream": "Играет мелодия грузовика с мороженым",
+  "subtitles.cult_cryptids.music.blood_moon": "Играет тема Кровавой Луны",
   "message.cult_cryptids.fear_warning": "Страх наполняет воздух.",
   "item.cult_cryptids.flashlight": "Фонарик",
   "subtitles.cult_cryptids.blood_moon_impact": "Восходит Кровавая Луна",
-  "subtitles.cult_cryptids.flashlight_toggle": "Щелчок фонарика",
-  "subtitles.cult_cryptids.mob.siren.chase_theme": "Сиреноголовый охотится"
+  "subtitles.cult_cryptids.item.flashlight.toggle": "Щелчок фонарика",
+  "subtitles.cult_cryptids.music.siren_chase": "Сиреноголовый охотится"
 }

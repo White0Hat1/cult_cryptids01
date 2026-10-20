@@ -1,7 +1,7 @@
 package com.cult.cryptids.entity;
 
-import com.cult.cryptids.ModDamages;
-import com.cult.cryptids.ModSounds;
+import com.cult.cryptids.reg.ModDamages;
+import com.cult.cryptids.reg.ModSounds;
 import com.cult.cryptids.client.SlamShakeClientState;
 import com.cult.cryptids.entity.navigation.SmartClimberNavigation;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -17,6 +17,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
@@ -270,6 +272,15 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return PathfinderMob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 300)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.ATTACK_DAMAGE, 20.0D)
+                .add(Attributes.FOLLOW_RANGE, 128.0D);
     }
 
 

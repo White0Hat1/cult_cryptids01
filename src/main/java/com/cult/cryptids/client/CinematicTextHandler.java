@@ -1,7 +1,8 @@
 package com.cult.cryptids.client;
 
 import com.cult.cryptids.CultCryptids;
-import com.cult.cryptids.ModSounds;
+import com.cult.cryptids.client.sound.LoopingMusicSound;
+import com.cult.cryptids.reg.ModSounds;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -11,8 +12,11 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiEvent;
@@ -138,8 +142,9 @@ public class CinematicTextHandler {
 
         if (!impactPlayed && sequenceTick >= IMPACT_TRIGGER_TICK
                 && mc.player != null && mc.level != null) {
-            BloodMoonImpactSound impact = new BloodMoonImpactSound(ModSounds.BLOOD_MOON_IMPACT.get());
-            mc.getSoundManager().play(impact);
+            mc.getSoundManager().play(new SimpleSoundInstance(new ResourceLocation(CultCryptids.MODID, "blood_moon_impact"),
+                    SoundSource.MASTER, 2, 1, SoundInstance.createUnseededRandom(), false,
+                    0, SoundInstance.Attenuation.NONE, 0, 0, 0, true));
             impactPlayed = true;
         }
 

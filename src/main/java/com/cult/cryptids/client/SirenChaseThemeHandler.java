@@ -1,8 +1,9 @@
 package com.cult.cryptids.client;
 
 import com.cult.cryptids.CultCryptids;
-import com.cult.cryptids.ModSounds;
+import com.cult.cryptids.client.sound.SirenChaseThemeSound;
 import com.cult.cryptids.entity.NewSirenHead;
+import com.cult.cryptids.reg.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;

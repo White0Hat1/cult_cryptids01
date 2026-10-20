@@ -90,7 +90,7 @@ Stacktrace:
 
 -- Renderer details --
 Details:
-	Assigned renderer: com.cult.cryptids.entity.SirenHeadRenderer@6fcafcfe
+	Assigned renderer: com.cult.cryptids.client.renderer.SirenHeadRenderer@6fcafcfe
 	Location: 0.00,-1.62,0.00 - World: (0,-2,0), Section: (at 0,14,0 in 0,-1,0; chunk contains blocks 0,-64,0 to 15,319,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
 	Rotation: 0.0
 	Delta: 0.9199953

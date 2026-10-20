@@ -21,9 +21,8 @@ public class BloodMoonStatePacket {
         return new BloodMoonStatePacket(buf.readBoolean());
     }
 
-    public static void handle(BloodMoonStatePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                () -> () -> BloodMoonClientState.setActive(msg.active)));
+    public void handle(Supplier<NetworkEvent.Context> ctx) {
+        ctx.get().enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BloodMoonClientState.setActive(active)));
         ctx.get().setPacketHandled(true);
     }
 }

@@ -1,5 +1,7 @@
-package com.cult.cryptids.entity;
+package com.cult.cryptids.client.renderer;
 
+import com.cult.cryptids.client.model.SirenHeadModel;
+import com.cult.cryptids.entity.NewSirenHead;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

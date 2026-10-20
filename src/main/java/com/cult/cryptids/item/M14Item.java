@@ -1,6 +1,6 @@
 package com.cult.cryptids.item;
 
-import com.cult.cryptids.ModSounds;
+import com.cult.cryptids.reg.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -28,8 +28,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class M14Item extends Item implements GeoItem {
-
+public class M14Item extends Item implements GeoItem, FirstPersonAnimatedItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private long lastShootGameTime  = -100;
@@ -86,6 +85,7 @@ public class M14Item extends Item implements GeoItem {
 
     public void markShoot(long gameTime)  { this.lastShootGameTime = gameTime; }
     public void markReload(long gameTime) { this.lastReloadGameTime = gameTime; }
+    @Override
     public void markDraw(long gameTime)   { this.lastDrawGameTime = gameTime; }
 
     public boolean isShooting(long now)  { return (now - lastShootGameTime) < SHOOT_ANIM_TICKS; }
@@ -107,6 +107,7 @@ public class M14Item extends Item implements GeoItem {
         return aimStartTick >= 0 && getAimElapsed(now) < AIM_TRANSITION_TICKS;
     }
 
+    @Override
     public void resetAnimation() {
         if (controller != null) controller.forceAnimationReset();
     }

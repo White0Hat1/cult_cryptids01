@@ -1,6 +1,6 @@
 package com.cult.cryptids.item;
 
-import com.cult.cryptids.ModSounds;
+import com.cult.cryptids.reg.ModSounds;
 import com.cult.cryptids.client.CameraHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
@@ -18,7 +18,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class CameraItem extends Item implements GeoItem {
+public class CameraItem extends Item implements GeoItem, FirstPersonAnimatedItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -47,17 +47,16 @@ public class CameraItem extends Item implements GeoItem {
 
     public void markShoot(long gameTime)   { this.lastShootGameTime = gameTime; }
     public void markInspect(long gameTime) { this.lastInspectGameTime = gameTime; }
+    @Override
     public void markDraw(long gameTime)    { this.lastDrawGameTime = gameTime; }
 
     public boolean isShooting(long now)   { return (now - lastShootGameTime) < SHOOT_ANIM_TICKS; }
     public boolean isInspecting(long now) { return (now - lastInspectGameTime) < INSPECT_ANIM_TICKS; }
     public boolean isDrawing(long now)    { return (now - lastDrawGameTime) < DRAW_ANIM_TICKS; }
 
-    /** 🆕 Публичный сброс анимации — используется при переключении предметов в FP. */
+    @Override
     public void resetAnimation() {
-        if (controller != null) {
-            controller.forceAnimationReset();
-        }
+        if (controller != null) controller.forceAnimationReset();
     }
 
     @Override

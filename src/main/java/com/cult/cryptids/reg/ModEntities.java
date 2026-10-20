@@ -1,4 +1,4 @@
-package com.cult.cryptids;
+package com.cult.cryptids.reg;
 
 import com.cult.cryptids.entity.NewSirenHead;
 import net.minecraft.world.entity.EntityType;

@@ -7,7 +7,7 @@
   "death.attack.cult_cryptids.cryptid": "%s's Prayers Were Not Heeded.",
   "entity.cult_cryptids.siren_head": "Siren Head",
   "message.cult_cryptids.blood_moon_start": "The Blood Moon rose. The Sky turned red from the presence of an Ancient Nightmare.",
-  "subtitles.cult_cryptids.camera_shutter": "Camera shutter clicks",
+  "subtitles.cult_cryptids.item.camera.shutter": "Camera shutter clicks",
   "subtitles.cult_cryptids.mob.siren.ambient": "Siren Head growls",
   "subtitles.cult_cryptids.mob.siren.step": "Something heavy steps",
   "subtitles.cult_cryptids.mob.siren.scream": "Siren Head screams",
@@ -22,11 +22,10 @@
   "subtitles.cult_cryptids.mob.siren.walk": "Siren Head walks",
   "subtitles.cult_cryptids.mob.siren.run": "Siren Head runs",
   "subtitles.cult_cryptids.mob.siren.speech": "Siren Head speaks",
-  "subtitles.cult_cryptids.blood_moon_music": "Blood Moon theme plays",
-  "subtitles.cult_cryptids.blood_moon_icecream": "Ice cream truck jingle plays",
+  "subtitles.cult_cryptids.music.blood_moon": "Blood Moon theme plays",
   "message.cult_cryptids.fear_warning": "Fear fills the air.",
   "item.cult_cryptids.flashlight": "Flashlight",
   "subtitles.cult_cryptids.blood_moon_impact": "The Blood Moon rises",
-  "subtitles.cult_cryptids.flashlight_toggle": "Flashlight clicks",
-  "subtitles.cult_cryptids.mob.siren.chase_theme": "Siren Head is hunting"
+  "subtitles.cult_cryptids.item.flashlight.toggle": "Flashlight clicks",
+  "subtitles.cult_cryptids.music.siren_chase": "Siren Head is hunting"
 }

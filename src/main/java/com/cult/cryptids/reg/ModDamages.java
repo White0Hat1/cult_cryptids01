@@ -1,5 +1,6 @@
-package com.cult.cryptids;
+package com.cult.cryptids.reg;
 
+import com.cult.cryptids.CultCryptids;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

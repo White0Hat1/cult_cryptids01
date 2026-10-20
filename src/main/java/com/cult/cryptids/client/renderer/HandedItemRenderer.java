@@ -1,6 +1,9 @@
-package com.cult.cryptids.item;
+package com.cult.cryptids.client.renderer;
 
 import com.cult.cryptids.CultCryptids;
+import com.cult.cryptids.item.CameraItem;
+import com.cult.cryptids.item.FlashlightItem;
+import com.cult.cryptids.item.M14Item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -45,7 +48,7 @@ public class HandedItemRenderer<T extends Item & GeoAnimatable> extends GeoItemR
     }
 
     public static HandedItemRenderer<M14Item> m14() {
-        return new HandedItemRenderer<>(new M14ItemModel());
+        return new HandedItemRenderer<>(new DefaultedItemGeoModel<>(new ResourceLocation(CultCryptids.MODID, "m14")));
     }
 
     public static class ArmsLayer<T extends GeoAnimatable> extends GeoRenderLayer<T> {

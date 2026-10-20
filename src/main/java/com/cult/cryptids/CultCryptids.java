@@ -1,9 +1,13 @@
 package com.cult.cryptids;
 
 import com.cult.cryptids.command.CultCryptidsCommand;
-import com.cult.cryptids.entity.SirenHeadEntity;
+import com.cult.cryptids.entity.NewSirenHead;
 import com.cult.cryptids.event.BloodMoonEvent;
 import com.cult.cryptids.network.BloodMoonNetwork;
+import com.cult.cryptids.reg.ModBlocks;
+import com.cult.cryptids.reg.ModEntities;
+import com.cult.cryptids.reg.ModItems;
+import com.cult.cryptids.reg.ModSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -36,7 +40,7 @@ public class CultCryptids {
     }
 
     private void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntities.SIREN_HEAD.get(), SirenHeadEntity.createAttributes().build());
+        event.put(ModEntities.SIREN_HEAD.get(), NewSirenHead.createAttributes().build());
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)

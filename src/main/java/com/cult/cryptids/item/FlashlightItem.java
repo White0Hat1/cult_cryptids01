@@ -1,6 +1,6 @@
 package com.cult.cryptids.item;
 
-import com.cult.cryptids.ModSounds;
+import com.cult.cryptids.reg.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -18,7 +18,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class FlashlightItem extends Item implements GeoItem {
+public class FlashlightItem extends Item implements GeoItem, FirstPersonAnimatedItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -65,12 +65,13 @@ public class FlashlightItem extends Item implements GeoItem {
     // ==================== ТАЙМИНГИ ====================
 
     public void markToggle(long gameTime) { this.lastToggleGameTime = gameTime; }
+    @Override
     public void markDraw(long gameTime)   { this.lastDrawGameTime   = gameTime; }
 
     public boolean isToggling(long now) { return (now - lastToggleGameTime) < TOGGLE_ANIM_TICKS; }
     public boolean isDrawing(long now)  { return (now - lastDrawGameTime)   < DRAW_ANIM_TICKS; }
 
-    /** 🆕 Публичный сброс анимации — используется при переключении предметов в FP. */
+    @Override
     public void resetAnimation() {
         if (controller != null) {
             controller.forceAnimationReset();

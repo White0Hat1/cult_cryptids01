@@ -1,4 +1,4 @@
-package com.cult.cryptids;
+package com.cult.cryptids.reg;
 
 import com.cult.cryptids.item.CameraItem;
 import com.cult.cryptids.item.FlashlightItem;

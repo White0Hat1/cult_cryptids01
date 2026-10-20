@@ -25,7 +25,7 @@ public class FlashlightHandler {
         POS_CACHE.defaultReturnValue(Integer.MAX_VALUE);
     }
 
-    /** Логика света фонаря. Яркость зависит от расстояния до блока (макс. 15 блоков) и направления взгляда игрока. **/
+    /** Логика света фонаря. Яркость зависит от расстояния до блока (макс. 15 блоков) и направления взгляда игрока. */
     public static int calculateBrightness(EntityGetter entities, BlockPos pos) {
         AtomicInteger brightness = new AtomicInteger();
         Vec3 center = pos.getCenter(); // Центр блока
@@ -58,7 +58,7 @@ public class FlashlightHandler {
         }
     }
 
-    /** Определяет, держит ли игрок включённый фонарь. **/
+    /** Определяет, держит ли игрок включённый фонарь. */
     public static boolean isHoldingFlashlight(Player player) {
         ItemStack stack = player.getMainHandItem();
         return stack.getItem() instanceof FlashlightItem && FlashlightItem.isOn(stack);

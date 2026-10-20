@@ -1,6 +1,7 @@
 package com.cult.cryptids.event;
 
-import com.cult.cryptids.ModSounds;
+import com.cult.cryptids.BloodMoonSavedData;
+import com.cult.cryptids.reg.ModSounds;
 import com.cult.cryptids.network.BloodMoonNetwork;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -33,12 +34,6 @@ public class BloodMoonEvent {
 
         ServerLevel overworld = server.overworld();
         overworld.setDayTime(START_DAY_TIME);
-
-        // 🕐 Если время заморожено — сдвигаем точку заморозки на момент Blood Moon,
-        //    иначе TimeFreezeManager вернёт время обратно.
-        if (TimeFreezeManager.isFrozen()) {
-            TimeFreezeManager.setFrozenDayTime(START_DAY_TIME);
-        }
 
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             Level level = player.level();

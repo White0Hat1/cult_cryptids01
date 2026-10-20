@@ -120,9 +120,9 @@ public class SirenFogHandler {
     public static void onComputeFogColor(ViewportEvent.ComputeFogColor event) {
         if (currentFogStrength <= 0.001F) return;
 
-        event.setRed(lerp(event.getRed(), FOG_R, currentFogStrength));
-        event.setGreen(lerp(event.getGreen(), FOG_G, currentFogStrength));
-        event.setBlue(lerp(event.getBlue(), FOG_B, currentFogStrength));
+        event.setRed(Mth.lerp(currentFogStrength, event.getRed(), FOG_R));
+        event.setGreen(Mth.lerp(currentFogStrength, event.getGreen(), FOG_G));
+        event.setBlue(Mth.lerp(currentFogStrength, event.getBlue(), FOG_B));
     }
 
     @SubscribeEvent
@@ -141,9 +141,5 @@ public class SirenFogHandler {
         event.setNearPlaneDistance(finalNear);
         event.setFarPlaneDistance(finalFar);
         event.setCanceled(true);
-    }
-
-    private static float lerp(float a, float b, float t) {
-        return a + (b - a) * t;
     }
 }

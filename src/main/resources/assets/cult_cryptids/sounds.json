@@ -9,11 +9,6 @@
     "subtitle": "subtitles.cult_cryptids.blood_moon_impact",
     "sounds": [{ "name": "cult_cryptids:blood_moon_impact", "stream": true }]
   },
-  "blood_moon_icecream": {
-    "category": "ambient",
-    "subtitle": "subtitles.cult_cryptids.blood_moon_icecream",
-    "sounds": [{ "name": "cult_cryptids:blood_moon_icecream", "stream": true }]
-  },
   "entity.siren.far": {
     "category": "ambient",
     "subtitle": "subtitles.cult_cryptids.entity.siren.far",
@@ -55,29 +50,29 @@
       "cult_cryptids:entity/siren/run_2"
     ]
   },
-  "camera_shutter": {
+  "item.camera.shutter": {
     "category": "players",
-    "subtitle": "subtitles.cult_cryptids.camera_shutter",
-    "sounds": ["cult_cryptids:camera_shutter"]
+    "subtitle": "subtitles.cult_cryptids.item.camera.shutter",
+    "sounds": ["cult_cryptids:item/camera/shutter"]
   },
-  "flashlight_toggle": {
+  "item.flashlight.toggle": {
     "category": "players",
-    "subtitle": "subtitles.cult_cryptids.flashlight_toggle",
-    "sounds": ["cult_cryptids:flashlight_toggle"]
+    "subtitle": "subtitles.cult_cryptids.item.flashlight.toggle",
+    "sounds": ["cult_cryptids:item/flashlight/toggle"]
   },
-  "entity.siren.chase_theme": {
+  "music.siren_chase": {
     "category": "hostile",
-    "subtitle": "subtitles.cult_cryptids.entity.siren.chase_theme",
-    "sounds": ["cult_cryptids:entity/siren/chase_theme"]
+    "subtitle": "subtitles.cult_cryptids.music.siren_chase",
+    "sounds": ["cult_cryptids:music/siren_chase"]
   },
-  "m14_shoot": {
+  "item.m14.shoot": {
     "category": "players",
-    "subtitle": "subtitles.cult_cryptids.m14_shoot",
-    "sounds": ["cult_cryptids:m14_shoot"]
+    "subtitle": "subtitles.cult_cryptids.item.m14.shoot",
+    "sounds": ["cult_cryptids:item/m14/shoot"]
   },
-  "m14_reload": {
+  "item.m14.reload": {
     "category": "players",
-    "subtitle": "subtitles.cult_cryptids.m14_reload",
-    "sounds": ["cult_cryptids:m14_reload"]
+    "subtitle": "subtitles.cult_cryptids.item.m14.reload",
+    "sounds": ["cult_cryptids:item/m14/reload"]
   }
 }
