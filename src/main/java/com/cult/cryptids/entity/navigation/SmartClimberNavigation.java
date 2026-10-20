@@ -47,7 +47,7 @@ public class SmartClimberNavigation extends GroundPathNavigation {
                 stop();
             } else climbPos = mob.position();
         } else if (path != null && !path.isDone()) {
-            Vec3 vec3 = path.getNextNode().asVec3().subtract(mob.position());
+            Vec3 vec3 = Vec3.atBottomCenterOf(path.getNextNodePos()).subtract(mob.position());
             if (vec3.y > 2) {
                 wallClimber.setClimbing(true);
                 climbPos = mob.position();

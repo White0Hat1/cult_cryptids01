@@ -48,6 +48,15 @@ public class SmartClimberNodeEvaluator extends WalkNodeEvaluator {
     }
 
     @Override
+    protected Node getStartNode(BlockPos pos) {
+        if (entityWidth < 3 && entityDepth < 3) return super.getStartNode(pos);
+        Node node = getNode(pos.offset(-entityWidth / 2, 0, -entityDepth / 2));
+        node.type = getBlockPathType(mob, node.asBlockPos());
+        node.costMalus = mob.getPathfindingMalus(node.type);
+        return node;
+    }
+
+    @Override
     protected @Nullable Node findAcceptedNode(int x, int y, int z, int jump, double floor, Direction direction, BlockPathTypes standingOn) {
         Node node = super.findAcceptedNode(x, y, z, jump, floor, direction, standingOn);
         return node != null ? node : getClimbable(x, y, z, floor, direction);

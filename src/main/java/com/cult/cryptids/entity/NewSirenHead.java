@@ -8,14 +8,12 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
@@ -30,12 +28,8 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -48,29 +42,16 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
 import java.util.Objects;
 
-@Mod.EventBusSubscriber
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
     private static final EntityDataAccessor<Boolean> DATA_CLIMBING_ID = SynchedEntityData.defineId(NewSirenHead.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Ability> DATA_ABILITY_ID = SynchedEntityData.defineId(NewSirenHead.class, Ability.SERIALIZER);
-    private static final EntityDimensions CRAWL_DIMENSIONS = EntityDimensions.scalable(3.0F, 5.0F);
+    private static final EntityDimensions CRAWL_DIMENSIONS = EntityDimensions.scalable(2.98F, 5.0F);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     protected boolean tight;
     protected int abilityTick;
-
-    @SubscribeEvent
-    public static void entityTick(LivingEvent.LivingTickEvent event) {
-        if (event.getEntity().level() instanceof ServerLevel serverLevel && event.getEntity() instanceof Mob mob) {
-            Path path = mob.getNavigation().getPath();
-            if (path != null) for (int i = path.getNextNodeIndex(); i < path.getNodeCount(); i++) {
-                Vec3 vec3 = path.getNode(i).asBlockPos().getCenter();
-                serverLevel.sendParticles(DustParticleOptions.REDSTONE,
-                        vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0);
-            }
-        }
-    }
 
     public NewSirenHead(EntityType<? extends NewSirenHead> type, Level lvl) {
         super(type, lvl);
@@ -408,8 +389,8 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
         @Override
         public void tick() {
             if (operation == Operation.MOVE_TO) {
-                boolean willWalk = mob.level().noCollision(new AABB(-1.5, 5, -1.5,
-                        1.5, 12, 1.5).move(wantedX, wantedY, wantedZ));
+                boolean willWalk = mob.level().noCollision(new AABB(-1.49, 5, -1.49,
+                        1.49, 12, 1.49).move(wantedX, wantedY, wantedZ));
                 tight = !(canWalk && willWalk);
                 canWalk = willWalk;
             }

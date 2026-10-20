@@ -1,18 +1,15 @@
 package com.cult.cryptids.event;
 
-import com.cult.cryptids.CultCryptids;
 import com.cult.cryptids.entity.SirenHeadEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
 
 /**
+ * TODO: добавить проверку на наличие Сирена
  * 🌙 Уменьшает спавн обычных враждебных монстров.
- *
  * Работает через EntityJoinLevelEvent — срабатывает в момент появления сущности в мире.
  * Не трогает:
  *   - сущности, загруженные из сохранения (loadedFromDisk);
@@ -20,7 +17,7 @@ import java.util.Random;
  *   - животных и нейтральных (CREATURE, WATER_CREATURE и т.д.);
  *   - Siren Head (свой мод).
  */
-@Mod.EventBusSubscriber(modid = CultCryptids.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+// @Mod.EventBusSubscriber(modid = CultCryptids.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class MobSpawnReducer {
 
     /**
@@ -34,7 +31,7 @@ public class MobSpawnReducer {
 
     private static final Random RNG = new Random();
 
-    @SubscribeEvent
+    // @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         // Только сервер.
         if (event.getLevel().isClientSide()) return;

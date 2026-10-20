@@ -14,7 +14,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<NewSirenHead>> SIREN_HEAD =
             ENTITY_TYPES.register("siren_head", () -> EntityType.Builder
                     .of(NewSirenHead::new, MobCategory.MONSTER)
-                    .sized(3.0f, 12.0f)         // 👈 хитбокс 3 блока ширина × 12 блоков высота
+                    .sized(2.98f, 12.0f)         // 👈 хитбокс 3 блока ширина × 12 блоков высота
                     .clientTrackingRange(64)
                     .build("siren_head"));
 }
