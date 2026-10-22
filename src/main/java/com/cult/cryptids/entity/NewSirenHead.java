@@ -1,8 +1,8 @@
 package com.cult.cryptids.entity;
 
+import com.cult.cryptids.client.CameraOffsetManager;
 import com.cult.cryptids.reg.ModDamages;
 import com.cult.cryptids.reg.ModSounds;
-import com.cult.cryptids.client.SlamShakeClientState;
 import com.cult.cryptids.entity.navigation.SmartClimberNavigation;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
@@ -108,6 +108,7 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         playSound((isAggressive() ? ModSounds.SIREN_RUN : ModSounds.SIREN_WALK).get(), 1, getVoicePitch());
+        CameraOffsetManager.screenShake(4.5f, 5);
     }
 
 
@@ -216,7 +217,7 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
     public void handleEntityEvent(byte id) {
         switch (id) {
             case 61 -> { // Эффекты при ударе об землю
-                SlamShakeClientState.trigger(20);
+                CameraOffsetManager.screenShake(30, 20);
                 for (double dist = 1.5; dist < 7; dist += 1.5)
                     for (double angle = 0; angle < Math.PI * 2; angle += Math.PI / 11.99) {
                         Vec3 vec3 = position().add(dist * Math.sin(angle), 0, dist * Math.cos(angle));

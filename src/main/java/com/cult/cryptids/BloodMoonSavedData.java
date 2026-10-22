@@ -1,17 +1,21 @@
 package com.cult.cryptids;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * 💾 Сохраняемое состояние Blood Moon.
  * Живёт в сейве мира (папка world/data/cult_cryptids_bloodmoon.dat),
  * поэтому событие переживает перезапуск сервера.
  */
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class BloodMoonSavedData extends SavedData {
-
     private static final String DATA_NAME = "cult_cryptids_bloodmoon";
     private static final String TAG_ACTIVE = "Active";
     private static final String TAG_REMAINING = "Remaining";

@@ -1,7 +1,6 @@
 package com.cult.cryptids.mixin;
 
 import com.cult.cryptids.client.BloodMoonClientState;
-import com.cult.cryptids.client.CinematicTextHandler;
 import com.cult.cryptids.client.FlashlightHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -27,7 +26,7 @@ public class LevelRendererMixin {
     private float bloodMoon$scaleMoon(float original) {
         if (!BloodMoonClientState.isActive()) return original;
 
-        float progress = CinematicTextHandler.getMoonScaleProgress();
+        float progress = BloodMoonClientState.getMoonScaleProgress();
         // Плавно интерполируем от 1.0 до MAX_SCALE
         float scale = 1 + (MAX_SCALE - 1) * progress;
         return original * scale;
@@ -37,7 +36,7 @@ public class LevelRendererMixin {
     private void cult$skyColor(float r, float g, float b, float a) {
         if (BloodMoonClientState.isActive()) {
             // "Покраснение" неба.
-            float f = CinematicTextHandler.getSkyProgress();
+            float f = BloodMoonClientState.getSkyProgress();
             // 🩸 Красный: R = яркость, G/B = минимум → "кровавый" оттенок.
             float brightness = Math.max(r, Math.max(g, b));
             RenderSystem.setShaderColor(Mth.lerp(f, r, brightness), Mth.lerp(f, g, brightness * 0.08F),

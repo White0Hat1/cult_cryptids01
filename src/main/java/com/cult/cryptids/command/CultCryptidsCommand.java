@@ -1,6 +1,7 @@
 package com.cult.cryptids.command;
 
-import com.cult.cryptids.event.BloodMoonEvent;
+import com.cult.cryptids.BloodMoonSavedData;
+import com.cult.cryptids.network.BloodMoonNetwork;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -11,7 +12,6 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
 public class CultCryptidsCommand {
-
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("cult_cryptids")
                 .requires(src -> src.hasPermission(2));
@@ -19,11 +19,11 @@ public class CultCryptidsCommand {
         // /cult_cryptids bloodmoon start|stop|status
         root.then(Commands.literal("bloodmoon")
                 .then(Commands.literal("start")
-                        .executes(CultCryptidsCommand::bloodmoonStart))
-                .then(Commands.literal("stop")
-                        .executes(CultCryptidsCommand::bloodmoonStop))
-                .then(Commands.literal("status")
-                        .executes(CultCryptidsCommand::bloodmoonStatus))
+                        .executes(ctx -> bloodmoonStart(ctx, 24000))
+                        .then(Commands.argument("duration_ticks", IntegerArgumentType.integer(1))
+                                .executes(CultCryptidsCommand::bloodmoonStart)))
+                .then(Commands.literal("stop").executes(CultCryptidsCommand::bloodmoonStop))
+                .then(Commands.literal("status").executes(CultCryptidsCommand::bloodmoonStatus))
         );
 
         dispatcher.register(root);
@@ -34,30 +34,40 @@ public class CultCryptidsCommand {
 
     // ================= BLOOD MOON =================
 
-    private static int bloodmoonStart(CommandContext<CommandSourceStack> ctx) {
+    private static int bloodmoonStart(CommandContext<CommandSourceStack> ctx, int duration) {
         CommandSourceStack src = ctx.getSource();
-        if (BloodMoonEvent.isActive()) {
+        BloodMoonSavedData data = BloodMoonSavedData.get(src.getServer());
+        if (data.isActive()) {
             src.sendFailure(Component.literal("§cКровавая Луна уже активна!"));
             return 0;
         }
-        BloodMoonEvent.start(src.getServer());
+        data.start(duration);
+        src.getServer().overworld().setDayTime(14000);
+        BloodMoonNetwork.broadcast(true);
         return 1;
+    }
+
+    private static int bloodmoonStart(CommandContext<CommandSourceStack> ctx) {
+        return bloodmoonStart(ctx, IntegerArgumentType.getInteger(ctx, "duration_ticks"));
     }
 
     private static int bloodmoonStop(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack src = ctx.getSource();
-        if (!BloodMoonEvent.isActive()) {
+        BloodMoonSavedData data = BloodMoonSavedData.get(src.getServer());
+        if (!data.isActive()) {
             src.sendFailure(Component.literal("§7Кровавая Луна не активна."));
             return 0;
         }
-        BloodMoonEvent.stop(src.getServer());
+        data.stop();
+        BloodMoonNetwork.broadcast(false);
         return 1;
     }
 
     private static int bloodmoonStatus(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack src = ctx.getSource();
-        if (BloodMoonEvent.isActive()) {
-            int sec = BloodMoonEvent.getRemainingTicks() / 20;
+        BloodMoonSavedData data = BloodMoonSavedData.get(src.getServer());
+        if (data.isActive()) {
+            int sec = data.getRemainingTicks() / 20;
             src.sendSuccess(() -> Component
                     .literal("§cКровавая Луна активна. Осталось: §e" + sec + " сек.")
                     .withStyle(ChatFormatting.DARK_RED), false);

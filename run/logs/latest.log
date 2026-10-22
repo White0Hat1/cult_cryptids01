@@ -1,155 +1,88 @@
-[20окт.2026 23:29:38.636] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\chern\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin.config, cult_cryptids.mixins.json]
-[20окт.2026 23:29:38.636] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.12 by Oracle Corporation; OS Windows 11 arch amd64 version 10.0
-[20окт.2026 23:29:38.730] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
-[20окт.2026 23:29:38.794] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
-[20окт.2026 23:29:38.882] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
-[20окт.2026 23:29:38.961] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/chern/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[20окт.2026 23:29:38.977] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: Intel(R) RaptorLake-S Mobile Graphics Controller GL version 4.6.0 - Build 32.0.101.7088, Intel
-[20окт.2026 23:29:39.332] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[20окт.2026 23:29:39.336] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[20окт.2026 23:29:39.336] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
-[20окт.2026 23:29:39.336] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
-[20окт.2026 23:29:39.635] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
-[20окт.2026 23:29:41.307] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[20окт.2026 23:29:41.311] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\chern\.gradle\caches\forge_gradle\assets, --assetIndex, 5]
-[20окт.2026 23:29:41.409] [main/WARN] [mixin/]: Reference map 'cult_cryptids.refmap.json' for cult_cryptids.mixins.json could not be read. If this is a development environment you can ignore this message
-[20окт.2026 23:29:41.632] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using C:\Users\chern\Che\Minecraft\Mods\cult_cryptids01\build\createSrgToMcp\output.srg
-[20окт.2026 23:29:52.620] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 110 milliseconds
-[20окт.2026 23:29:54.052] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/chern/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[20окт.2026 23:29:54.052] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/chern/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[20окт.2026 23:29:54.087] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[20окт.2026 23:29:54.103] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
-[20окт.2026 23:29:54.334] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.1 build 7
-[20окт.2026 23:29:54.670] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
-[20окт.2026 23:29:54.674] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
-[20окт.2026 23:29:56.020] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [cult_cryptids]
-[20окт.2026 23:29:56.344] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources
-[20окт.2026 23:29:56.536] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/blood_moon_music.ogg does not exist, cannot add it to event cult_cryptids:blood_moon_music
-[20окт.2026 23:29:56.536] [Worker-Main-5/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/item/camera/shutter.ogg does not exist, cannot add it to event cult_cryptids:item.camera.shutter
-[20окт.2026 23:29:56.601] [Worker-Main-18/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.0.06.hex, loading
-[20окт.2026 23:29:56.615] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
-[20окт.2026 23:29:57.222] [Worker-Main-8/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'minecraft:toy_hatter' referenced from: cult_cryptids:toy_hatter#facing=north: java.io.FileNotFoundException: minecraft:models/toy_hatter.json
-[20окт.2026 23:29:57.593] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 47.3.0 Target: 47.4.10
-[20окт.2026 23:29:58.629] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
-[20окт.2026 23:29:58.629] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
-[20окт.2026 23:29:58.630] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: cult_cryptids:music.blood_moon
-[20окт.2026 23:29:59.247] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Колонки (Realtek(R) Audio)
-[20окт.2026 23:29:59.247] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
-[20окт.2026 23:29:59.337] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
-[20окт.2026 23:29:59.405] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
-[20окт.2026 23:29:59.407] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
-[20окт.2026 23:29:59.412] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
-[20окт.2026 23:29:59.416] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
-[20окт.2026 23:29:59.443] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
-[20окт.2026 23:29:59.445] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
-[20окт.2026 23:29:59.446] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
-[20окт.2026 23:29:59.448] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
-[20окт.2026 23:29:59.570] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
-[20окт.2026 23:29:59.629] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
-[20окт.2026 23:29:59.637] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
-[20окт.2026 23:29:59.639] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
-[20окт.2026 23:29:59.818] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
-[20окт.2026 23:31:18.483] [Render thread/INFO] [net.minecraftforge.registries.GameData/REGISTRIES]: Injecting existing registry data into this CLIENT instance
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:blood_moon_icecream
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:blood_moon_music
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:camera_shutter
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:entity.siren.chase_far
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:entity.siren.chase_theme
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:entity.siren.close
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:entity.siren.far
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:entity.siren.search
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:entity.siren.static
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:flashlight_toggle
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:m14_reload
-[20окт.2026 23:31:18.506] [Render thread/INFO] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Found a missing id from the world cult_cryptids:m14_shoot
-[20окт.2026 23:31:18.517] [Render thread/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: Unidentified mapping from registry minecraft:sound_event
-	cult_cryptids:blood_moon_icecream: 1489
-	cult_cryptids:blood_moon_music: 1480
-	cult_cryptids:camera_shutter: 1488
-	cult_cryptids:entity.siren.chase_far: 1486
-	cult_cryptids:entity.siren.chase_theme: 1494
-	cult_cryptids:entity.siren.close: 1485
-	cult_cryptids:entity.siren.far: 1483
-	cult_cryptids:entity.siren.search: 1484
-	cult_cryptids:entity.siren.static: 1487
-	cult_cryptids:flashlight_toggle: 1493
-	cult_cryptids:m14_reload: 1496
-	cult_cryptids:m14_shoot: 1495
-
-[20окт.2026 23:31:18.518] [Render thread/WARN] [net.minecraftforge.registries.GameData/REGISTRIES]: Forge Mod Loader detected missing registry entries.
-
-There are 12 missing entries in this save.
-If you continue the missing entries will get removed.
-A world backup will be automatically created in your saves directory.
-
-
-[20окт.2026 23:31:18.518] [Render thread/WARN] [net.minecraftforge.registries.GameData/REGISTRIES]: Missing minecraft:sound_event:
-    cult_cryptids:blood_moon_icecream
-    cult_cryptids:blood_moon_music
-    cult_cryptids:camera_shutter
-    cult_cryptids:entity.siren.chase_far
-    cult_cryptids:entity.siren.chase_theme
-    cult_cryptids:entity.siren.close
-    cult_cryptids:entity.siren.far
-    cult_cryptids:entity.siren.search
-    cult_cryptids:entity.siren.static
-    cult_cryptids:flashlight_toggle
-    cult_cryptids:m14_reload
-    cult_cryptids:m14_shoot
-
-
-[20окт.2026 23:31:18.518] [Render thread/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: There are unidentified mappings in this world - we are going to attempt to process anyway
-[20окт.2026 23:31:18.522] [Render thread/WARN] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Object did not get ID it asked for. Name: cult_cryptids:music.siren_chase Expected: 1480 Got: 1475
-[20окт.2026 23:31:18.523] [Render thread/WARN] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Object did not get ID it asked for. Name: cult_cryptids:item.m14.shoot Expected: 1481 Got: 1476
-[20окт.2026 23:31:18.523] [Render thread/WARN] [net.minecraftforge.registries.ForgeRegistry/REGISTRIES]: Registry minecraft:sound_event: Object did not get ID it asked for. Name: cult_cryptids:item.m14.reload Expected: 1482 Got: 1477
-[20окт.2026 23:31:19.714] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
-[20окт.2026 23:31:19.778] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1271 advancements
-[20окт.2026 23:31:19.982] [Sound engine/ERROR] [net.minecraft.util.thread.BlockableEventLoop/FATAL]: Error executing task on Sound executor
-java.lang.NullPointerException: null
-	at net.minecraft.client.sounds.ChannelAccess$ChannelHandle.lambda$execute$0(ChannelAccess.java:34) ~[forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/:?]
-	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:156) ~[forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/:?]
-	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:130) ~[forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/:?]
-	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:139) ~[forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/:?]
-	at net.minecraft.client.sounds.SoundEngineExecutor.run(SoundEngineExecutor.java:42) ~[forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/:?]
-	at java.lang.Thread.run(Thread.java:842) ~[?:?]
-[20окт.2026 23:31:20.040] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.1
-[20окт.2026 23:31:20.040] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
-[20окт.2026 23:31:20.308] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
-[20окт.2026 23:31:21.485] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[20окт.2026 23:31:21.503] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[20окт.2026 23:31:21.503] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
-[20окт.2026 23:31:21.818] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 26%
-[20окт.2026 23:31:22.036] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
-[20окт.2026 23:31:22.047] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 1730 ms
-[20окт.2026 23:31:22.154] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
-[20окт.2026 23:31:22.155] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
-[20окт.2026 23:31:22.266] [Render thread/WARN] [io.netty.util.internal.SystemPropertyUtil/]: Unable to parse the boolean system property 'java.net.preferIPv6Addresses':system - using the default value: false
-[20окт.2026 23:31:22.793] [Netty Local Client IO #0/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
-[20окт.2026 23:31:22.832] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:370fbd7f] logged in with entity id 2 at (24.641852079012928, -56.41714942118356, 124.21193465424257)
-[20окт.2026 23:31:22.891] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev присоединился к игре
-[20окт.2026 23:31:23.228] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 62 advancements
-[20окт.2026 23:31:28.083] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Ваш режим игры изменён на Творческий режим]
-[20окт.2026 23:31:28.093] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] Ваш режим игры изменён на Творческий режим
-[20окт.2026 23:32:02.538] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[20окт.2026 23:32:02.548] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:overworld
-[20окт.2026 23:32:02.555] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_nether
-[20окт.2026 23:32:02.556] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_end
-[20окт.2026 23:32:23.569] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [System] [CHAT] [Отладка]: Хитбоксы: вкл.
-[20окт.2026 23:32:49.287] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[20окт.2026 23:32:49.293] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:overworld
-[20окт.2026 23:32:49.295] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_nether
-[20окт.2026 23:32:49.296] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_end
-[20окт.2026 23:32:49.992] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Отключение
-[20окт.2026 23:32:49.992] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev покинул игру
-[20окт.2026 23:32:49.997] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Stopping singleplayer server as player logged out
-[20окт.2026 23:32:50.037] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
-[20окт.2026 23:32:50.037] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
-[20окт.2026 23:32:50.037] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
-[20окт.2026 23:32:50.112] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:overworld
-[20окт.2026 23:32:50.126] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_nether
-[20окт.2026 23:32:50.127] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_end
-[20окт.2026 23:32:50.138] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (Тёмный мрачный корридор): All chunks are saved
-[20окт.2026 23:32:50.138] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
-[20окт.2026 23:32:50.138] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
-[20окт.2026 23:32:50.138] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
-[20окт.2026 23:32:50.905] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
+[22окт.2026 23:02:49.705] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, C:\Users\chern\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin.config, cult_cryptids.mixins.json]
+[22окт.2026 23:02:49.710] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.12 by Oracle Corporation; OS Windows 11 arch amd64 version 10.0
+[22окт.2026 23:02:49.819] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[22окт.2026 23:02:49.888] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[22окт.2026 23:02:49.975] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
+[22окт.2026 23:02:50.044] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/chern/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[22окт.2026 23:02:50.049] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: Intel(R) RaptorLake-S Mobile Graphics Controller GL version 4.6.0 - Build 32.0.101.7088, Intel
+[22окт.2026 23:02:50.379] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[22окт.2026 23:02:50.383] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[22окт.2026 23:02:50.385] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[22окт.2026 23:02:50.389] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\chern\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
+[22окт.2026 23:02:50.725] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[22окт.2026 23:02:52.498] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[22окт.2026 23:02:52.507] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\chern\.gradle\caches\forge_gradle\assets, --assetIndex, 5]
+[22окт.2026 23:02:52.625] [main/WARN] [mixin/]: Reference map 'cult_cryptids.refmap.json' for cult_cryptids.mixins.json could not be read. If this is a development environment you can ignore this message
+[22окт.2026 23:02:52.908] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using C:\Users\chern\Che\Minecraft\Mods\cult_cryptids01\build\createSrgToMcp\output.srg
+[22окт.2026 23:03:05.539] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 188 Datafixer optimizations took 109 milliseconds
+[22окт.2026 23:03:07.353] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/chern/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[22окт.2026 23:03:07.353] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/chern/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_official_1.20.1/forge-1.20.1-47.3.0_mapped_official_1.20.1.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[22окт.2026 23:03:07.391] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[22окт.2026 23:03:07.405] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[22окт.2026 23:03:07.625] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.1 build 7
+[22окт.2026 23:03:07.980] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
+[22окт.2026 23:03:07.986] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
+[22окт.2026 23:03:09.440] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [cult_cryptids]
+[22окт.2026 23:03:09.778] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources
+[22окт.2026 23:03:09.965] [Worker-Main-2/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/blood_moon_music.ogg does not exist, cannot add it to event cult_cryptids:blood_moon_music
+[22окт.2026 23:03:09.965] [Worker-Main-2/WARN] [net.minecraft.client.sounds.SoundManager/]: File cult_cryptids:sounds/item/camera/shutter.ogg does not exist, cannot add it to event cult_cryptids:item.camera.shutter
+[22окт.2026 23:03:10.029] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[22окт.2026 23:03:10.045] [Worker-Main-15/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.0.06.hex, loading
+[22окт.2026 23:03:10.699] [Worker-Main-6/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'minecraft:toy_hatter' referenced from: cult_cryptids:toy_hatter#facing=north: java.io.FileNotFoundException: minecraft:models/toy_hatter.json
+[22окт.2026 23:03:11.998] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
+[22окт.2026 23:03:11.998] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[22окт.2026 23:03:12.000] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: cult_cryptids:music.blood_moon
+[22окт.2026 23:03:12.037] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Колонки (Realtek(R) Audio)
+[22окт.2026 23:03:12.038] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
+[22окт.2026 23:03:12.133] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
+[22окт.2026 23:03:12.186] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[22окт.2026 23:03:12.188] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[22окт.2026 23:03:12.190] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[22окт.2026 23:03:12.193] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[22окт.2026 23:03:12.217] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[22окт.2026 23:03:12.218] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[22окт.2026 23:03:12.220] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[22окт.2026 23:03:12.221] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[22окт.2026 23:03:12.258] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 47.3.0 Target: 47.4.28
+[22окт.2026 23:03:12.371] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[22окт.2026 23:03:12.451] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
+[22окт.2026 23:03:12.458] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[22окт.2026 23:03:12.460] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[22окт.2026 23:03:12.967] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
+[22окт.2026 23:03:16.182] [Render thread/INFO] [net.minecraftforge.registries.GameData/REGISTRIES]: Injecting existing registry data into this CLIENT instance
+[22окт.2026 23:03:17.540] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[22окт.2026 23:03:17.599] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1271 advancements
+[22окт.2026 23:03:17.878] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.1
+[22окт.2026 23:03:17.878] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[22окт.2026 23:03:18.081] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[22окт.2026 23:03:19.281] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[22окт.2026 23:03:19.281] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[22окт.2026 23:03:19.281] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 0%
+[22окт.2026 23:03:19.596] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Подготовка области возрождения: 21%
+[22окт.2026 23:03:19.924] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 1838 ms
+[22окт.2026 23:03:19.925] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[22окт.2026 23:03:20.005] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
+[22окт.2026 23:03:20.006] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
+[22окт.2026 23:03:20.111] [Render thread/WARN] [io.netty.util.internal.SystemPropertyUtil/]: Unable to parse the boolean system property 'java.net.preferIPv6Addresses':system - using the default value: false
+[22окт.2026 23:03:20.632] [Netty Local Client IO #0/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
+[22окт.2026 23:03:20.678] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:249802a5] logged in with entity id 1 at (3.618947705553067, -34.0, -1.1112912318650225)
+[22окт.2026 23:03:20.736] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev присоединился к игре
+[22окт.2026 23:03:21.209] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 66 advancements
+[22окт.2026 23:03:45.876] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[22окт.2026 23:03:45.886] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:overworld
+[22окт.2026 23:03:45.891] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_end
+[22окт.2026 23:03:45.891] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_nether
+[22окт.2026 23:03:46.378] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Отключение
+[22окт.2026 23:03:46.378] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev покинул игру
+[22окт.2026 23:03:46.388] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Stopping singleplayer server as player logged out
+[22окт.2026 23:03:46.425] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[22окт.2026 23:03:46.425] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[22окт.2026 23:03:46.425] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[22окт.2026 23:03:46.502] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:overworld
+[22окт.2026 23:03:46.519] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_end
+[22окт.2026 23:03:46.520] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[Тёмный мрачный корридор]'/minecraft:the_nether
+[22окт.2026 23:03:46.533] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (Тёмный мрачный корридор): All chunks are saved
+[22окт.2026 23:03:46.533] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[22окт.2026 23:03:46.533] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[22окт.2026 23:03:46.533] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[22окт.2026 23:03:47.236] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!

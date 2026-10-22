@@ -7,47 +7,47 @@
   "blood_moon_impact": {
     "category": "ambient",
     "subtitle": "subtitles.cult_cryptids.blood_moon_impact",
-    "sounds": [{ "name": "cult_cryptids:blood_moon_impact", "stream": true }]
+    "sounds": ["cult_cryptids:blood_moon_impact"]
   },
   "entity.siren.far": {
     "category": "ambient",
     "subtitle": "subtitles.cult_cryptids.entity.siren.far",
-    "sounds": [{ "name": "cult_cryptids:entity/siren/far", "stream": true }]
+    "sounds": ["cult_cryptids:entity/siren/far"]
   },
   "entity.siren.search": {
     "category": "hostile",
     "subtitle": "subtitles.cult_cryptids.entity.siren.search",
-    "sounds": [{ "name": "cult_cryptids:entity/siren/search", "stream": true }]
+    "sounds": ["cult_cryptids:entity/siren/search"]
   },
   "entity.siren.close": {
     "category": "hostile",
     "subtitle": "subtitles.cult_cryptids.entity.siren.close",
-    "sounds": [{ "name": "cult_cryptids:entity/siren/close", "stream": true }]
+    "sounds": ["cult_cryptids:entity/siren/close"]
   },
   "entity.siren.chase_far": {
     "category": "hostile",
     "subtitle": "subtitles.cult_cryptids.entity.siren.chase_far",
-    "sounds": [{ "name": "cult_cryptids:entity/siren/chase_far", "stream": true }]
+    "sounds": ["cult_cryptids:entity/siren/chase_far"]
   },
   "entity.siren.static": {
     "category": "ambient",
     "subtitle": "subtitles.cult_cryptids.entity.siren.static",
-    "sounds": [{ "name": "cult_cryptids:entity/siren/static", "stream": true }]
+    "sounds": ["cult_cryptids:entity/siren/static"]
   },
   "entity.siren.walk": {
     "category": "hostile",
     "subtitle": "subtitles.cult_cryptids.entity.siren.walk",
     "sounds": [
-      "cult_cryptids:entity/siren/walk_1",
-      "cult_cryptids:entity/siren/walk_2"
+      "cult_cryptids:entity/siren/walk1",
+      "cult_cryptids:entity/siren/walk2"
     ]
   },
   "entity.siren.run": {
     "category": "hostile",
     "subtitle": "subtitles.cult_cryptids.entity.siren.run",
     "sounds": [
-      "cult_cryptids:entity/siren/run_1",
-      "cult_cryptids:entity/siren/run_2"
+      "cult_cryptids:entity/siren/run1",
+      "cult_cryptids:entity/siren/run2"
     ]
   },
   "item.camera.shutter": {
