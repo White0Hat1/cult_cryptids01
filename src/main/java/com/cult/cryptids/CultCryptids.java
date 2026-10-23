@@ -58,7 +58,7 @@ public class CultCryptids {
         public static void join(PlayerEvent.PlayerLoggedInEvent event) {
             Player player = event.getEntity();
             BloodMoonNetwork.CHANNEL.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player),
-                    new BloodMoonStatePacket(BloodMoonSavedData.get(Objects.requireNonNull(player.getServer())).isActive()));
+                    new BloodMoonStatePacket(CultCryptidsSavedData.get(Objects.requireNonNull(player.getServer())).isBloodMoon(), true));
         }
 
         @SubscribeEvent
@@ -69,10 +69,14 @@ public class CultCryptids {
         @SubscribeEvent
         public static void onServerTick(TickEvent.ServerTickEvent event) {
             if (event.phase != TickEvent.Phase.END) return;
-            BloodMoonSavedData data = BloodMoonSavedData.get(event.getServer());
-            if (!data.isActive()) return;
-            BloodMoonSavedData.get(event.getServer()).tick();
-            if (!data.isActive()) BloodMoonNetwork.broadcast(false);
+            CultCryptidsSavedData data = CultCryptidsSavedData.get(event.getServer());
+            if (data.isBloodMoon()) {
+                long time = event.getServer().overworld().getDayTime();
+                if (time < 13000 || time >= 23000) {
+                    data.stopBloodMoon();
+                    BloodMoonNetwork.broadcast(false, true);
+                }
+            }
         }
 
         /** Никакого рукопашного урона — только выстрел через пакет */

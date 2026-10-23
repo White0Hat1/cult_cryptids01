@@ -15,11 +15,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Objects;
 
 /** Флаг события на клиенте. Управляется пакетом с сервера. */
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
@@ -69,7 +72,6 @@ public class BloodMoonClientState {
     private static boolean active = false;
     private static String fullText = "";
     private static String fearText = "";
-    private static int sequenceTick = 0;
     private static boolean cinematicActive = false;
     private static boolean impactPlayed = false;
 
@@ -77,12 +79,12 @@ public class BloodMoonClientState {
         return active;
     }
 
-    public static void setActive(boolean value) {
-        // 🩸 Переход false → true = Blood Moon только что началась
-        if (value && !active) say(Component.translatable("message.cult_cryptids.blood_moon_start"));
-        // 🔇 Переход true → false = Blood Moon закончилась, глушим музыку
-        if (!value && active) Minecraft.getInstance().getMusicManager().stopPlaying(getMusic());
-        active = value;
+    public static void setActive(boolean value, boolean forceSet) {
+        if (value) say(Component.translatable("message.cult_cryptids.blood_moon_start"), forceSet);
+        else {
+            active = false;
+            Minecraft.getInstance().getMusicManager().stopPlaying(getMusic());
+        }
     }
 
     public static Music getMusic() {
@@ -90,21 +92,26 @@ public class BloodMoonClientState {
         return MUSIC;
     }
 
-    public static void say(String text) {
+    private static int getSequenceTick() {
+        Level lvl = Minecraft.getInstance().level;
+        return lvl != null ? (int) (Objects.requireNonNull(Minecraft.getInstance().level).getDayTime() - 13000) : 0;
+    }
+
+    public static void say(String text, boolean forceSet) {
         fullText = text;
         fearText = Component.translatable("message.cult_cryptids.fear_warning").getString();
-        sequenceTick = 0;
+        active = forceSet;
         cinematicActive = true;
         impactPlayed = false;
         Minecraft.getInstance().getMusicManager().stopPlaying();
     }
 
-    public static void say(Component text) {
-        say(text.getString());
+    public static void say(Component text, boolean forceSet) {
+        say(text.getString(), forceSet);
     }
 
     public static float getSkyProgress() {
-        return cinematicActive ? Mth.clamp ((sequenceTick - SKY_FADE_START) / (float) SKY_FADE_TICKS, 0, 1) : 1;
+        return active ? nightProgress(SKY_FADE_START, SKY_FADE_TICKS) : 0;
     }
 
     /**
@@ -113,38 +120,46 @@ public class BloodMoonClientState {
      */
     public static float getMoonScaleProgress() {
         if (!isActive()) return 0;
-        // Кинематик уже закончился, но Blood Moon ещё идёт => полный размер.
-        if (!cinematicActive || fullText.isEmpty()) return 1;
-        float f = Mth.clamp((float) (sequenceTick - MOON_SCALE_START) / MOON_SCALE_DURATION, 0, 1);
+        float f = nightProgress(MOON_SCALE_START, MOON_SCALE_DURATION);
         // smoothstep для плавности
         return f * f * (3 - 2 * f);
+    }
+
+    private static float nightProgress(int start, int duration) {
+        return cinematicActive ? Mth.clamp((float) (getSequenceTick() - start) / duration, 0, 1) :
+                Math.min((10000f - getSequenceTick()) / duration, 1);
+
     }
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
+        if (!active) {
+            if (cinematicActive) {
+                int c = getSequenceTick();
+                if (c >= 0 && c < 480) active = true;
+                else return;
+            } else return;
+        }
         if (fullText.isEmpty()) return;
 
-        sequenceTick++;
-
         Minecraft mc = Minecraft.getInstance();
-
-        if (!impactPlayed && sequenceTick >= IMPACT_TRIGGER_TICK && mc.player != null && mc.level != null) {
+        int c = getSequenceTick();
+        if (!impactPlayed && c >= IMPACT_TRIGGER_TICK && mc.player != null && mc.level != null) {
             mc.getSoundManager().play(new SimpleSoundInstance(new ResourceLocation(CultCryptids.MODID, "blood_moon_impact"),
                     SoundSource.MASTER, 2, 1, SoundInstance.createUnseededRandom(), false,
                     0, SoundInstance.Attenuation.NONE, 0, 0, 0, true));
             impactPlayed = true;
         }
 
-        if (sequenceTick >= MUSIC_TRIGGER_TICK) {
+        if (c >= MUSIC_TRIGGER_TICK) {
             MusicManager manager = mc.getMusicManager();
             if (!manager.isPlayingMusic(getMusic())) manager.startPlaying(getMusic());
         }
 
-        if (sequenceTick >= FADE_OUT_END && cinematicActive) {
+        if (c >= FADE_OUT_END && cinematicActive) {
             fullText = "";
             fearText = "";
-            sequenceTick = 0;
             cinematicActive = false;
             impactPlayed = false;
         }
@@ -158,8 +173,10 @@ public class BloodMoonClientState {
 
         GuiGraphics gfx = event.getGuiGraphics();
         int screenW = gfx.guiWidth();
-        float fearAlpha = sequenceTick < FEAR_HOLD_END ? 1 : sequenceTick < FEAR_FADE_END ?
-                1 - (float) (sequenceTick - FEAR_HOLD_END) / (FEAR_FADE_END - FEAR_HOLD_END) : 0;
+        int c = getSequenceTick();
+        float masterAlpha = 1 - progress(c, FADE_OUT_START, FADE_OUT_END);
+
+        float fearAlpha = 1 - progress(c, FEAR_HOLD_END, FEAR_FADE_END);
         if (fearAlpha > 0 && !fearText.isEmpty()) {
             int fa = (int) (fearAlpha * 255);
             int fearColor = (fa << 24) | 0xFFFFFF;
@@ -178,11 +195,9 @@ public class BloodMoonClientState {
         }
 
         // WARNING
-        float warnAlpha = 0;
-        if (sequenceTick >= WARN_PRINT_START && sequenceTick < WARN_HOLD_END) warnAlpha = 1;
-        else if (sequenceTick >= WARN_HOLD_END && sequenceTick < WARN_FADE_END) warnAlpha = 1 - (float) (sequenceTick - WARN_HOLD_END) / (WARN_FADE_END - WARN_HOLD_END);
+        float warnAlpha = c >= WARN_PRINT_START ? 1 - progress(c, WARN_HOLD_END, WARN_FADE_END) : 0;
         if (warnAlpha > 0) {
-            float revealProgress = Mth.clamp((float) (sequenceTick - WARN_PRINT_START) / WARN_PRINT_TICKS, 0, 1);
+            float revealProgress = Mth.clamp((float) (c - WARN_PRINT_START) / WARN_PRINT_TICKS, 0, 1);
             int shown = Mth.clamp((int) (revealProgress * fullText.length()), 0, fullText.length());
             int textColor = ((int) (warnAlpha * 255) << 24) | 0xFF5555;
             int shadowColor = (int) (warnAlpha * 204) << 24;
@@ -193,18 +208,11 @@ public class BloodMoonClientState {
             gfx.drawString(mc.font, visible, textX, TOP_TEXT_Y, textColor, false);
         }
 
-        float masterAlpha = sequenceTick >= FADE_OUT_START ? Mth.clamp(1 - (float)
-                (sequenceTick - FADE_OUT_START) / (FADE_OUT_END - FADE_OUT_START), 0, 1) : 1;
-
         // MOON (иконка на экране)
-        float moonP = 0;
-        if (sequenceTick >= MOON_START && sequenceTick < MOON_END) {
-            float t = (float) (sequenceTick - MOON_START) / (MOON_END - MOON_START);
-            moonP = t * t * (3 - 2 * t);
-        } else if (sequenceTick >= MOON_END) moonP = 1;
+        float moonP = progress(c, MOON_START, MOON_END);
+        moonP = moonP * moonP * (3 - 2 * moonP);
         if (moonP > 0) {
             float moonScale = 0.6f + 0.4f * moonP;
-
             RenderSystem.enableBlend();
             gfx.setColor(1, 1, 1, masterAlpha * moonP);
             PoseStack pose = gfx.pose();
@@ -221,10 +229,7 @@ public class BloodMoonClientState {
         int titleY = MOON_Y + MOON_SIZE + 10;
         int dividerY = titleY + 26;
         int subtitleY = dividerY + 10;
-        float titlesP = 0;
-        if (sequenceTick >= TITLES_START && sequenceTick < TITLES_END) titlesP = (float) (sequenceTick - TITLES_START) / (TITLES_END - TITLES_START);
-        else if (sequenceTick >= TITLES_END) titlesP = 1;
-
+        float titlesP = progress(c, TITLES_START, TITLES_END);
         if (titlesP > 0) {
             String title = "BLOOD MOON";
             int titleAlpha = (int) (255 * masterAlpha * titlesP);
@@ -250,10 +255,7 @@ public class BloodMoonClientState {
         }
 
         // DIVIDER
-        float dividerP = 0;
-        if (sequenceTick >= DIVIDER_START && sequenceTick < DIVIDER_END) dividerP = (float) (sequenceTick - DIVIDER_START) / (DIVIDER_END - DIVIDER_START);
-        else if (sequenceTick >= DIVIDER_END) dividerP = 1;
-
+        float dividerP = progress(c, DIVIDER_START, DIVIDER_END);
         if (dividerP > 0) {
             int halfWidth = (int) (100 * dividerP);
             int centerX = screenW / 2;
@@ -261,5 +263,11 @@ public class BloodMoonClientState {
             int lineColor = (lineAlpha << 24) | 0xFFFFFF;
             gfx.fill(centerX - halfWidth, dividerY, centerX + halfWidth, dividerY + 1, lineColor);
         }
+    }
+
+    private static float progress(int ticks, int startTicks, int endTicks) {
+        if (ticks <= startTicks) return 0;
+        if (ticks >= endTicks) return 1;
+        return (float) (ticks - startTicks) / (endTicks - startTicks);
     }
 }

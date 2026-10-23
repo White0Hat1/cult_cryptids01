@@ -1,9 +1,8 @@
 package com.cult.cryptids.command;
 
-import com.cult.cryptids.BloodMoonSavedData;
+import com.cult.cryptids.CultCryptidsSavedData;
 import com.cult.cryptids.network.BloodMoonNetwork;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.ChatFormatting;
@@ -18,10 +17,7 @@ public class CultCryptidsCommand {
 
         // /cult_cryptids bloodmoon start|stop|status
         root.then(Commands.literal("bloodmoon")
-                .then(Commands.literal("start")
-                        .executes(ctx -> bloodmoonStart(ctx, 24000))
-                        .then(Commands.argument("duration_ticks", IntegerArgumentType.integer(1))
-                                .executes(CultCryptidsCommand::bloodmoonStart)))
+                .then(Commands.literal("start").executes(CultCryptidsCommand::bloodmoonStart))
                 .then(Commands.literal("stop").executes(CultCryptidsCommand::bloodmoonStop))
                 .then(Commands.literal("status").executes(CultCryptidsCommand::bloodmoonStatus))
         );
@@ -34,42 +30,37 @@ public class CultCryptidsCommand {
 
     // ================= BLOOD MOON =================
 
-    private static int bloodmoonStart(CommandContext<CommandSourceStack> ctx, int duration) {
+    private static int bloodmoonStart(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack src = ctx.getSource();
-        BloodMoonSavedData data = BloodMoonSavedData.get(src.getServer());
-        if (data.isActive()) {
+        CultCryptidsSavedData data = CultCryptidsSavedData.get(src.getServer());
+        if (data.isBloodMoon()) {
             src.sendFailure(Component.literal("§cКровавая Луна уже активна!"));
             return 0;
         }
-        data.start(duration);
-        src.getServer().overworld().setDayTime(14000);
-        BloodMoonNetwork.broadcast(true);
+        src.getServer().overworld().setDayTime(13000);
+        data.startBloodMoon();
+        BloodMoonNetwork.broadcast(true, false);
         return 1;
-    }
-
-    private static int bloodmoonStart(CommandContext<CommandSourceStack> ctx) {
-        return bloodmoonStart(ctx, IntegerArgumentType.getInteger(ctx, "duration_ticks"));
     }
 
     private static int bloodmoonStop(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack src = ctx.getSource();
-        BloodMoonSavedData data = BloodMoonSavedData.get(src.getServer());
-        if (!data.isActive()) {
+        CultCryptidsSavedData data = CultCryptidsSavedData.get(src.getServer());
+        if (!data.isBloodMoon()) {
             src.sendFailure(Component.literal("§7Кровавая Луна не активна."));
             return 0;
         }
-        data.stop();
-        BloodMoonNetwork.broadcast(false);
+        data.stopBloodMoon();
+        BloodMoonNetwork.broadcast(false, false);
         return 1;
     }
 
     private static int bloodmoonStatus(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack src = ctx.getSource();
-        BloodMoonSavedData data = BloodMoonSavedData.get(src.getServer());
-        if (data.isActive()) {
-            int sec = data.getRemainingTicks() / 20;
+        CultCryptidsSavedData data = CultCryptidsSavedData.get(src.getServer());
+        if (data.isBloodMoon()) {
             src.sendSuccess(() -> Component
-                    .literal("§cКровавая Луна активна. Осталось: §e" + sec + " сек.")
+                    .literal("§cКровавая Луна активна.")
                     .withStyle(ChatFormatting.DARK_RED), false);
         } else {
             src.sendSuccess(() -> Component

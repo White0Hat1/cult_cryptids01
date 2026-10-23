@@ -32,7 +32,7 @@ public class BloodMoonNetwork {
                 M14ShootPacket::handle);
     }
 
-    public static void broadcast(boolean active) {
-        CHANNEL.send(PacketDistributor.ALL.noArg(), new BloodMoonStatePacket(active));
+    public static void broadcast(boolean active, boolean forceSet) {
+        CHANNEL.send(PacketDistributor.ALL.noArg(), new BloodMoonStatePacket(active, forceSet));
     }
 }
