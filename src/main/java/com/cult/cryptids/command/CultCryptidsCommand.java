@@ -5,7 +5,6 @@ import com.cult.cryptids.network.BloodMoonNetwork;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -34,12 +33,13 @@ public class CultCryptidsCommand {
         CommandSourceStack src = ctx.getSource();
         CultCryptidsSavedData data = CultCryptidsSavedData.get(src.getServer());
         if (data.isBloodMoon()) {
-            src.sendFailure(Component.literal("§cКровавая Луна уже активна!"));
+            src.sendFailure(Component.translatable("commands.cc.bloodmoon.start.failure"));
             return 0;
         }
         src.getServer().overworld().setDayTime(13000);
         data.startBloodMoon();
         BloodMoonNetwork.broadcast(true, false);
+        src.sendSuccess(() -> Component.translatable("commands.cc.bloodmoon.start.success"), true);
         return 1;
     }
 
@@ -47,26 +47,19 @@ public class CultCryptidsCommand {
         CommandSourceStack src = ctx.getSource();
         CultCryptidsSavedData data = CultCryptidsSavedData.get(src.getServer());
         if (!data.isBloodMoon()) {
-            src.sendFailure(Component.literal("§7Кровавая Луна не активна."));
+            src.sendFailure(Component.translatable("commands.cc.bloodmoon.stop.failure"));
             return 0;
         }
         data.stopBloodMoon();
         BloodMoonNetwork.broadcast(false, false);
+        src.sendSuccess(() -> Component.translatable("commands.cc.bloodmoon.stop.success"), true);
         return 1;
     }
 
     private static int bloodmoonStatus(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack src = ctx.getSource();
-        CultCryptidsSavedData data = CultCryptidsSavedData.get(src.getServer());
-        if (data.isBloodMoon()) {
-            src.sendSuccess(() -> Component
-                    .literal("§cКровавая Луна активна.")
-                    .withStyle(ChatFormatting.DARK_RED), false);
-        } else {
-            src.sendSuccess(() -> Component
-                    .literal("§7Кровавая Луна не активна.")
-                    .withStyle(ChatFormatting.GRAY), false);
-        }
+        src.sendSuccess(() -> Component.translatable(CultCryptidsSavedData.get(src.getServer()).isBloodMoon() ?
+                "commands.cc.bloodmoon.status.active" : "commands.cc.bloodmoon.status.inactive"), false);
         return 1;
     }
 }
