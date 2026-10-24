@@ -1,9 +1,4 @@
 {
-  "blood_moon_music": {
-    "category": "music",
-    "subtitle": "subtitles.cult_cryptids.blood_moon_music",
-    "sounds": [{ "name": "cult_cryptids:blood_moon_music", "stream": true }]
-  },
   "blood_moon_impact": {
     "category": "ambient",
     "subtitle": "subtitles.cult_cryptids.blood_moon_impact",
@@ -23,6 +18,11 @@
     "category": "hostile",
     "subtitle": "subtitles.cult_cryptids.entity.siren.close",
     "sounds": ["cult_cryptids:entity/siren/close"]
+  },
+  "entity.siren.chase": {
+    "category": "hostile",
+    "subtitle": "subtitles.cult_cryptids.music.siren_chase",
+    "sounds": ["cult_cryptids:entity/siren/chase"]
   },
   "entity.siren.chase_far": {
     "category": "hostile",
@@ -60,10 +60,10 @@
     "subtitle": "subtitles.cult_cryptids.item.flashlight.toggle",
     "sounds": ["cult_cryptids:item/flashlight/toggle"]
   },
-  "music.siren_chase": {
-    "category": "hostile",
-    "subtitle": "subtitles.cult_cryptids.music.siren_chase",
-    "sounds": ["cult_cryptids:music/siren_chase"]
+  "music.blood_moon": {
+    "category": "music",
+    "subtitle": "subtitles.cult_cryptids.music.blood_moon",
+    "sounds": [{ "name": "cult_cryptids:music/blood_moon", "stream": true }]
   },
   "item.m14.shoot": {
     "category": "players",

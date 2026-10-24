@@ -1,7 +1,7 @@
 package com.cult.cryptids.item;
 
 import com.cult.cryptids.reg.ModSounds;
-import com.cult.cryptids.client.CameraHelper;
+import com.cult.cryptids.client.ClientUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -74,7 +74,7 @@ public class CameraItem extends Item implements GeoItem, FirstPersonAnimatedItem
                 ModSounds.CAMERA_SHUTTER.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 
         if (level.isClientSide) {
-            CameraHelper.doPhoto(player);
+            ClientUtil.doPhoto(player);
             markShoot(level.getGameTime());
         }
 

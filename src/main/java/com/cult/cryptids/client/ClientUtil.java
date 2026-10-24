@@ -1,5 +1,8 @@
 package com.cult.cryptids.client;
 
+import com.cult.cryptids.client.sound.SirenChaseSoundInstance;
+import com.cult.cryptids.entity.NewSirenHead;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,13 +13,16 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import java.util.Optional;
 
-public class CameraHelper {
+public class ClientUtil {
+    private static final double FIND_ENTITY_MAX_DIST = 64;
 
-    private static final double MAX_DIST = 50.0;
+    public static void sirenChase(NewSirenHead entity) {
+        Minecraft.getInstance().getSoundManager().play(new SirenChaseSoundInstance(entity));
+    }
 
     /** Делает «снимок» — ищет сущность в перекрестии и показывает сообщение. */
     public static void doPhoto(Player player) {
-        String entityName = findEntityInView(player, MAX_DIST);
+        String entityName = findEntityInView(player);
 
         if (entityName != null) {
             player.displayClientMessage(
@@ -32,17 +38,17 @@ public class CameraHelper {
     }
 
     /** Raycast по перекрестию: ищем ближайшую живую сущность. */
-    private static String findEntityInView(Player player, double maxDist) {
+    private static String findEntityInView(Player player) {
         Vec3 eye = player.getEyePosition();
         Vec3 look = player.getLookAngle();
-        Vec3 end = eye.add(look.scale(maxDist));
+        Vec3 end = eye.add(look.scale(FIND_ENTITY_MAX_DIST));
 
         Entity closest = null;
-        double closestDist = maxDist;
+        double closestDist = FIND_ENTITY_MAX_DIST;
 
         List<Entity> entities = player.level().getEntities(
                 player,
-                player.getBoundingBox().inflate(maxDist)
+                player.getBoundingBox().inflate(FIND_ENTITY_MAX_DIST)
         );
 
         for (Entity e : entities) {

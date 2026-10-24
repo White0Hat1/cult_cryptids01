@@ -1,6 +1,7 @@
 package com.cult.cryptids.entity;
 
 import com.cult.cryptids.client.CameraOffsetManager;
+import com.cult.cryptids.client.ClientUtil;
 import com.cult.cryptids.reg.ModDamages;
 import com.cult.cryptids.reg.ModSounds;
 import com.cult.cryptids.entity.navigation.SmartClimberNavigation;
@@ -54,6 +55,7 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     protected boolean tight;
     protected int abilityTick;
+    private boolean playsChase;
 
     public NewSirenHead(EntityType<? extends NewSirenHead> type, Level lvl) {
         super(type, lvl);
@@ -63,14 +65,17 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
         xpReward = 0;
     }
 
-    // Движение игрока на клиенте
+    // Тема погони и движение игрока на клиенте
     @Override
     public void tick() {
         super.tick();
-        if (level().isClientSide && abilityTick > 0 && getAbility() == Ability.GRAB) {
-            Player player = Objects.requireNonNull((Player) Minecraft.getInstance().player); // Без конвертации в не клиентский класс Player сервер слетает
-            player.setDeltaMovement(getGrabPos().subtract(player.getBoundingBox().getCenter()));
-            if (++abilityTick == 60) abilityTick = 0;
+        if (level().isClientSide) {
+            if (playsChase ^ isAggressive() && (playsChase = !playsChase)) ClientUtil.sirenChase(this);
+            if (abilityTick > 0 && getAbility() == Ability.GRAB) {
+                Player player = Objects.requireNonNull((Player) Minecraft.getInstance().player); // Без конвертации в не клиентский класс Player сервер слетает
+                player.setDeltaMovement(getGrabPos().subtract(player.getBoundingBox().getCenter()));
+                if (++abilityTick == 60) abilityTick = 0;
+            }
         }
     }
 
@@ -181,7 +186,6 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
         targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
     }
 
-
     // Синхронные данные
     @Override
     protected void defineSynchedData() {
@@ -236,6 +240,10 @@ public class NewSirenHead extends Monster implements WallClimber, GeoEntity {
             }
             default -> super.handleEntityEvent(id);
         }
+    }
+
+    public boolean playsChase() {
+        return playsChase;
     }
 
     // Geckolib

@@ -32,7 +32,7 @@ public class ModSounds {
 
     // ================= 🏃 ТЕМА ПОГОНИ =================
     public static final RegistryObject<SoundEvent> SIREN_CHASE_THEME =
-            variableRange("music.siren_chase");
+            variableRange("entity.siren.chase");
 
     // ================= 🔫 M14 =================
     public static final RegistryObject<SoundEvent> M14_SHOOT =
